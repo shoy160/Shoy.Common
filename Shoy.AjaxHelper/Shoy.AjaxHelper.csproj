@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E88EA58-47B6-4871-8EFD-8F7E9D3CB7BC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shoy.AjaxHelper</RootNamespace>
+    <AssemblyName>Shoy.AjaxHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\packages\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\packages\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AjaxHandlerFactory.cs" />
+    <Compile Include="AjaxUtils.cs" />
+    <Compile Include="Attribute\AjaxAction.cs" />
+    <Compile Include="Attribute\AjaxAuth.cs" />
+    <Compile Include="Attribute\AjaxCache.cs" />
+    <Compile Include="Attribute\AjaxParameter.cs" />
+    <Compile Include="Attribute\AttrBase.cs" />
+    <Compile Include="Core\MethodHelper.cs" />
+    <Compile Include="Core\ReflectionHelper.cs" />
+    <Compile Include="Core\ResponseHandler.cs" />
+    <Compile Include="Core\UrlHelper.cs" />
+    <Compile Include="Enum\ContentType.cs" />
+    <Compile Include="Enum\RequestType.cs" />
+    <Compile Include="Model\AjaxException.cs" />
+    <Compile Include="Model\AjaxResult.cs" />
+    <Compile Include="Model\CustomMethodInfo.cs" />
+    <Compile Include="Model\HttpRequestInfo.cs" />
+    <Compile Include="Model\IAjax.cs" />
+    <Compile Include="Model\MethodPathInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shoy.Utility\Shoy.Utility.csproj">
+      <Project>{DF571B38-A2DD-4653-A5EA-3F8E41AC5571}</Project>
+      <Name>Shoy.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

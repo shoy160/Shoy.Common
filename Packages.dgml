@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="3-Web\Shoy.MvcTest" Label="Shoy.MvcTest" Category="项目" />
+    <Node Id="Microsoft.AspNet.Mvc 4.0.20710.0" Label="Microsoft.AspNet.Mvc 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.Mvc.zh-Hans 4.0.20710.0" Label="Microsoft.AspNet.Mvc.zh-Hans 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.Razor 2.0.20710.0" Label="Microsoft.AspNet.Razor 2.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.Razor.zh-Hans 2.0.20710.0" Label="Microsoft.AspNet.Razor.zh-Hans 2.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi 4.0.20710.0" Label="Microsoft.AspNet.WebApi 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Label="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi.Client.zh-Hans 4.0.20710.0" Label="Microsoft.AspNet.WebApi.Client.zh-Hans 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Label="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi.Core.zh-Hans 4.0.20710.0" Label="Microsoft.AspNet.WebApi.Core.zh-Hans 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Label="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost.zh-Hans 4.0.20710.0" Label="Microsoft.AspNet.WebApi.WebHost.zh-Hans 4.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebPages 2.0.20710.0" Label="Microsoft.AspNet.WebPages 2.0.20710.0" Category="包" />
+    <Node Id="Microsoft.AspNet.WebPages.zh-Hans 2.0.20710.0" Label="Microsoft.AspNet.WebPages.zh-Hans 2.0.20710.0" Category="包" />
+    <Node Id="Microsoft.Net.Http 2.0.20710.0" Label="Microsoft.Net.Http 2.0.20710.0" Category="包" />
+    <Node Id="Microsoft.Net.Http.zh-Hans 2.0.20710.0" Label="Microsoft.Net.Http.zh-Hans 2.0.20710.0" Category="包" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="包" />
+    <Node Id="Newtonsoft.Json 4.5.6" Label="Newtonsoft.Json 4.5.6" Category="包" />
+    <Node Id="EntityFramework 6.0.2" Label="EntityFramework 6.0.2" Category="包" />
+    <Node Id="CommonServiceLocator 1.0" Label="CommonServiceLocator 1.0" Category="包" />
+    <Node Id="SolrNet 0.3.1" Label="SolrNet 0.3.1" Category="包" />
+    <Node Id="2-Test\Shoy.Test" Label="Shoy.Test" Category="项目" />
+    <Node Id="CommonServiceLocator 1.0" Label="CommonServiceLocator 1.0" Category="包" />
+    <Node Id="SolrNet 0.3.1" Label="SolrNet 0.3.1" Category="包" />
+  </Nodes>
+  <Links>
+    <Link Source="Microsoft.AspNet.Mvc 4.0.20710.0" Target="Microsoft.AspNet.WebPages 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.Mvc 4.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.Mvc.zh-Hans 4.0.20710.0" Target="Microsoft.AspNet.Mvc 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.Razor.zh-Hans 2.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi 4.0.20710.0" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Target="Microsoft.Net.Http 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Target="Newtonsoft.Json 4.5.6" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.Client.zh-Hans 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.Core.zh-Hans 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost.zh-Hans 4.0.20710.0" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebPages 2.0.20710.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebPages 2.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.AspNet.WebPages.zh-Hans 2.0.20710.0" Target="Microsoft.AspNet.WebPages 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="Microsoft.Net.Http.zh-Hans 2.0.20710.0" Target="Microsoft.Net.Http 2.0.20710.0" Category="程序包依赖项" />
+    <Link Source="SolrNet 0.3.1" Target="CommonServiceLocator 1.0" Category="程序包依赖项" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.Mvc.zh-Hans 4.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.Razor.zh-Hans 2.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.WebApi 4.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.WebApi.Client.zh-Hans 4.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.WebApi.Core.zh-Hans 4.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.WebApi.WebHost.zh-Hans 4.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.AspNet.WebPages.zh-Hans 2.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="Microsoft.Net.Http.zh-Hans 2.0.20710.0" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="EntityFramework 6.0.2" Category="安装的程序包" />
+    <Link Source="3-Web\Shoy.MvcTest" Target="SolrNet 0.3.1" Category="安装的程序包" />
+    <Link Source="SolrNet 0.3.1" Target="CommonServiceLocator 1.0" Category="程序包依赖项" />
+    <Link Source="2-Test\Shoy.Test" Target="SolrNet 0.3.1" Category="安装的程序包" />
+  </Links>
+  <Categories>
+    <Category Id="项目" />
+    <Category Id="包" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="项目" ValueLabel="True">
+      <Condition Expression="HasCategory('项目')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="程序包依赖项" ValueLabel="True">
+      <Condition Expression="HasCategory('程序包依赖项')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

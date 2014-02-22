@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <Tencent AppId="100424173" Key="748949c8011446f2c4afb37109b72dd8" CallBackUrl=""/>
+  <SinaWeibo AppId="1169924764" Key="af35f413221b8cf9fadd993917c5a75d" CallBackUrl=""/>
+  <Alipay AppId="2088102957310471" Key="37wuz4e2jv7ic7x8ytm8pej7ilyb96k0" CallBackUrl=""/>
+  <TenWeibo AppId="801345366" Key="8213086f3e639845b857526196d8289f" CallBackUrl=""/>
+</Root>
