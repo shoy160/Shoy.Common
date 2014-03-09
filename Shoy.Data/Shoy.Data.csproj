@@ -42,6 +42,7 @@
     <Compile Include="Builder\ISqlBuilder.cs" />
     <Compile Include="Builder\MsAccessBuilder.cs" />
     <Compile Include="Builder\MsSqlBuilder.cs" />
+    <Compile Include="Builder\OracalBuilder.cs" />
     <Compile Include="Builder\PostgreBuilder.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="ConnectionContext.cs" />
