@@ -44,6 +44,10 @@
   <ItemGroup>
     <Compile Include="CacheCls.cs" />
     <Compile Include="CompressCls.cs" />
+    <Compile Include="Config\ConfigBase.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Config\ConfigUtils.cs" />
+    <Compile Include="Config\FileNameAttribute.cs" />
     <Compile Include="CookieCls.cs" />
     <Compile Include="CsvReader.cs" />
     <Compile Include="EmailCls.cs" />
