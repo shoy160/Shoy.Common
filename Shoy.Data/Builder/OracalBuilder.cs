@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Shoy.Data.Builder
+namespace Shoy.Data
 {
     public class OracalBuilder:ISqlBuilder
     {
@@ -23,8 +23,7 @@ namespace Shoy.Data.Builder
         }
 
         #endregion
-
-
+        
         public void SetProcParameter(IDataParameter dp, string name, object value, ParameterDirection direction)
         {
             dp.ParameterName = name;
