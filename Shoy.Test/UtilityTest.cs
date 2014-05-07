@@ -37,5 +37,12 @@ namespace Shoy.Test
             Console.WriteLine(timer01.ToString());
             Console.WriteLine(timer02.ToString());
         }
+
+        [TestMethod]
+        public void SpellTest()
+        {
+            const string str = "重庆";
+            Console.WriteLine(Utils.GetSpellCode(str));
+        }
     }
 }

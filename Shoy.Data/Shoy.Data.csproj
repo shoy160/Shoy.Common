@@ -39,7 +39,8 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builder\ISqlBuilder.cs" />
+    <Compile Include="Expression.cs" />
+    <Compile Include="Interface\ISqlBuilder.cs" />
     <Compile Include="Builder\MsAccessBuilder.cs" />
     <Compile Include="Builder\MsSqlBuilder.cs" />
     <Compile Include="Builder\OracalBuilder.cs" />
@@ -52,12 +53,17 @@
     <Compile Include="Core\Functions.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="DriverTemplate.cs" />
-    <Compile Include="IConnectionContext.cs" />
-    <Compile Include="IDriver.cs" />
+    <Compile Include="Operate\Delete.cs" />
+    <Compile Include="Operate\Field.cs" />
+    <Compile Include="Operate\Insert.cs" />
+    <Compile Include="Interface\ICommandExecute.cs" />
+    <Compile Include="Interface\IConnectionContext.cs" />
+    <Compile Include="Interface\IDriver.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="SQL.cs" />
+    <Compile Include="Operate\Update.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
