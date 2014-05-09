@@ -85,7 +85,7 @@ namespace Shoy.Utility
         /// <param name="async">是否异步发送</param>
         /// <param name="errMsg">错误信息</param>
         /// <returns></returns>
-        public bool SendEmail(string receiver, string title, string body, IEnumerable<string> files, bool  async, out string errMsg)
+        public bool SendEmail(string receiver, string title, string body, List<string> files, bool  async, out string errMsg)
         {
             bool sendState;
             errMsg = "";
@@ -101,11 +101,10 @@ namespace Shoy.Utility
                 _mailMsg.Subject = title;
                 _mailMsg.Body = body;
                 _mailMsg.Attachments.Clear();
-                var fileNames = (files as string[] ?? files.ToArray());
-                if (files != null && fileNames.Any())
+                if (files != null && files.Any())
                 {
                     //添加附件
-                    foreach (string attachmentFileName in fileNames)
+                    foreach (string attachmentFileName in files)
                     {
                         if (File.Exists(attachmentFileName))
                         {
