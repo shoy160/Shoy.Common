@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery Cycle</title>
+    <style>
+        .out-box,.box{width: 650px;height: 300px; margin: 20px auto; position: relative;overflow: hidden}
+        .item{width: 650px;height: 300px;}
+        .item01{background-color: #eee;}
+        .item02{background-color: #ddd;}
+        .item03{background-color: #ef4;}
+        .item04{background-color: #d56;}
+        .pager{position: absolute;bottom:5px; left: 40%; z-index: 20;}
+        .pager a{
+            text-decoration: none;
+            border:solid 1px #888;
+            background-color: #999;
+            color: #333;
+            height: 22px;
+            width: 22px;
+            text-align: center;
+            margin-right: 3px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .pager a.active{
+            background-color: #EE5757;
+            border: solid 1px #ef5420;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="out-box">
+<div class="box">
+    <div class="item item01">
+        11111
+    </div>
+    <div class="item item02">
+        22222
+    </div>
+    <div class="item item03">
+        333333
+    </div>
+    <div class="item item04">
+        4444444
+    </div>
+</div>
+<div class="pager">
+</div>
+</div>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script src="//ued.tjzx.com/js/plugs/Jq-easing.min.js"></script>
+<script src="//ued.tjzx.com/js/plugs/Jq-cycle.min.js"></script>
+<script>
+    $(".box").cycle({
+        fx:'scrollHorz',//"scrollHorz,scrollUp,blindX,growX,growY"
+        easing: "easeInOutBack",
+        pager:$(".pager"),
+        activePagerClass:'active'
+    });
+</script>
+</body>
+</html>

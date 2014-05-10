@@ -1,0 +1,42 @@
+@import "../base";
+
+.t-exchanges{
+  .t-exchanges-title-box{
+    position: relative;
+    overflow: hidden;
+    z-index: 120;
+  }
+  .t-exchanges-title{
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid @border-color;
+    border-bottom: none;
+    width: 85px;
+    margin-right: 12px;
+    margin-top: 7px;
+    background-color: @background-color;
+    cursor: pointer;
+    &.active{
+      margin-top: 0;
+      height: 42px;
+      font-weight: 600;
+      line-height: 42px;
+      border-top-width: 2px;
+      background-color: @gray-lighter;
+      cursor: default;
+    }
+  }
+  .t-exchanges-list,
+  .t-exchanges-item{
+    border:1px solid @border-color;
+    padding: 20px 10px 15px;
+    background-color: @background-color;
+    margin-top: -1px;
+    position: relative;
+    z-index: 100;
+  }
+}

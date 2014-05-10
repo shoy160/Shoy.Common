@@ -1,0 +1,292 @@
+/* -- form -- */
+.t-form .t-form-head {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 35px;
+  margin: 12px 0;
+}
+.t-form .t-form-group {
+  margin: 0 0 5px 0;
+}
+.t-form .t-form-group.inline {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.t-form .t-form-inline {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.t-form .t-form-inline .t-form-controls {
+  width: auto;
+}
+.t-form .t-form-label,
+.t-form .t-form-controls {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  line-height: 35px;
+}
+.t-form .t-form-label {
+  width: 130px;
+  text-align: right;
+  padding-right: 15px;
+  vertical-align: top;
+}
+.t-form .t-form-label em {
+  font-style: normal;
+  color: red;
+  padding: 0 4px;
+}
+.t-form .t-form-controls {
+  width: 75%;
+}
+.t-form .t-form-controls input[type="text"],
+.t-form .t-form-controls input[type="password"],
+.t-form .t-form-controls textarea,
+.t-form .t-form-controls .text {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  height: 20px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  vertical-align: middle;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.t-form .t-form-controls input[type="text"]:focus,
+.t-form .t-form-controls input[type="password"]:focus,
+.t-form .t-form-controls textarea:focus,
+.t-form .t-form-controls .text:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0 none;
+}
+.t-form .t-form-controls input[type="text"].control-error,
+.t-form .t-form-controls input[type="password"].control-error,
+.t-form .t-form-controls textarea.control-error,
+.t-form .t-form-controls .text.control-error {
+  background-color: #FFE7E7;
+}
+.t-form .t-form-controls .row02 {
+  height: 40px;
+}
+.t-form .t-form-controls .row03 {
+  height: 60px;
+}
+.t-form .t-form-controls .row04 {
+  height: 80px;
+}
+.t-form .t-form-controls .input-small {
+  width: 6em;
+}
+.t-form .t-form-controls .input-large {
+  width: 30em;
+}
+.t-form .t-form-controls .input-larger {
+  width: 45em;
+}
+.t-form .t-form-controls .content {
+  width: 90%;
+  height: 450px;
+  line-height: 120%;
+}
+.t-form .t-form-controls select {
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  color: #555555;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  padding: 4px 6px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+.t-form .t-form-controls select.control-error {
+  background-color: #FFE7E7;
+}
+.t-form .t-form-controls select,
+.t-form .t-form-controls input[type="file"] {
+  height: 30px;
+  line-height: 30px;
+}
+.t-form .t-form-controls .t-form-tip {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  height: 20px;
+  line-height: 22px;
+}
+.t-form .t-form-actions {
+  padding: 5px 0 5px 140px;
+}
+.t-form .t-form-actions.well {
+  padding: 15px 0 15px 140px;
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+}
+.t-form .t-form-actions .btn {
+  line-height: 20px;
+  padding: 4px 15px 5px;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  -webkit-text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  -moz-text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  background-image: -webkit-linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-image: -ms-linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  vertical-align: middle;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  *padding-bottom: 1px;
+}
+.t-form .t-form-actions .btn:hover {
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -ms-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+  text-decoration: none;
+  background-position: 0 -15px;
+  background-color: #e6e6e6;
+}
+.t-form .t-form-actions .btn.disabled {
+  background-color: #999999;
+  background-image: -webkit-linear-gradient(to bottom, #999999, #dddddd);
+  background-image: -moz-linear-gradient(to bottom, #999999, #dddddd);
+  background-image: -o-linear-gradient(to bottom, #999999, #dddddd);
+  background-image: -ms-linear-gradient(to bottom, #999999, #dddddd);
+  background-image: linear-gradient(to bottom, #999999, #dddddd);
+  color: #666;
+  cursor: default;
+}
+.t-form .t-form-actions .btn-primary {
+  background-color: #0088cc;
+  background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  -webkit-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  -moz-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+.t-form .t-form-actions .btn-primary:hover {
+  background-color: #04c;
+  *background-color: #06c;
+  color: #fff;
+}
+.t-form .t-form-actions .btn.disabled:hover {
+  background-color: #999;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+  color: #666;
+  background-position: 0, 0;
+}
+.t-form .t-form-actions.inline {
+  margin: 5px 10px;
+}
+.t-form .t-form-notify {
+  margin: 15px 0 20px 65px;
+}
+/* checkbox */
+.t-radio,
+.t-checkbox {
+  min-height: 20px;
+  padding-left: 20px;
+  display: block;
+  margin-bottom: 5px;
+  line-height: 25px;
+  cursor: pointer;
+}
+.t-radio input,
+.t-checkbox input {
+  margin-left: -18px;
+  margin-top: 6px;
+  cursor: pointer;
+  vertical-align: -2px;
+}
+.t-radio.inline,
+.t-checkbox.inline {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 20px;
+}
+.t-radio.disabled,
+.t-checkbox.disabled {
+  color: #999;
+}
+/*-- 表单验证 --*/
+.valid-info,
+.valid-error,
+.valid-success {
+  padding: 0 4px 0 20px;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  vertical-align: 2px;
+  margin: 0 0 0 10px;
+  *background-position: 0 4px;
+  *vertical-align: 7px;
+}
+.valid-error {
+  color: #d9534f;
+  background-image: url("//ued.tjzx.com/img/error.png");
+}
+.valid-info {
+  color: #5bc0de;
+  background-image: url("//ued.tjzx.com/img/info.png");
+}
+.valid-success {
+  color: #5cb85c;
+  background-image: url("//ued.tjzx.com/img/right.png");
+}
+/*-- End --*/

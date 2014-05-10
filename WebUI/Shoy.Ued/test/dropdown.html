@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉框</title>
+    <style>
+        .t-select-label {
+            position: relative;
+            font-size: 12px;
+            margin: 10px auto;
+            width: 405px;
+            height: 100px;
+        }
+
+        .t-select-box {
+            float: left;
+        }
+
+        .t-select-label .hover {
+            cursor: pointer;
+        }
+
+        .t-select-label .hover .t-selected,
+        .t-select-label .hover .t-select-drop,
+        .t-select-label .active .t-selected,
+        .t-select-label .active .t-select-drop {
+            border-color: #0070a9;
+        }
+
+        .t-select-label .hover .t-selected .t-selected-right-top,
+        .t-select-label .active .t-selected .t-selected-right-top {
+            border-color: #0b97c4;
+        }
+
+        .t-selected {
+            background-color: #fff;
+            border: 1px solid #cdcdcd;
+            cursor: pointer;
+            position: relative;
+            float: left;
+            padding-right: 5px;
+            height: 98px;
+            z-index: 11;
+        }
+
+        .t-selected-img {
+            float: left;
+            width: 80px;
+            height: 80px;
+            margin: 9px 12px;
+        }
+
+        .t-selected-img img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .t-selected-right {
+            float: left;
+            height: 98px;
+            width: 200px;
+            overflow: hidden;
+        }
+
+        .t-selected-right-top {
+            height: 50px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .t-selected-right-top h3 {
+            line-height: 28px;
+            height: 28px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .t-selected-bottom {
+            height: 44px;
+            line-height: 22px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .t-select-drop {
+            float: left;
+            height: 98px;
+            line-height: 98px;
+            position: relative;
+            overflow: hidden;
+            margin-left: -1px;
+            vertical-align: middle;
+            border: 1px solid #cdcdcd;
+            background-color: #f5f5f5;
+        }
+
+        .t-select-drop span {
+            margin-left: 8px;
+            width: 65px;
+            text-decoration: none;
+            vertical-align: top;
+            text-align: center;
+            color: #0078B6;
+            float: left;
+        }
+
+        .t-select-icon {
+            height: 8px;
+            float: left;
+            margin: 45px 6px 0 0;
+            width: 8px;
+            transition: all 0.3s ease-in 0s;
+            position: relative;
+        }
+
+        .t-select-label .active .t-select-icon {
+            transition: all .5s ease-in;
+            transform: rotate(180deg);
+        }
+
+        .t-select-icon em,
+        .t-select-icon b {
+            border: 4px solid transparent;
+            border-bottom-width: 0;
+            height: 0;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            width: 0;
+            font-size: 0;
+        }
+
+        .t-select-icon em {
+            border-top-color: #6C6C6C;
+            top: 2px;
+        }
+
+        .t-select-icon b {
+            border-top-color: #F5F5F5;
+        }
+
+        .active .t-select-icon em{
+            border-bottom-color: #6C6C6C;
+            border-top-color: rgba(0, 0, 0, 0);
+            border-width: 0 4px 4px;
+            top:1px
+        }
+        .active .t-select-icon b{
+            border-bottom-color: #F5F5F5;
+            border-top-color: rgba(0, 0, 0, 0);
+            border-width: 0 4px 4px;
+            top: 3px;
+        }
+
+        .t-select-list {
+            top: 103px;
+            width: 650px;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            position: absolute;
+            left: 0;
+            z-index: 200;
+            border: 1px solid #0070a9;
+            box-shadow: 0 1px 1px #0b97c4;
+            display: none;
+            padding: 5px 12px;
+            max-height: 365px;
+            overflow-y: auto;
+        }
+        .active .t-select-list {
+            display: block;
+        }
+
+        .t-select-wrap {
+            border-bottom: 1px dotted #CDCDCD;
+            border-right: 1px dotted #CDCDCD;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .t-select-item{
+            border-color: #CDCDCD transparent transparent #CDCDCD;
+            border-image: none;
+            border-style: dotted none none dotted;
+            border-width: 1px 0 0 1px;
+            float: left;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="t-select-label">
+    <div class="t-select-box">
+        <div class="t-selected">
+            <div class="t-selected-img">
+                <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+            </div>
+            <div class="t-selected-right">
+                <div class="t-selected-right-top">
+                    <h3>常规体检套餐</h3>
+                    <span>适用人群：青少年</span>
+                </div>
+                <div class="t-selected-bottom">
+                    此套餐适用于时间较少，身体健康状况尚可的年轻人
+                    此套餐适用于时间较少，身体健康状况尚可的年轻人
+                    此套餐适用于时间较少，身体健康状况尚可的年轻人
+                </div>
+            </div>
+        </div>
+        <div class="t-select-drop">
+            <span data-text="收　　起">更换套餐</span>
+            <i class="t-select-icon">
+                <em></em>
+                <b></b>
+            </i>
+        </div>
+        <div class="t-select-list">
+            <div class="l-list">
+                <h3>体检套餐</h3>
+                <div class="t-select-wrap">
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-select-item">
+                        <div class="t-selected-img">
+                            <img src="//www.tjzx.com/upload/MedicalPackages/201404/1/示例图片_037115815.jpg" />
+                        </div>
+                        <div class="t-selected-right">
+                            <div class="t-selected-right-top">
+                                <h3>常规体检套餐</h3>
+                                <span>适用人群：青少年</span>
+                            </div>
+                            <div class="t-selected-bottom">
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                                此套餐适用于时间较少，身体健康状况尚可的年轻人
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="t-other">
+        的地方奋斗
+    </div>
+</div>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script>
+    (function ($) {
+        $(document)
+            .delegate(".t-select-drop", "click", function () {
+                var $t = $(".t-select-box"),
+                        $btn = $t.find(".t-select-drop span");
+                $t.toggleClass("active");
+                var text = $btn.data("text") || "";
+                if (text)
+                    $btn.data("text", $btn.html()).html(text);
+            })
+            .delegate(".t-select-box", "mouseover", function () {
+                $(this).addClass("hover");
+            })
+            .delegate(".t-select-box", "mouseout", function () {
+                $(this).removeClass("hover");
+            })
+        ;
+    })(jQuery);
+</script>
+</body>
+</html>

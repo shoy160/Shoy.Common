@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hiddenAway</title>
+    <link rel="stylesheet" href="//ued.tjzx.com/plugs/fontAwesome/font-awesome.min.css"/>
+    <style>
+        *{padding:0;margin: 0}
+        .j-hiddenAway{cursor: pointer}
+        .j-autoHeight{border: solid 1px #eee;width: 950px; margin: 0 auto}
+    </style>
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="//ued.tjzx.com/plugs/fontAwesome/font-awesome-ie7.min.css">
+    <![endif]-->
+</head>
+<body>
+    <div>
+        <span class="j-hiddenAway j-01" data-hiddenaway="{state:1,container:'.content',toggleClass:'ddd',toggleHtml:'展开<i class=\'icon-chevron-down\'></i>',joint:'.j-02',time:0}">收起<i class="icon-chevron-up"></i></span>
+        <span class="j-hiddenAway j-02" data-hiddenaway="{state:1,container:'.content',toggleClass:'ddd',toggleHtml:'展开<i class=\'icon-chevron-down\'></i>',joint:'.j-01'}">隐藏<i class="icon-chevron-up"></i></span>
+    </div>
+    <div class="content">
+        <p>展示内容</p>
+        <p>展示内容</p>
+        <p>展示内容</p>
+    </div>
+    <div class="j-autoHeight" data-left="82" data-min="230">
+
+    </div>
+    <script type="text/javascript" src="//ued.tjzx.com/js/jquery.min.js"></script>
+    <script type="text/javascript" src="//ued.tjzx.com/source/js/plugs/Jq-common.js"></script>
+    <script>
+        $(".j-controller").hiddenAway({
+            state:1,
+            container:'.j-content',
+            toggleClass:'j-away',
+            toggleHtml:'隐藏',
+            joint:false
+        });
+    </script>
+</body>
+</html>

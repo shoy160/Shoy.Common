@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>jCal</title>
+</head>
+<body>
+<div>
+    <input type="text" class="date"/>
+</div>
+<script src="//ued.tjzx.com/js/singer.js"></script>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script src="//ued.tjzx.com/js/plugs/lhgcalendar.min.js"></script>
+<script>
+    (function ($) {
+        var date = new Date();
+        date = singer.addDays(date, 20);
+        $(".date").calendar({
+            minDate: '%y-%M-%d',
+            maxDate: singer.formatDate(date, "yyyy-MM-dd"),
+            format: 'yyyy年MM月dd日 HH时mm分'
+        });
+    })(jQuery);
+
+
+</script>
+</body>
+</html>

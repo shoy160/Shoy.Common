@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyUI</title>
+</head>
+<body>
+<div class="cld"></div>
+<div class="dg"></div>
+<div class="dd"></div>
+<div class="pg"></div>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script src="//ued.tjzx.com/plugs/easyui/easyloader.js"></script>
+<script>
+    $(document).ready(function () {
+        easyloader.theme = 'metro';
+        easyloader.locale = 'zh_CN';
+        using("calendar", function () {
+            $(".cld").calendar({
+                width: 180,
+                height: 180
+            });
+        });
+        using(['window', 'messager'], function () {
+            $('.dd').window({
+                title: '弹出层',
+                content:'提示内容',
+                maximizable:true,
+                width: 300,
+                height: 200
+            });
+            $.messager.show({
+                title: 'info',
+                msg: 'dialog created'
+            });
+            //$.messager.progress();
+        });
+        using('datagrid', function () {
+            $('.dg').datagrid({
+                url:'/dd.html',
+                queryParams:{
+                    action:'getData',
+                    t:Math.random()
+                },
+                title: 'DataGrid',
+                width: 500,
+                height: 200,
+                fitColumns: true,
+                pagination:true,
+                striped:true,
+                editors:true,
+                pageSize:4,
+                pageList:[4,10,20],
+                columns: [
+                    [
+                        {field: 'productid', title: 'Product ID', width: 100},
+                        {field: 'productname', title: 'Product Name', width: 200,sortable:true,editor:'text'}
+                    ]
+                ],
+                data: [
+                    {"productid": "FI-SW-01", "productname": "Koi"},
+                    {"productid": "K9-DL-01", "productname": "Dalmation"},
+                    {"productid": "RP-SN-01", "productname": "Rattlesnake"},
+                    {"productid": "RP-LI-02", "productname": "Iguana"},
+                    {"productid": "FL-DSH-01", "productname": "Manx"},
+                    {"productid": "FL-DLH-02", "productname": "Persian"},
+                    {"productid": "AV-CB-01", "productname": "Amazon Parrot"}
+                ]
+            });
+        });
+    });
+</script>
+</body>
+</html>

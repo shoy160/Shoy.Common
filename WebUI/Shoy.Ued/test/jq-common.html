@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Common</title>
+    <style>
+        .box {
+            width: 606px;
+            height: 162px;
+            margin: 20px auto;
+            overflow: hidden
+        }
+
+        .wheel {
+            width: 9999px;
+            height: 162px;
+        }
+
+        .w-prev, .w-next {
+            cursor: pointer
+        }
+
+        div {
+            text-align: center
+        }
+
+        p {
+            margin: 0;
+            height: 160px;
+            background-color: #ededed;
+            border: 1px solid #ccc;
+            width: 200px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span class="w-prev">上一个</span>
+</div>
+<div class="box">
+    <div class="wheel">
+        <p>1111111111111</p>
+
+        <p>222222222222</p>
+
+        <p>333333333333</p>
+
+        <p>444444444444</p>
+
+        <p>555555555555</p>
+
+        <p>666666666666</p>
+
+        <p>777777777777</p>
+
+        <p>888888888888</p>
+    </div>
+</div>
+<div>
+    <span class="w-next">下一个</span>
+</div>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script src="//ued.tjzx.com/js/plugs/Jq-easing.min.js"></script>
+<script src="//ued.tjzx.com/source/js/plugs/Jq-common.js"></script>
+<script>
+    var wh;
+    (function ($) {
+        wh = $(".wheel").wheelMove({
+            items: ">p",
+            loop: true,
+            step: 3,
+            direction: "left",
+            blank: false,
+            easing: "easeInOutBack",
+            auto:true,
+            speed: 1000
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

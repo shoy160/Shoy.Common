@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>SiteMapTest</title>
+    <style>
+        .site-map {
+            width: 690px;
+            height: 582px;
+            margin: 50px auto;
+        }
+
+        .site-title {
+            margin: 0;
+            padding: 0;
+            line-height: 32px;
+            height: 32px;
+        }
+
+        .site-picture {
+            height: 550px;
+            background: url("//ued.tjzx.com/img/map/pic01.png") no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-item {
+            position: absolute;
+            width: auto;
+            height: auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="site-map">
+</div>
+<script src="//ued.tjzx.com/js/singer.js"></script>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script src="//ued.tjzx.com/plugs/artDialog/v6/lib/sea.js"></script>
+<script>
+    seajs.config({
+        alias: {
+            "jquery": "jquery-1.10.2.js",
+            "plus": "http://ued.tjzx.com/plugs/artDialog/v6/src/dialog-plus"
+        },
+        preload: ['plus']
+    });
+    (function ($, S) {
+        seajs.use("plus", function (dialog) {
+            window.Dialog = dialog;
+        });
+        $.fn.extend({
+            siteMap: function (options) {
+                var opts = $.extend({}, options || {});
+                if (!opts.core) return false;
+                var $maps = $(this);
+                return $maps.each(function () {
+                    var $that = $(this),
+                            site = opts.core;
+                    $that.css({width: site.width, height: site.height + 32});
+                    $that.append(S.format('<div class="site-title">{0}</div> ', site.name));
+                    var $picture = $('<div class="site-picture">');
+                    $picture.css({
+                        height: site.height,
+                        background: 'url("' + site.picture + '") no-repeat'
+                    });
+                    for (var i = 0; i < site.sites.length; i++) {
+                        var item = site.sites[i],
+                                $item = $('<div class="site-item">');
+                        $item.css({
+                            left: item.left,
+                            top: item.top,
+                            width: item.width,
+                            height: item.height,
+                            background: "url(" + item.icon + ") no-repeat"
+                        });
+                        $item.data("siteId", item.siteId).attr("title", item.name);
+                        if (item.isLeaf) {
+                            $item.data("desc", item.desc);
+                            $item.bind("click", function () {
+                                var d = new window.Dialog({
+                                    id: 'site-desc',
+                                    title: $(this).attr("title"),
+                                    content: $(this).data("desc"),
+                                    align: 'top',
+                                    width: 350
+                                });
+                                d.show(this);
+                            });
+                        } else {
+                            $item.bind("click", function () {
+                                opts.getSite && S.isFunction(opts.getSite) && opts.getSite.call(this, $(this).data("siteId"));
+                            });
+                        }
+                        $picture.append($item);
+                    }
+                    $that.append($picture);
+                });
+            }
+        });
+        var data = {
+            name: '体检中心',
+            picture: '//ued.tjzx.com/img/map/pic01.png',
+            width: 690,
+            height: 550,
+            sites: [
+                {name: '体检中心一楼', siteId: 1002, isLeaf: true, desc: "体检中心一楼,环境优雅，品味时尚！体检中心一楼,环境优雅，品味时尚！体检中心一楼,环境优雅，品味时尚！体检中心一楼,环境优雅，品味时尚！体检中心一楼,环境优雅，品味时尚！", icon: '//ued.tjzx.com/img/map/pic1002.png', left: 128, top: 451, width: 103, height: 66},
+                {name: '体检中心二楼', siteId: 1003, isLeaf: true, desc: "", icon: '', left: 30, top: 40},
+                {name: '体检中心三楼', siteId: 1004, isLeaf: true, desc: "", icon: '', left: 30, top: 60}
+            ]
+        };
+        var setMap = function (siteId) {
+            //获取数据源
+            var core = data;
+            $(".site-map").html("").siteMap({core: data, getSite: function (site) {
+                setMap(site);
+            }});
+        };
+        setMap(0);
+    })(jQuery, SINGER);
+</script>
+</body>
+</html>

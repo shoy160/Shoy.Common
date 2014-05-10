@@ -1,0 +1,38 @@
+.t-exchanges .t-exchanges-title-box {
+  position: relative;
+  overflow: hidden;
+  z-index: 120;
+}
+.t-exchanges .t-exchanges-title {
+  float: left;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid #cccccc;
+  border-bottom: none;
+  width: 85px;
+  margin-right: 12px;
+  margin-top: 7px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+.t-exchanges .t-exchanges-title.active {
+  margin-top: 0;
+  height: 42px;
+  font-weight: 600;
+  line-height: 42px;
+  border-top-width: 2px;
+  background-color: #eeeeee;
+  cursor: default;
+}
+.t-exchanges .t-exchanges-list,
+.t-exchanges .t-exchanges-item {
+  border: 1px solid #cccccc;
+  padding: 20px 10px 15px;
+  background-color: #ffffff;
+  margin-top: -1px;
+  position: relative;
+  z-index: 100;
+}

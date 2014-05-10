@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Test</title>
+    <style>
+        ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .box{
+            margin: 30px auto;
+            width: 400px;
+        }
+        .box li{
+            float: left;
+            width: 390px;
+            height: 300px;
+            background-color: #ddd;
+            margin: 5px;
+            text-align: center;
+            line-height: 300px;
+            font-size: 30px;
+        }
+        @media screen and (min-width: 800px){
+            .box{
+                width: 800px;
+            }
+        }
+        @media screen and (max-width: 800px){
+            .box{
+                width: 600px;
+            }
+            .box li{
+                width: 590px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>1111</li>
+            <li>2222</li>
+            <li>3333</li>
+            <li>4444</li>
+            <li>5555</li>
+        </ul>
+    </div>
+</body>
+</html>

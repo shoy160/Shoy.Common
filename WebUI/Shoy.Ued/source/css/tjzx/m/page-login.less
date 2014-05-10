@@ -1,0 +1,33 @@
+@import "../../base";
+
+@base-line-height: 30px;
+@base-border-radius: 4px;
+@base-font-size: 14px;
+@default-color: #333;
+.m-login {
+  width: 500px;
+  height: 260px;
+  margin: 100px auto;
+  padding: 25px;
+  .brand-border(@brand-primary);
+  .rounded-corners(4px);
+  .box-shadow(0 1px 1px, rgba(0, 0, 0, .28));
+}
+
+.m-form {
+  .text-code {
+    width: 56px;
+  }
+  .btn {
+    width: 165px;
+  }
+  .j-vcode {
+    width: 90px;
+    height: 30px;
+    vertical-align: -8px;
+    cursor: pointer;
+  }
+  .m-form-controls{
+    width: 70%;
+  }
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Dialog</title>
+</head>
+<body>
+<script src="//ued.tjzx.com/js/jquery.min.js"></script>
+<script src="//ued.tjzx.com/plugs/artDialog/v6/lib/sea.js"></script>
+<script>
+
+</script>
+<script>
+    seajs.config({
+        alias:{
+            "jquery": "jquery-1.10.2.js",
+            "dialog":"http://ued.tjzx.com/plugs/artDialog/v6/src/dialog"
+        }
+    });
+    seajs.use('dialog',function(dialog){
+        var d= new dialog({
+            title:"dfsdfdf",
+            content:"dsdsdfdfsd",
+            padding:20
+        });
+        d.show();
+    });
+</script>
+</body>
+</html>

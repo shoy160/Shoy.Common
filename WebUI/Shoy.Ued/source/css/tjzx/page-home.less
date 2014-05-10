@@ -1,0 +1,107 @@
+@import "../base";
+
+.t-slider {
+  height: 330px;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  .t-box{
+    overflow: hidden;
+  }
+  ul {
+    overflow: hidden;
+    width: 9999px;
+    li {
+      float: left;
+      width: 1000px;
+      height: 330px;
+      background-color: @gray-lighter;
+      overflow: hidden;
+      img{
+        width: 1200px;
+        max-width: none;
+        margin-left: -100px;
+      }
+    }
+  }
+  .t-slider-controls {
+    position: absolute;
+    bottom: 10px;
+    left:0;
+    right:0;
+    text-align: center;
+    ol{
+      margin: 0 auto;
+      li{
+        background-color: #ccc;
+        float: left;
+        height: 7px;
+        margin: 0 5px 0 0;
+        width: 35px;
+        .opacity(.85);
+        cursor: pointer;
+        &.active{
+          background-color: #FF6600;
+        }
+      }
+    }
+  }
+}
+
+.t-panel-group{
+  margin-top: 15px;
+  overflow: hidden;
+  position: relative;
+  .t-panel-box{
+    margin:0;
+    height: 280px;
+  }
+  .panel-col01,.panel-col02,.panel-col03,.panel-col04  {
+    float: left;
+  }
+  .panel-col01,.panel-col03{
+    margin-right: 10px;
+  }
+  .panel-col01{
+    width: 430px;
+  }
+  .panel-col02{
+    width: 120px;
+  }
+  .panel-col03{
+    width: 650px;
+  }
+  .panel-col04{
+    width: 340px;
+  }
+}
+
+.t-panel-box {
+  .t-category {
+    overflow: hidden;
+    position: relative;
+    li {
+      float: left;
+      height: 245px;
+      border: 1px solid @border-color;
+      width: 215px;
+      margin: 5px 18px 5px 0;
+      padding: 5px 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+      .t-img {
+        width: 100%;
+        height: 205px;
+        .inline-block;
+        border: 1px solid @border-color;
+        background-color: @gray-lighter;
+      }
+      h3 {
+        text-align: center;
+        a {
+        }
+      }
+    }
+  }
+}
