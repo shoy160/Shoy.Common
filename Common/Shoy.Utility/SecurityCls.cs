@@ -15,16 +15,18 @@ namespace Shoy.Utility
         private const string Iv64 = "hange168";
 
         /// <summary>
-        /// 加密
+        /// DES加密
         /// </summary>
         /// <param name="data">字符</param>
+        /// <param name="key">Key</param>
+        /// <param name="iv">IV</param>
         /// <returns></returns>
-        public static string Encode(string data)
+        public static string Encode(string data,string key,string iv)
         {
             try
             {
-                byte[] byKey = Encoding.ASCII.GetBytes(Key64);
-                byte[] byIv = Encoding.ASCII.GetBytes(Iv64);
+                byte[] byKey = Encoding.ASCII.GetBytes(key);
+                byte[] byIv = Encoding.ASCII.GetBytes(iv);
                 var dataByte = Encoding.UTF8.GetBytes(data);
                 var sb = new StringBuilder();
 
@@ -54,16 +56,28 @@ namespace Shoy.Utility
         }
 
         /// <summary>
-        /// 解密
+        /// DES加密
         /// </summary>
-        /// <param name="data">字符</param>
+        /// <param name="data">待加密字符</param>
         /// <returns></returns>
-        public static string Decode(string data)
+        public static string Encode(string data)
+        {
+            return Encode(data, Key64, Iv64);
+        }
+
+        /// <summary>
+        /// DES解密
+        /// </summary>
+        /// <param name="data">解密字符</param>
+        /// <param name="key">Key</param>
+        /// <param name="iv">IV</param>
+        /// <returns></returns>
+        public static string Decode(string data,string key,string iv)
         {
             try
             {
-                byte[] byKey = Encoding.ASCII.GetBytes(Key64);
-                byte[] byIv = Encoding.ASCII.GetBytes(Iv64);
+                byte[] byKey = Encoding.ASCII.GetBytes(key);
+                byte[] byIv = Encoding.ASCII.GetBytes(iv);
                 var len = data.Length/2;
                 var dataByte = new byte[len];
                 int x, i;
@@ -92,9 +106,19 @@ namespace Shoy.Utility
         }
 
         /// <summary>
+        /// DES解密
+        /// </summary>
+        /// <param name="data">解密字符</param>
+        /// <returns></returns>
+        public static string Decode(string data)
+        {
+            return Decode(data, Key64, Iv64);
+        }
+
+        /// <summary>
         /// Md5加密
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="str">加密字符</param>
         /// <returns></returns>
         public static string Md5(string str)
         {
