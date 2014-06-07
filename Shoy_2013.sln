@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}"
 EndProject
@@ -48,6 +48,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{B34042D7-E53D-4443-9D86-0F8ADFFC769C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Ued", "WebUI\Shoy.Ued\Shoy.Ued.csproj", "{2C8B0F0B-898D-4168-9742-A4EF1FC469B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Injection", "Common\Shoy.Injection\Shoy.Injection.csproj", "{053CCDD7-9D2F-4D79-83C1-868F6079AD29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +251,16 @@ Global
 		{2C8B0F0B-898D-4168-9742-A4EF1FC469B7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2C8B0F0B-898D-4168-9742-A4EF1FC469B7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2C8B0F0B-898D-4168-9742-A4EF1FC469B7}.Release|x86.ActiveCfg = Release|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -274,5 +286,6 @@ Global
 		{58D31673-D285-460E-AAFA-991C86491DD7} = {7D3F7114-9378-4839-9400-F8B77AD2DED1}
 		{22618C82-722C-483E-B490-5EE59996AA2C} = {7D3F7114-9378-4839-9400-F8B77AD2DED1}
 		{2C8B0F0B-898D-4168-9742-A4EF1FC469B7} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
+		{053CCDD7-9D2F-4D79-83C1-868F6079AD29} = {1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}
 	EndGlobalSection
 EndGlobal

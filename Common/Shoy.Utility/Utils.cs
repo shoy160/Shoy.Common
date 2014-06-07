@@ -844,6 +844,7 @@ namespace Shoy.Utility
         /// <returns></returns>
         public static string GetRealIp(HttpContext context)
         {
+            if (context == null) return "127.0.0.1";
             string userHostAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrEmpty(userHostAddress))
             {
