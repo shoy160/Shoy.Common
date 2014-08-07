@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace Shoy.Data
 {
@@ -46,12 +47,14 @@ namespace Shoy.Data
                         var driver = GetDriver(connect.ServerType);
                         if (driver != null)
                         {
-                            AddConnection(connect.Name, connect.ConnectString, GetDriver(connect.ServerType));
+                            AddConnection(connect.Name, connect.ConnectString, driver);
                             if (connect.IsDefault)
                                 Default = connect.Name;
                         }
                     }
-                    catch{}
+                    catch
+                    {
+                    }
                 }
             }
         }

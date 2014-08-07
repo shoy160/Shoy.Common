@@ -9,7 +9,10 @@ namespace Shoy.Data
     {
         private readonly Command _cmd = new Command("");
 
-        public Command Cmd { get { return _cmd; } }
+        public Command Cmd
+        {
+            get { return _cmd; }
+        }
 
         public SQL(string sql)
         {
@@ -57,6 +60,7 @@ namespace Shoy.Data
                 return Execute(cc);
             }
         }
+
         public int Execute(string type)
         {
             using (var cc = DbContext.Get(type))
@@ -64,6 +68,7 @@ namespace Shoy.Data
                 return Execute(cc);
             }
         }
+
         public int Execute(IConnectionContext cc)
         {
             return cc.ExecuteNonQuery(_cmd);
@@ -129,7 +134,33 @@ namespace Shoy.Data
 
         public T GetValue<T>(IConnectionContext cc)
         {
-            return (T)cc.ExecuteScalar(GetCommand());
+            return (T) cc.ExecuteScalar(GetCommand());
+        }
+
+        public IList<T> GetValues<T>()
+        {
+            using (var cc = DbContext.Get())
+            {
+                return cc.GetValues<T>(GetCommand());
+            }
+        }
+
+        public IList<T> GetValues<T>(Region region)
+        {
+            using (var cc = DbContext.Get())
+            {
+                return cc.GetValues<T>(GetCommand(), region);
+            }
+        }
+
+        public IList<T> GetValues<T>(IConnectionContext cc)
+        {
+            return cc.GetValues<T>(GetCommand());
+        }
+
+        public IList<T> GetValues<T>(IConnectionContext cc, Region region)
+        {
+            return cc.GetValues<T>(GetCommand(), region);
         }
 
         public T ListFirst<T>() where T : new()
@@ -180,6 +211,7 @@ namespace Shoy.Data
                 return List<T>(cc, region);
             }
         }
+
         public IList<T> List<T>(string type) where T : new()
         {
             using (var cc = DbContext.Get(type))
@@ -187,6 +219,7 @@ namespace Shoy.Data
                 return List<T>(cc);
             }
         }
+
         public IList<T> List<T>(IConnectionContext cc) where T : new()
         {
             return List<T>(cc, null);
@@ -209,7 +242,7 @@ namespace Shoy.Data
 
         public IList<T> List<T>(IConnectionContext cc, Region region) where T : new()
         {
-            return (IList<T>)List(typeof(T), cc, region);
+            return (IList<T>) List(typeof (T), cc, region);
         }
 
         private Command GetCommand()

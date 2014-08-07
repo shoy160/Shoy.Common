@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Data;
 
-namespace Shoy.Data
+namespace Shoy.Data.Builder
 {
-    public class MsAccessBuilder:ISqlBuilder
+    public class MySqlBuilder:ISqlBuilder
     {
-        #region ISqlBuilder 成员
-
         public string ReplaceSql(string sql)
         {
-            return sql;
+            return sql.Replace("[", "`").Replace("]", "`");
         }
 
         public void SetProcParameter(IDataParameter dp, string name, object value, ParameterDirection direction)
@@ -25,7 +23,5 @@ namespace Shoy.Data
             dp.Value = value ?? DBNull.Value;
             dp.Direction = direction;
         }
-
-        #endregion
     }
 }

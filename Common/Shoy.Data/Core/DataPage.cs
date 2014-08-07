@@ -17,7 +17,7 @@ namespace Shoy.Data.Core
     }
 
     [Serializable]
-    public class DataPage:IDataPage
+    public class DataPage : IDataPage
     {
         private int _pageIndex;
 

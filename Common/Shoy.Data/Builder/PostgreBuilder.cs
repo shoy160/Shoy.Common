@@ -12,21 +12,15 @@ namespace Shoy.Data
 
         public void SetProcParameter(IDataParameter dp, string name, object value, ParameterDirection direction)
         {
-            dp.ParameterName = ":" + name;
-            if (value == null)
-                dp.Value = DBNull.Value;
-            else
-                dp.Value = value;
+            dp.ParameterName = string.Concat(":", name); ;
+            dp.Value = value ?? DBNull.Value;
             dp.Direction = direction;
         }
 
         public void SetParameter(IDataParameter dp, string name, object value, ParameterDirection direction)
         {
-            dp.ParameterName = ":" + name;
-            if (value == null)
-                dp.Value = DBNull.Value;
-            else
-                dp.Value = value;
+            dp.ParameterName = string.Concat(":", name);
+            dp.Value = value ?? DBNull.Value;
             dp.Direction = direction;
         }
     }

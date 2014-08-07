@@ -87,16 +87,12 @@ namespace Shoy.Data
 
         internal static string GetParamName()
         {
-
-
             ParamNameSeed pns = NameSeed;
             //if (pns.Value > 200)
             //    pns.Value = 0;
             //else
             pns.Value++;
             return "tmp_p" + pns.Value;
-
-
         }
 
         [ThreadStatic]

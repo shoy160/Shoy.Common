@@ -39,6 +39,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\MySqlBuilder.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="Interface\ISqlBuilder.cs" />
     <Compile Include="Builder\MsAccessBuilder.cs" />

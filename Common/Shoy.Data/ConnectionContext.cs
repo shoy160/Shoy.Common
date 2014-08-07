@@ -124,9 +124,10 @@ namespace Shoy.Data
             if (region == null)
                 region = new Region(0, 9999999);
             Type itemstype = Type.GetType("System.Collections.Generic.List`1");
+            if (itemstype == null) return null;
             itemstype = itemstype.MakeGenericType(type);
             var items = (IList) Activator.CreateInstance(itemstype, region.Size);
-            object item = null;
+            object item;
             using (IDataReader reader = ExecuteReader(cmd))
             {
                 int index = 0;
@@ -177,7 +178,7 @@ namespace Shoy.Data
 
         public object Load(Type type, Command cmd)
         {
-            IList items = List(type, cmd, null);
+            IList items = List(type, cmd, new Region(0, 2));
             if (items.Count > 0)
                 return items[0];
             return null;

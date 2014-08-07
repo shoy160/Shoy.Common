@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Ued", "WebUI\Shoy.Ued\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Injection", "Common\Shoy.Injection\Shoy.Injection.csproj", "{053CCDD7-9D2F-4D79-83C1-868F6079AD29}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Smark", "Smark", "{9BB2AF4A-664C-45B1-A899-B62B32D1609F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

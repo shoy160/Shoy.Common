@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shoy.Data;
 using Shoy.Utility.Extend;
@@ -15,53 +12,6 @@ namespace Shoy.Test
     [TestClass]
     public class ShoyDataTest
     {
-        public ShoyDataTest()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///获取或设置测试上下文，该上下文提供
-        ///有关当前测试运行及其功能的信息。
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region 附加测试特性
-        //
-        // 编写测试时，可以使用以下附加特性:
-        //
-        // 在运行类中的第一个测试之前使用 ClassInitialize 运行代码
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // 在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // 在运行每个测试之前，使用 TestInitialize 来运行代码
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // 在每个测试运行完之后，使用 TestCleanup 来运行代码
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
         public class Product
         {
             public int B2BProductId { get; set; }
@@ -76,12 +26,24 @@ namespace Shoy.Test
             public string Info { get; set; }
         }
 
+        public class PackageCategory
+        {
+            public int CategoryId { get; set; }
+            public string Name { get; set; }
+            public byte State { get; set; }
+            public DateTime CreateOn { get; set; }
+        }
+
         [TestMethod]
         public void TestMethod1()
         {
-            SQL sql = "select top 5 * from B2BProduct";
-            var list = sql.List<Product>(DbContext.Get());
-            Console.Write(list.ToJson());
+            using (var db = DbContext.Get())
+            {
+                SQL sql = "select * from PackageCategory";
+                var list = sql.List<PackageCategory>(db, new Region(1, 3));
+                Console.Write(list.ToJson());
+                Assert.AreNotEqual(list, null);
+            }
         }
 
         public class PostgreDriver :
@@ -91,12 +53,18 @@ namespace Shoy.Test
         [TestMethod]
         public void PostgreTest()
         {
-            const string connect =
-                "Server=192.168.157.130;Port=5432;Database=ShoyDB;Userid=postgres;Password=123456; Protocol=3;Pooling=true;MinPoolSize=1;MaxPoolSize=50;ConnectionLifeTime=30;";
-            DbContext.AddConnection("postgre", connect, new PostgreDriver());
-            SQL sql = "select [Id],[Info]->'name' as [Name] from [User]";
-            var list = sql.List<User>(DbContext.Get("postgre"));
-            Console.Write(list.ToJson());
+            DbContext.DriversCache.Add("Postgre", new PostgreDriver());
+            //const string connect =
+            //    "Server=192.168.157.130;Port=5432;Database=ShoyDB;Userid=postgres;Password=123456; Protocol=3;Pooling=true;MinPoolSize=1;MaxPoolSize=50;ConnectionLifeTime=30;";
+            //DbContext.AddConnection("postgre", connect, new PostgreDriver());
+            using (var db = DbContext.Get("postgre"))
+            {
+                SQL sql = "select [Id],[Info]->'name' as [Name] from [User]";
+
+                var list = sql.List<User>();
+                Console.Write(list.ToJson());
+                Assert.AreNotEqual(list, null);
+            }
         }
     }
 }
