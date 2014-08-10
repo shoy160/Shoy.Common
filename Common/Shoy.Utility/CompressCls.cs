@@ -16,7 +16,7 @@ namespace Shoy.Utility
         /// <returns></returns>
         public static bool Exists()
         {
-            RegistryKey theReg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\WinRAR.exe");
+            RegistryKey theReg = Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
             return theReg != null && !string.IsNullOrEmpty(theReg.GetValue("").ToString());
         }
 
@@ -37,7 +37,7 @@ namespace Shoy.Utility
             try
             {
                 theReg =
-                    Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\WinRAR.exe");
+                    Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
                 if (theReg == null)
                 {
                     return false;
@@ -51,7 +51,7 @@ namespace Shoy.Utility
 
                 //命令参数
                 //the_Info = " a  (-p"123") " + rarName + " " + @"C:Test?70821.txt"; //文件压缩
-                string theInfo = " a " + rarName + " " + sourcePath + " -r";
+                string theInfo = string.Format(Consts.CompressCommand, rarName, sourcePath);
                 var theStartInfo = new ProcessStartInfo
                                        {
                                            FileName = theRar,
@@ -90,7 +90,7 @@ namespace Shoy.Utility
 
             try
             {
-                theReg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\WinRAR.exe");
+                theReg = Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
                 if (theReg == null)
                     return false;
                 theObj = theReg.GetValue("");
@@ -104,7 +104,7 @@ namespace Shoy.Utility
                 }
 
                 //命令参数 x (-p"123") rar.rar d:\rar -y
-                string theInfo = "x " + rarName + " " + newPath + " -y";
+                string theInfo = string.Format(Consts.UnzipCommand, rarName, newPath);
 
                 var theStartInfo = new ProcessStartInfo
                                        {

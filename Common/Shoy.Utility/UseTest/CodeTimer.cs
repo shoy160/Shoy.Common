@@ -132,21 +132,21 @@ namespace Shoy.Utility.UseTest
         public static string UseTest()
         {
             var result1 = Time("contact", 1000*200, () =>
-                                                      {
-                                                          string str = "";
-                                                          for (int i = 0; i < 10; i++)
-                                                          {
-                                                              str += "dddddddddddddddddddddd";
-                                                          }
-                                                      });
+            {
+                string str = "";
+                for (int i = 0; i < 10; i++)
+                {
+                    str += "dddddddddddddddddddddd";
+                }
+            });
             var result2 = Time("stringbuilder", 1000*200, () =>
-                                                             {
-                                                                 var sb = new System.Text.StringBuilder();
-                                                                 for (int i = 0; i < 10; i++)
-                                                                 {
-                                                                     sb.Append("dddddddddddddddddddddd");
-                                                                 }
-                                                             });
+            {
+                var sb = new System.Text.StringBuilder();
+                for (int i = 0; i < 10; i++)
+                {
+                    sb.Append("dddddddddddddddddddddd");
+                }
+            });
             return result1.ToString() + result2.ToString();
         }
     }
