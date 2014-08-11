@@ -46,11 +46,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Shoy.AjaxHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Shoy.AjaxHelper.1.0.0.0\lib\net40\Shoy.AjaxHelper.dll</HintPath>
+      <HintPath>..\..\packages\Shoy.AjaxHelper.dll</HintPath>
     </Reference>
     <Reference Include="Shoy.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Shoy.Utility.1.0.0.0\lib\net40\Shoy.Utility.dll</HintPath>
+      <HintPath>..\..\packages\Shoy.Utility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
@@ -67,9 +67,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Router.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\shoy.demo.pubxml" />

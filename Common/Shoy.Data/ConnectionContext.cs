@@ -119,6 +119,56 @@ namespace Shoy.Data
             return (T) item;
         }
 
+        public T Load<T>(Command cmd) where T : new()
+        {
+            var item = Load(typeof (T), cmd);
+            return (T) item;
+        }
+
+        public IDictionary<T, TV> Dict<T, TV>(Command cmd)
+        {
+            return Dict<T, TV>(cmd, null);
+        }
+
+        public IDictionary<T, TV> Dict<T, TV>(Command cmd, Region region)
+        {
+            if (region == null)
+                region = new Region(0, 9999999);
+            var dict = new Dictionary<T, TV>();
+            using (IDataReader reader = ExecuteReader(cmd))
+            {
+                int index = 0;
+                while (reader.Read())
+                {
+                    if (reader.FieldCount < 2)
+                        continue;
+                    if (index >= region.Start)
+                    {
+                        var key = reader[0];
+                        var value = reader[1];
+                        if (key.Equals(DBNull.Value))
+                            continue;
+                        key = Convert.ChangeType(key, typeof (T));
+                        if (dict.ContainsKey((T) key))
+                            continue;
+                        if (value.Equals(DBNull.Value))
+                            value = typeof (TV).IsValueType ? Activator.CreateInstance(typeof (TV)) : null;
+                        else
+                            value = Convert.ChangeType(value, typeof (TV));
+                        dict.Add((T) key, (TV) value);
+                        if (dict.Count == region.Size)
+                        {
+                            cmd.DbCommand.Cancel();
+                            reader.Close();
+                            break;
+                        }
+                    }
+                    index++;
+                }
+            }
+            return dict;
+        }
+
         public IList List(Type type, Command cmd, Region region)
         {
             if (region == null)
@@ -279,5 +329,6 @@ namespace Shoy.Data
         }
 
         #endregion
+        
     }
 }

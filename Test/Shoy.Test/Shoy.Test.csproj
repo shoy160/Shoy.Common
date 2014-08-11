@@ -38,7 +38,7 @@
       <HintPath>..\..\DLL\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="Shoy.Utility">
-      <HintPath>..\..\packages\Shoy.Utility.1.0.0.0\lib\net40\Shoy.Utility.dll</HintPath>
+      <HintPath>..\..\packages\Shoy.Utility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Shoy.Data\Shoy.Data.csproj">
