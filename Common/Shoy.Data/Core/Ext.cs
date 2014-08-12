@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 
 namespace Shoy.Data.Core
 {
@@ -22,6 +23,39 @@ namespace Shoy.Data.Core
                 }
             }
             return false;
+        }
+
+        public static T ObjectToT<T>(this object obj)
+        {
+            return obj.ObjectToT(default(T));
+        }
+
+        public static T ObjectToT<T>(this object obj, T def)
+        {
+            var value = obj.ConvertTo(typeof (T));
+            if (value == null)
+                return def;
+            return (T) value;
+        }
+
+        public static object ConvertTo(this object obj, Type type)
+        {
+            try
+            {
+                if (type.Name == "Nullable`1")
+                    type = type.GetGenericArguments()[0];
+                if (obj.Equals(DBNull.Value))
+                {
+                    if (type.IsValueType)
+                        return Activator.CreateInstance(type);
+                    return null;
+                }
+                return Convert.ChangeType(obj, type, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
