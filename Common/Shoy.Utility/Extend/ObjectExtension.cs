@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Shoy.Utility.Extend
 {
+    /// <summary>
+    /// 对象扩展辅助
+    /// </summary>
     public static class ObjectExtension
     {
         public static bool In(this object o, IEnumerable c)

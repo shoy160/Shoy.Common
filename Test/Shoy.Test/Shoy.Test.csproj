@@ -37,9 +37,6 @@
     <Reference Include="Npgsql">
       <HintPath>..\..\DLL\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="Shoy.Utility">
-      <HintPath>..\..\packages\Shoy.Utility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -64,6 +61,10 @@
     <ProjectReference Include="..\..\Common\Shoy.Data\Shoy.Data.csproj">
       <Project>{76179a72-565b-4f81-8d35-874f032d410d}</Project>
       <Name>Shoy.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">
+      <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>
+      <Name>Shoy.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
