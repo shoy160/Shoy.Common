@@ -21,7 +21,7 @@ namespace Shoy.Utility
         private readonly Encoding _encoding = Encoding.Default;//编码
         private string _cookie;
         private string _contentType;
-        private List<FileStream> _filesList;
+        private Dictionary<string, Stream> _fileList;
         private MemoryStream _postStream;
 
         private HttpWebRequest _req;
@@ -106,7 +106,7 @@ namespace Shoy.Utility
             _req.Timeout = 15*1000;
 
             _req.ServicePoint.ConnectionLimit = 1024;
-            if (_filesList != null && _filesList.Any())
+            if (_fileList != null && _fileList.Any())
                 _req.ContentType = string.Format("multipart/form-data; boundary={0}", Boundary);
             else
                 _req.ContentType = (string.IsNullOrWhiteSpace(_contentType)
@@ -141,11 +141,11 @@ namespace Shoy.Utility
             {
                 WriteParams(_paras);
                 //传文件
-                if (_filesList != null && _filesList.Any())
+                if (_fileList != null && _fileList.Any())
                 {
-                    foreach (var file in _filesList)
+                    foreach (var file in _fileList)
                     {
-                        WriteFileStream(file);
+                        WriteFileStream(file.Key, file.Value);
                     }
                     var strBoundary = string.Format("{1}--{0}--{1}", Boundary, NewLine);
                     WriteParams(strBoundary);
@@ -184,16 +184,17 @@ namespace Shoy.Utility
         /// <summary>
         /// 写文件
         /// </summary>
+        /// <param name="name"></param>
         /// <param name="file"></param>
-        private void WriteFileStream(FileStream file)
+        private void WriteFileStream(string name,Stream file)
         {
             var fileField = new StringBuilder();
             fileField.Append(string.Format("{1}--{0}{1}", Boundary, NewLine));
             fileField.Append(string.Format(
                 "Content-Disposition: form-data; name=\"file_{0}\"; filename=\"{1}\"{2}",
-                _filesList.IndexOf(file), Path.GetFileName(file.Name), NewLine));
+                Path.GetFileNameWithoutExtension(name), Path.GetFileName(name), NewLine));
             //文件类型
-            fileField.Append(string.Format("Content-Type: {0}{1}{1}", GetContentType(file.Name), NewLine));
+            fileField.Append(string.Format("Content-Type: {0}{1}{1}", GetContentType(name), NewLine));
             WriteParams(fileField.ToString());
 
             var buffer = new Byte[checked((uint) Math.Min(4096, (int) file.Length))];
@@ -246,13 +247,15 @@ namespace Shoy.Utility
         /// 添加文件
         /// </summary>
         /// <param name="fileList"></param>
-        public void AddFiles(List<FileStream> fileList)
+        public void AddFiles(Dictionary<string, Stream> fileList)
         {
-            if (_filesList == null)
+            if (_fileList == null)
+                _fileList = new Dictionary<string, Stream>();
+            foreach (var key in fileList.Keys)
             {
-                _filesList = new List<FileStream>();
+                if (!_fileList.ContainsKey(key))
+                    _fileList.Add(key, fileList[key]);
             }
-            _filesList.AddRange(fileList);
         }
 
         /// <summary>
@@ -261,9 +264,15 @@ namespace Shoy.Utility
         /// <param name="pathList"></param>
         public void AddFiles(List<string> pathList)
         {
+            if (_fileList == null)
+                _fileList = new Dictionary<string, Stream>();
             var list =
                 pathList.Select(path => new FileStream(path, FileMode.Open, FileAccess.Read)).ToList();
-            AddFiles(list);
+            foreach (var fileStream in list)
+            {
+                if (!_fileList.ContainsKey(fileStream.Name))
+                    _fileList.Add(fileStream.Name, fileStream);
+            }
         }
 
         /// <summary>
@@ -468,12 +477,12 @@ namespace Shoy.Utility
 
         void IDisposable.Dispose()
         {
-            if (_filesList != null && _filesList.Any())
+            if (_fileList != null && _fileList.Any())
             {
-                foreach (var fileStream in _filesList)
+                foreach (var fileStream in _fileList)
                 {
-                    fileStream.Close();
-                    fileStream.Dispose();
+                    fileStream.Value.Close();
+                    fileStream.Value.Dispose();
                 }
             }
             if (_postStream != null)
