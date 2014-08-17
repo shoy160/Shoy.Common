@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Shoy.Utility.Extend
 {
+    /// <summary>
+    /// 对象扩展辅助
+    /// </summary>
     public static class ObjectExtension
     {
         public static bool In(this object o, IEnumerable c)
@@ -17,24 +20,33 @@ namespace Shoy.Utility.Extend
             return c.Any(i => i.Equals(t));
         }
 
-        public static T ObjectToT<T>(this object obj, T def)
-        {
-            try
-            {
-                var type = typeof (T);
-                if (type.Name == "Nullable`1")
-                    type = type.GetGenericArguments()[0];
-                return (T) Convert.ChangeType(obj, type, CultureInfo.InvariantCulture);
-            }
-            catch
-            {
-                return def;
-            }
-        }
-
         public static T ObjectToT<T>(this object obj)
         {
             return obj.ObjectToT(default(T));
+        }
+
+        public static T ObjectToT<T>(this object obj, T def)
+        {
+            var value = obj.ConvertTo(typeof(T));
+            if (value == null)
+                return def;
+            return (T)value;
+        }
+
+        public static object ConvertTo(this object obj, Type type)
+        {
+            try
+            {
+                if (type.Name == "Nullable`1")
+                    type = type.GetGenericArguments()[0];
+                if (type.IsValueType)
+                    return Activator.CreateInstance(type);
+                return Convert.ChangeType(obj, type, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static void WriteTo(this Exception ex, string path)

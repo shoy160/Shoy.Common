@@ -24,8 +24,10 @@ namespace Shoy.Data
         IList ListProc(Type entity, Command cmd);
 
         T ListFirst<T>(Command cmd) where T : new();
-        
-        //T Load<T>(Command cmd) where T : IEntityState, new();
+
+        T Load<T>(Command cmd) where T : new();
+
+        IDictionary<T, TV> Dict<T, TV>(Command cmd);
 
         IList List(Type type, Command cmd, Region region);
         object ListFirst(Type type, Command cmd);

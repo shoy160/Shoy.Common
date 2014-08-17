@@ -7,7 +7,7 @@ using Shoy.Data.Core;
 
 namespace Shoy.Data
 {
-    public class ConnectionContext:IConnectionContext
+    public class ConnectionContext : IConnectionContext
     {
         private string _connectionString;
         private IDriver _driver;
@@ -42,7 +42,7 @@ namespace Shoy.Data
 
         public void BeginTransaction(IsolationLevel level)
         {
-            if(_transaction == null)
+            if (_transaction == null)
             {
                 _level = level;
                 _transaction = _connection.BeginTransaction(level);
@@ -88,6 +88,7 @@ namespace Shoy.Data
         {
             return List<T>(cmd, null);
         }
+
         public IList<T> List<T>(Command cmd, Region region) where T : new()
         {
             return (IList<T>) List(typeof (T), cmd, region);
@@ -119,6 +120,53 @@ namespace Shoy.Data
             return (T) item;
         }
 
+        public T Load<T>(Command cmd) where T : new()
+        {
+            var item = Load(typeof (T), cmd);
+            return (T) item;
+        }
+
+        public IDictionary<T, TV> Dict<T, TV>(Command cmd)
+        {
+            return Dict<T, TV>(cmd, null);
+        }
+
+        public IDictionary<T, TV> Dict<T, TV>(Command cmd, Region region)
+        {
+            if (region == null)
+                region = new Region(0, 9999999);
+            var dict = new Dictionary<T, TV>();
+            using (IDataReader reader = ExecuteReader(cmd))
+            {
+                int index = 0;
+                while (reader.Read())
+                {
+                    if (reader.FieldCount < 2)
+                        continue;
+                    if (index >= region.Start && dict.Count < region.Size)
+                    {
+                        var key = reader[0];
+                        var value = reader[1];
+                        if (key.Equals(DBNull.Value))
+                            continue;
+                        key = key.ConvertTo(typeof (T));
+                        if (dict.ContainsKey((T) key))
+                            continue;
+                        value = value.ConvertTo(typeof (TV));
+                        dict.Add((T) key, (TV) value);
+                        if (dict.Count == region.Size)
+                        {
+                            cmd.DbCommand.Cancel();
+                            reader.Close();
+                            break;
+                        }
+                    }
+                    index++;
+                }
+            }
+            return dict;
+        }
+
         public IList List(Type type, Command cmd, Region region)
         {
             if (region == null)
@@ -133,25 +181,19 @@ namespace Shoy.Data
                 int index = 0;
                 while (reader.Read())
                 {
-                    if (index >= region.Start)
+                    if (index >= region.Start && items.Count < region.Size)
                     {
                         item = Activator.CreateInstance(type);
-                        foreach (var info in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase))
+                        foreach (
+                            var info in
+                                type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase)
+                            )
                         {
                             if (!reader.Contains(info.Name))
                                 continue;
                             var value = reader[info.Name];
                             var t = info.PropertyType;
-                            if (t.Name == "Nullable`1")
-                                t = t.GetGenericArguments()[0];
-                            if (!value.Equals(DBNull.Value))
-                            {
-                                value = Convert.ChangeType(value, t);
-                            }
-                            else
-                            {
-                                value = t.IsValueType ? Activator.CreateInstance(t) : null;
-                            }
+                            value = value.ConvertTo(t);
                             info.SetValue(item, value, null);
                         }
                         items.Add(item);
@@ -260,7 +302,7 @@ namespace Shoy.Data
 
         public void Rollback()
         {
-            if(_transaction != null)
+            if (_transaction != null)
             {
                 _transaction.Rollback();
                 _transaction = null;
@@ -279,5 +321,6 @@ namespace Shoy.Data
         }
 
         #endregion
+
     }
 }

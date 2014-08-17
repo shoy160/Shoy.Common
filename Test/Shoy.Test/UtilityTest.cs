@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,6 +17,17 @@ namespace Shoy.Test
         {
             using (var http = new HttpHelper("www.baidu.com",Encoding.UTF8))
             {
+                var html = http.GetHtml();
+                Console.Write(html);
+            }
+        }
+
+        [TestMethod]
+        public void PostFilesTest()
+        {
+            using (var http = new HttpHelper("http://file.dayez.net/uploader?type=2", "post", Encoding.UTF8, ""))
+            {
+                http.AddFiles(new List<string> {"d:\\mv_test.mp4", "d:\\mv_test.flv"});
                 var html = http.GetHtml();
                 Console.Write(html);
             }

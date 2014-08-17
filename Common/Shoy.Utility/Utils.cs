@@ -617,26 +617,25 @@ namespace Shoy.Utility
         /// 相同属性不同类转换
         /// </summary>
         /// <typeparam name="T">转换目标类</typeparam>
-        /// <param name="o">待转换类</param>
         /// <returns></returns>
-        public static T ClassConvert<T>(object o)
+        public static T ClassConvert<T>(object source)
             where T : new()
         {
-            var t = new T();
-            Type type = o.GetType();
-            PropertyInfo[] ps = type.GetProperties();
-            foreach (PropertyInfo p in ps)
+            var target = new T();
+            Type sourceType = source.GetType();
+            Type targetType = target.GetType();
+            PropertyInfo[] targetProps =
+                targetType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
+            foreach (PropertyInfo targetProp in targetProps)
             {
-                object pv = p.GetValue(o, null);
-                Type type2 = t.GetType();
-
-                PropertyInfo pr = type2.GetProperty(p.Name);
-                if (pr != null)
+                PropertyInfo sourceProp = sourceType.GetProperty(targetProp.Name);
+                if (sourceProp != null && sourceProp.PropertyType == targetProp.PropertyType)
                 {
-                    pr.SetValue(t, pv, null);
+                    object pv = sourceProp.GetValue(source, null);
+                    targetProp.SetValue(target, pv, null);
                 }
             }
-            return t;
+            return target;
         }
 
         ///<summary>
