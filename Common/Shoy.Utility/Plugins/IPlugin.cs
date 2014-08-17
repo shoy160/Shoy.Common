@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Shoy.Utility.Plugins
 {
     /// <summary>
@@ -10,6 +6,7 @@ namespace Shoy.Utility.Plugins
     /// </summary>
     public interface IPlugin
     {
+        PluginDescriptor PluginDescriptor { get; set; }
 
         /// <summary>
         /// 安装插件

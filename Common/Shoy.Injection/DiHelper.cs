@@ -3,6 +3,9 @@ using System.Web.Mvc;
 
 namespace Shoy.Injection
 {
+    /// <summary>
+    /// 依赖注入辅助类
+    /// </summary>
     public class DiHelper
     {
         private static IContainer _instance;
