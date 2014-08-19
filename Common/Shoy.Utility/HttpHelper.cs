@@ -143,6 +143,9 @@ namespace Shoy.Utility
                 //传文件
                 if (_fileList != null && _fileList.Any())
                 {
+                    _req.AllowWriteStreamBuffering = false;
+                    _req.Timeout = 300*1000;
+                    _req.KeepAlive = true;
                     foreach (var file in _fileList)
                     {
                         WriteFileStream(file.Key, file.Value);
@@ -159,6 +162,8 @@ namespace Shoy.Utility
                     _postStream.Seek(0, SeekOrigin.Begin);
                     while ((bytesRead = _postStream.Read(buffer, 0, buffer.Length)) != 0)
                         postStream.Write(buffer, 0, bytesRead);
+                    _postStream.Close();
+                    _postStream.Dispose();
                 }
             }
         }
@@ -192,7 +197,7 @@ namespace Shoy.Utility
             fileField.Append(string.Format("{1}--{0}{1}", Boundary, NewLine));
             fileField.Append(string.Format(
                 "Content-Disposition: form-data; name=\"file_{0}\"; filename=\"{1}\"{2}",
-                Path.GetFileNameWithoutExtension(name), Path.GetFileName(name), NewLine));
+                (_fileList.Keys.ToList().IndexOf(name) + 1), Path.GetFileName(name), NewLine));
             //文件类型
             fileField.Append(string.Format("Content-Type: {0}{1}{1}", GetContentType(name), NewLine));
             WriteParams(fileField.ToString());

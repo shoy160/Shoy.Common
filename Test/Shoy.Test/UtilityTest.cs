@@ -25,9 +25,9 @@ namespace Shoy.Test
         [TestMethod]
         public void PostFilesTest()
         {
-            using (var http = new HttpHelper("http://file.dayez.net/uploader?type=2", "post", Encoding.UTF8, ""))
+            using (var http = new HttpHelper("http://file.dayeasy.dev/uploader?type=2", "post", Encoding.UTF8, ""))
             {
-                http.AddFiles(new List<string> {"d:\\mv_test.mp4", "d:\\mv_test.flv"});
+                http.AddFiles(new List<string> {"d:\\big.mp4"});
                 var html = http.GetHtml();
                 Console.Write(html);
             }
