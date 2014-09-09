@@ -46,9 +46,20 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Transmiter\Consts.cs" />
+    <Compile Include="Transmiter\Crc32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QrCodeHelper.cs" />
     <Compile Include="SpeekHelper.cs" />
+    <Compile Include="Transmiter\Event\BlockFinishedEventArgs.cs" />
+    <Compile Include="Transmiter\Event\CommandReceivedEventArgs.cs" />
+    <Compile Include="Transmiter\Event\FileTransmissionErrorOccurEventArgs.cs" />
+    <Compile Include="Transmiter\FileBlock.cs" />
+    <Compile Include="Transmiter\FileBlockCollection.cs" />
+    <Compile Include="Transmiter\FileBlockException.cs" />
+    <Compile Include="Transmiter\FileReceiver.cs" />
+    <Compile Include="Transmiter\FileSender.cs" />
+    <Compile Include="Transmiter\FileTransmission.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
