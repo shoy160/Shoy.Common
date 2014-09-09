@@ -23,6 +23,7 @@ namespace Shoy.Utility
         private string _contentType;
         private Dictionary<string, Stream> _fileList;
         private MemoryStream _postStream;
+        private WebProxy _proxy;
 
         private HttpWebRequest _req;
         private HttpWebResponse _rep;
@@ -121,6 +122,12 @@ namespace Shoy.Utility
             _req.Headers.Add("x-requested-with", "XMLHttpRequest");
             //仿百度蜘蛛
             _req.UserAgent = "Mozilla/5.0+(compatible;+Baiduspider/2.0;++http://www.baidu.com/search/spider.html)";
+            if (_proxy != null)
+            {
+                _req.Proxy = _proxy;
+                //设置安全凭证
+                _req.Credentials = CredentialCache.DefaultNetworkCredentials;
+            }
             //添加Cookie
             if (!string.IsNullOrEmpty(_cookie))
                 _req.Headers.Add("Cookie", _cookie);
@@ -292,21 +299,14 @@ namespace Shoy.Utility
         /// <param name="userName"></param>
         /// <param name="userPwd"></param>
         /// <param name="ip"></param>
-        public void SetWebProxy(string userName,string userPwd,string ip)
+        public void SetWebProxy(string userName, string userPwd, string ip)
         {
-            if (_req != null)
+            //设置代理服务器
+            _proxy = new WebProxy(ip, false)
             {
-                //设置代理服务器
-                var myProxy = new WebProxy(ip, false)
-                                  {
-                                      //建立连接
-                                      Credentials = new NetworkCredential(userName, userPwd)
-                                  };
-                //给当前请求对象
-                _req.Proxy = myProxy;
-                //设置安全凭证
-                _req.Credentials = CredentialCache.DefaultNetworkCredentials;
-            }
+                //建立连接
+                Credentials = new NetworkCredential(userName, userPwd)
+            };
         }
 
         /// <summary>
@@ -316,16 +316,8 @@ namespace Shoy.Utility
         /// <param name="port"></param>
         public void SetWebProxy(string ip, int port)
         {
-            if (_req != null)
-            {
-                //设置代理服务器
-                var myProxy = new WebProxy(ip, port);
-
-                //给当前请求对象
-                _req.Proxy = myProxy;
-                //设置安全凭证
-                _req.Credentials = CredentialCache.DefaultNetworkCredentials;
-            }
+            //设置代理服务器
+            _proxy = new WebProxy(ip, port);
         }
 
         /// <summary>
