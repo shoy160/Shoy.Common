@@ -43,6 +43,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageUtils.cs" />
     <Compile Include="Transmiter\Consts.cs" />
     <Compile Include="Transmiter\Crc32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
