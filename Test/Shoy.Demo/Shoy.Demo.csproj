@@ -44,14 +44,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Shoy.AjaxHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Shoy.AjaxHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="Shoy.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Shoy.Utility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
   </ItemGroup>
@@ -70,6 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\shoy.demo.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Shoy.AjaxHelper\Shoy.AjaxHelper.csproj">
+      <Project>{9e88ea58-47b6-4871-8efd-8f7e9d3cb7bc}</Project>
+      <Name>Shoy.AjaxHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">
+      <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>
+      <Name>Shoy.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
