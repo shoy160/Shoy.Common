@@ -1,12 +1,11 @@
-﻿using Shoy.AjaxHelper;
-using System.Collections.Specialized;
+﻿using System.Text.RegularExpressions;
 using System.Web;
-using System.Text.RegularExpressions;
+using Shoy.AjaxHelper;
 using Shoy.AjaxHelper.Model;
 
 namespace Shoy.Demo
 {
-    public class Router:IAjax
+    public class Router : IAjax
     {
         [AjaxAction(RequestType.Get)]
         public string Test()
@@ -17,9 +16,9 @@ namespace Shoy.Demo
         [AjaxAction(RequestType.All)]
         public object Verify(string partner, string method, string sign)
         {
-            NameValueCollection qs = (HttpContext.Current.Request.HttpMethod.ToLower() == "post"
-                                          ? HttpContext.Current.Request.Form
-                                          : HttpContext.Current.Request.QueryString);
+            var qs = (HttpContext.Current.Request.HttpMethod.ToLower() == "post"
+                ? HttpContext.Current.Request.Form
+                : HttpContext.Current.Request.QueryString);
             //判断密钥
             //var mySign = Partner.GetInstance().SignPartner(partner, qs);
             //if (mySign.IsNullOrEmpty())
@@ -39,7 +38,6 @@ namespace Shoy.Demo
                 return result;
             return new AjaxResult {state = 1, msg = "", result = result};
         }
-
 
         [AjaxAction(RequestType.Get)]
         public string methods_list()

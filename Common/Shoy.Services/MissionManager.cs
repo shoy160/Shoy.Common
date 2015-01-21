@@ -11,7 +11,7 @@ namespace Shoy.Services
         public void Action()
         {
             _complete = false;
-            var list = ConfigurationManager.GetSection("DeyiMission") as MissionSection;
+            var list = ConfigurationManager.GetSection("ShoyMission") as MissionSection;
             if (list == null || list.Missions.Count == 0)
             {
                 _complete = true;

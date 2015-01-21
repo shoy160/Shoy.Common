@@ -42,6 +42,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QrcodeTest.cs" />
     <Compile Include="ShoyDataTest.cs" />
     <Compile Include="UtilityTest.cs" />
   </ItemGroup>
@@ -61,6 +63,10 @@
     <ProjectReference Include="..\..\Common\Shoy.Data\Shoy.Data.csproj">
       <Project>{76179a72-565b-4f81-8d35-874f032d410d}</Project>
       <Name>Shoy.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Shoy.Laboratory\Shoy.Laboratory.csproj">
+      <Project>{44071857-a867-4c82-8c0e-18e0df13b256}</Project>
+      <Name>Shoy.Laboratory</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">
       <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>

@@ -15,7 +15,7 @@ namespace Shoy.Laboratory
         /// <summary>
         /// 生成二维码
         /// </summary>
-        /// <param name="code">参数</param>
+        /// <param name="code">字符串</param>
         /// <param name="eSize">二维码尺寸</param>
         /// <param name="img">小图</param>
         /// <param name="iSize">小图尺寸</param>

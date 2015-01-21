@@ -38,14 +38,12 @@
     <Reference Include="Gma.QrCodeNet.Encoding.Net35">
       <HintPath>..\..\Resouce\lib\Gma.QrCodeNet.Encoding.Net35.dll</HintPath>
     </Reference>
-    <Reference Include="Shoy.Utility">
-      <HintPath>..\..\packages\Shoy.Utility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageUtils.cs" />
     <Compile Include="Transmiter\Consts.cs" />
     <Compile Include="Transmiter\Crc32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +58,12 @@
     <Compile Include="Transmiter\FileReceiver.cs" />
     <Compile Include="Transmiter\FileSender.cs" />
     <Compile Include="Transmiter\FileTransmission.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shoy.Utility\Shoy.Utility.csproj">
+      <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>
+      <Name>Shoy.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
