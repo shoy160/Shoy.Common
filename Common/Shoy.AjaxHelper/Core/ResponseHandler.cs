@@ -34,7 +34,7 @@ namespace Shoy.AjaxHelper.Core
                 if (method != null)
                 {
                     result.state = 1;
-                    var rt = (methodHelper.ExecutinonMethod(method) ?? "");
+                    var rt = (methodHelper.ExecutinonMethod(method) ?? string.Empty);
                     if (rt is string)
                         result.result = rt;
                     else

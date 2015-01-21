@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Text;
 using System.IO;
 using System.Security.Cryptography;
-using System.Web.Security;
+using System.Text;
 
 namespace Shoy.Utility
 {
@@ -11,8 +10,8 @@ namespace Shoy.Utility
     /// </summary>
     public static class SecurityCls
     {
-        private const string Key64 = "hugehuge";
-        private const string Iv64 = "hange168";
+        private const string Key64 = "shoyluyn";
+        private const string Iv64 = "shoy1168";
 
         /// <summary>
         /// DES加密
@@ -21,7 +20,7 @@ namespace Shoy.Utility
         /// <param name="key">Key</param>
         /// <param name="iv">IV</param>
         /// <returns></returns>
-        public static string Encode(string data,string key,string iv)
+        public static string Encode(string data, string key, string iv)
         {
             try
             {
@@ -72,19 +71,19 @@ namespace Shoy.Utility
         /// <param name="key">Key</param>
         /// <param name="iv">IV</param>
         /// <returns></returns>
-        public static string Decode(string data,string key,string iv)
+        public static string Decode(string data, string key, string iv)
         {
             try
             {
                 byte[] byKey = Encoding.ASCII.GetBytes(key);
                 byte[] byIv = Encoding.ASCII.GetBytes(iv);
-                var len = data.Length/2;
+                var len = data.Length / 2;
                 var dataByte = new byte[len];
                 int x, i;
                 for (x = 0; x < len; x++)
                 {
-                    i = Convert.ToInt32(data.Substring(x*2, 2), 16);
-                    dataByte[x] = (byte) i;
+                    i = Convert.ToInt32(data.Substring(x * 2, 2), 16);
+                    dataByte[x] = (byte)i;
                 }
                 using (var des = new DESCryptoServiceProvider())
                 {
@@ -119,11 +118,24 @@ namespace Shoy.Utility
         /// Md5加密
         /// </summary>
         /// <param name="str">加密字符</param>
+        /// <param name="salt">加密盐</param>
         /// <returns></returns>
-        public static string Md5(string str)
+        public static string Md5(string str, string salt = null)
         {
-            string md5 = FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
-            return md5;
+            if (!string.IsNullOrEmpty(salt))
+                str = string.Format("{0}[[{1}]]", str, salt);
+            var md5 = MD5.Create();
+            var bs = Encoding.UTF8.GetBytes(str);
+            var hs = md5.ComputeHash(bs);
+            var sb = new StringBuilder();
+            foreach (var b in hs)
+            {
+                // 以十六进制格式格式化
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
+            //string md5 = FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
+            //return md5;
         }
     }
 }

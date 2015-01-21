@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
+using Shoy.Utility.Extend;
 
 namespace Shoy.Utility
 {
@@ -113,15 +114,15 @@ namespace Shoy.Utility
             var cookie = HttpContext.Current.Request.Cookies[strCookieName];
             if (cookie == null)
             {
-                return "";
+                return string.Empty;
             }
             string strObjValue = cookie.Value;
             if (!string.IsNullOrEmpty(strKeyName))
             {
                 string strKeyName2 = strKeyName + "=";
-                if (strObjValue.IndexOf(strKeyName2) == -1)
+                if (strObjValue.IndexOf(strKeyName2, StringComparison.Ordinal) == -1)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 strObjValue = cookie[strKeyName];
             }
@@ -138,6 +139,11 @@ namespace Shoy.Utility
             return GetValue(strCookieName, null);
         }
 
+        /// <summary>
+        /// 获取Cookie值
+        /// </summary>
+        /// <param name="cookieName"></param>
+        /// <returns></returns>
         public static NameValueCollection GetValues(string cookieName)
         {
             var cookie = HttpContext.Current.Request.Cookies[cookieName];
@@ -145,11 +151,12 @@ namespace Shoy.Utility
             {
                 return null;
             }
+
             var values = new NameValueCollection();
-            for (int i = 0; i < cookie.Values.Count; i++)
+            foreach (var key in cookie.Values.AllKeys)
             {
-                var name = cookie.Values.AllKeys[i];
-                values.Add(name, HttpContext.Current.Server.UrlDecode(cookie[name]));
+                var value = cookie[key];
+                values.Add(key, value.UrlDecode());
             }
             return values;
         }
@@ -193,12 +200,16 @@ namespace Shoy.Utility
         /// <param name="domain"></param> 
         public static void Delete(string strCookieName, string domain)
         {
-            Set(strCookieName, "", -1, domain);
+            Set(strCookieName, string.Empty, -1, domain);
         }
 
+        /// <summary>
+        /// 删除Cookie
+        /// </summary>
+        /// <param name="strCookieName"></param>
         public static void Delete(string strCookieName)
         {
-            Delete(strCookieName, "");
+            Delete(strCookieName, string.Empty);
         }
 
         /// <summary> 
@@ -235,9 +246,16 @@ namespace Shoy.Utility
             return true;
         }
 
+        /// <summary>
+        /// 删除Cookie
+        /// </summary>
+        /// <param name="strCookieName"></param>
+        /// <param name="strKeyName"></param>
+        /// <param name="iExpires"></param>
+        /// <returns></returns>
         public static bool Delete(string strCookieName, string strKeyName, int iExpires)
         {
-            return Delete(strCookieName, strKeyName, iExpires, "");
+            return Delete(strCookieName, strKeyName, iExpires, string.Empty);
         }
 
         private static DateTime GetExpries(int expires)
@@ -245,16 +263,31 @@ namespace Shoy.Utility
             return (expires == 1 ? DateTime.MaxValue : DateTime.Now.AddSeconds(expires));
         }
 
-        public static int GetHour(int minutes)
+        /// <summary>
+        /// 获取多少小时
+        /// </summary>
+        /// <param name="hours"></param>
+        /// <returns></returns>
+        public static int GetHour(int hours)
         {
-            return 60*60*minutes;
+            return 60*60*hours;
         }
 
+        /// <summary>
+        /// 获取多少天
+        /// </summary>
+        /// <param name="day"></param>
+        /// <returns></returns>
         public static int GetDay(int day)
         {
             return 60*60*24*day;
         }
 
+        /// <summary>
+        /// 获取多少月
+        /// </summary>
+        /// <param name="months"></param>
+        /// <returns></returns>
         public static int GetMonths(int months)
         {
             return 60*60*24*30*months;

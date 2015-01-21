@@ -9,19 +9,22 @@ using Shoy.Utility.Extend;
 
 namespace Shoy.Utility
 {
-    public class EmailCls:IDisposable
+    /// <summary>
+    /// 邮件发送类
+    /// </summary>
+    public class EmailCls : IDisposable
     {
         private SmtpClient _smtpClient;
         private MailMessage _mailMsg;
 
         #region 构造函数
 
-        public EmailCls(string senderEmail, string senderPwd,string senderName, string smtpHost,int smtpPort,bool useSsl)
+        public EmailCls(string senderEmail, string senderPwd, string senderName, string smtpHost, int smtpPort, bool useSsl)
         {
             CreateClient(senderEmail, senderPwd, senderName, smtpHost, smtpPort, useSsl);
         }
 
-        public EmailCls(string senderEmail,string senderPwd,string senderName)
+        public EmailCls(string senderEmail, string senderPwd, string senderName)
         {
             CreateClient(senderEmail, senderPwd, senderName, null, 0, false);
         }
@@ -38,7 +41,7 @@ namespace Shoy.Utility
             if (string.IsNullOrEmpty(senderName))
                 senderName = senderEmail;
             smtpPort = (smtpPort == 0 ? 25 : smtpPort);
-            if(string.IsNullOrEmpty(smtpHost))
+            if (string.IsNullOrEmpty(smtpHost))
             {
                 var host = senderEmail.Substring(senderEmail.IndexOf('@') + 1);
                 smtpHost = "smtp." + host;
@@ -59,20 +62,20 @@ namespace Shoy.Utility
                 }
             }
             _smtpClient = new SmtpClient
-                              {
-                                  Credentials = new NetworkCredential(senderEmail, senderPwd),
-                                  EnableSsl = useSsl,
-                                  Host = smtpHost,
-                                  Port = smtpPort,
-                                  Timeout = 1000*60*30
-                              };
+            {
+                Credentials = new NetworkCredential(senderEmail, senderPwd),
+                EnableSsl = useSsl,
+                Host = smtpHost,
+                Port = smtpPort,
+                Timeout = 1000 * 60 * 30
+            };
             _mailMsg = new MailMessage
-                           {
-                               From = new MailAddress(senderEmail, senderName, Encoding.UTF8),
-                               SubjectEncoding = Encoding.UTF8,
-                               BodyEncoding = Encoding.UTF8,
-                               IsBodyHtml = true
-                           };
+            {
+                From = new MailAddress(senderEmail, senderName, Encoding.UTF8),
+                SubjectEncoding = Encoding.UTF8,
+                BodyEncoding = Encoding.UTF8,
+                IsBodyHtml = true
+            };
         }
 
         /// <summary>
@@ -85,11 +88,11 @@ namespace Shoy.Utility
         /// <param name="async">是否异步发送</param>
         /// <param name="errMsg">错误信息</param>
         /// <returns></returns>
-        public bool SendEmail(string receiver, string title, string body, List<string> files, bool  async, out string errMsg)
+        public bool SendEmail(string receiver, string title, string body, List<string> files, bool async, out string errMsg)
         {
             bool sendState;
-            errMsg = "";
-            if(receiver.IsNullOrEmpty())
+            errMsg = string.Empty;
+            if (receiver.IsNullOrEmpty())
             {
                 errMsg = "没有收件人";
                 return false;
@@ -118,7 +121,7 @@ namespace Shoy.Utility
                 if (async)
                 {
                     _smtpClient.SendCompleted += SmtpClientSendCompleted;
-                    _smtpClient.SendAsync(_mailMsg, "");
+                    _smtpClient.SendAsync(_mailMsg, string.Empty);
                 }
                 else
                 {
@@ -161,7 +164,7 @@ namespace Shoy.Utility
         /// <returns></returns>
         public bool SendEmail(string receiver, string title, string body, out string errMsg)
         {
-            return SendEmail(receiver, title, body, null,false, out errMsg);
+            return SendEmail(receiver, title, body, null, false, out errMsg);
         }
 
         /// <summary>

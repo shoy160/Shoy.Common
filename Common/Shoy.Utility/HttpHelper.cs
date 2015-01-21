@@ -38,7 +38,7 @@ namespace Shoy.Utility
         /// </summary>
         /// <param name="url"></param>
         public HttpHelper(string url)
-            : this(url, "", Encoding.Default, "", "", "")
+            : this(url, string.Empty, Encoding.Default, string.Empty, string.Empty, string.Empty)
         {
         }
 
@@ -48,7 +48,7 @@ namespace Shoy.Utility
         /// <param name="url"></param>
         /// <param name="encoding"></param>
         public HttpHelper(string url, Encoding encoding)
-            : this(url, "", encoding, "", "", "")
+            : this(url, string.Empty, encoding, string.Empty, string.Empty, string.Empty)
         {
         }
 
@@ -60,7 +60,7 @@ namespace Shoy.Utility
         /// <param name="encoding"></param>
         /// <param name="paras"></param>
         public HttpHelper(string url, string method, Encoding encoding, string paras)
-            : this(url, method, encoding, "", "", paras)
+            : this(url, method, encoding, string.Empty, string.Empty, paras)
         {
         }
 
@@ -294,7 +294,7 @@ namespace Shoy.Utility
         public string GetRequestUrl()
         {
             if (_req == null)
-                return "";
+                return string.Empty;
             return _req.Address.ToString();
         }
 
@@ -338,17 +338,9 @@ namespace Shoy.Utility
             try
             {
                 _rep = (HttpWebResponse) _req.GetResponse();
-                //try
-                //{
-                //    _cookie = _rep.Headers["set-cookie"];
-                //}
-                //catch
-                //{
-                //    _cookie = "";
-                //}
-                stream = (_rep.ContentEncoding == "gzip"
-                              ? new GZipStream(_rep.GetResponseStream(), CompressionMode.Decompress)
-                              : _rep.GetResponseStream());
+                stream = _rep.GetResponseStream();
+                if (_rep.ContentEncoding == "gzip" && stream != null)
+                    stream = new GZipStream(stream, CompressionMode.Decompress);
             }
             catch (Exception ex)
             {
@@ -365,7 +357,7 @@ namespace Shoy.Utility
         {
             CreateHttpRequest();
             if (_req == null)
-                return "";
+                return string.Empty;
             try
             {
                 _rep = (HttpWebResponse) _req.GetResponse();
@@ -375,8 +367,8 @@ namespace Shoy.Utility
             catch (Exception ex)
             {
                 Utils.WriteException(ex);
-                _cookie = "";
-                return "";
+                 _cookie = string.Empty;
+                return string.Empty;
             }
         }
 
@@ -386,22 +378,20 @@ namespace Shoy.Utility
         /// <returns></returns>
         public string GetHtml()
         {
-            var str = "";
+            var str = string.Empty;
             var stream = GetStream();
-            if (stream != null)
+            if (stream == null) return str;
+            StreamReader sr = null;
+            try
             {
-                StreamReader sr = null;
-                try
-                {
-                    sr = new StreamReader(stream, _encoding);
-                    str = sr.ReadToEnd();
+                sr = new StreamReader(stream, _encoding);
+                str = sr.ReadToEnd();
+                sr.Close();
+            }
+            finally
+            {
+                if (sr != null)
                     sr.Close();
-                }
-                finally
-                {
-                    if (sr != null)
-                        sr.Close();
-                }
             }
             return str;
         }

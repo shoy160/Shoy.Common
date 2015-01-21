@@ -39,7 +39,7 @@ namespace Shoy.AjaxHelper
             {
                 if (Name.IsNullOrEmpty() || ParaType == null)
                     throw new AjaxException("参数名/参数类型不能为空！");
-                Value = CurrentHttpRequest.WebParameters[Name] ?? "";
+                Value = CurrentHttpRequest.WebParameters[Name] ?? string.Empty;
                 if (CheckData())
                     return true;
                 if (ErrMsg.IsNotNullOrEmpty())
@@ -51,7 +51,7 @@ namespace Shoy.AjaxHelper
 
         private bool CheckData()
         {
-            ErrMsg = "";
+            ErrMsg = string.Empty;
             try
             {
                 var result = ReflectionHelper.ChangeType(Value, ParaType);

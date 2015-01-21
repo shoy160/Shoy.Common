@@ -22,7 +22,7 @@ namespace Shoy.AjaxHelper
                 if (method != null)
                 {
                     result.state = 1;
-                    var rt = (helper.ExecutinonMethod(m) ?? "");
+                    var rt = (helper.ExecutinonMethod(m) ?? string.Empty);
                     if (rt is string)
                         result.result = rt;
                     else

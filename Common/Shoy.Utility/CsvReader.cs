@@ -5,32 +5,40 @@ using System.Text;
 
 namespace Shoy.Utility
 {
+    /// <summary>
+    /// Csv阅读辅助
+    /// </summary>
     public class CsvReader
     {
-        private readonly string _fileName;
-
         private readonly string _content = string.Empty;
 
         private int _index;
 
         private int _state;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="file"></param>
+        /// <exception cref="FileNotFoundException"></exception>
         public CsvReader(string file)
         {
             if (!File.Exists(file))
             {
                 throw new FileNotFoundException("文件未找到", file);
             }
-
-            _fileName = file;
-
-            var sr = new StreamReader(_fileName, Encoding.Default);
+            var sr = new StreamReader(file, Encoding.Default);
 
             _content = sr.ReadToEnd();
 
             sr.Close();
         }
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public CsvReader(Stream stream)
         {
             if (stream == null)
@@ -43,6 +51,10 @@ namespace Shoy.Utility
             sr.Close();
         }
 
+        /// <summary>
+        /// 获取一行的数据
+        /// </summary>
+        /// <returns></returns>
         public string[] ReadLine()
         {
             if (_index >= _content.Length)

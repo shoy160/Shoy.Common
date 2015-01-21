@@ -51,5 +51,23 @@ namespace Shoy.Test
             const string str = "重庆";
             Console.WriteLine(Utils.GetSpellCode(str));
         }
+
+        [TestMethod]
+        public void JoinTest()
+        {
+            Console.WriteLine(new[]
+            {
+                new
+                {
+                    id = 1,
+                    name = "test1"
+                },
+                new
+                {
+                    id = 2,
+                    name = "test2"
+                }
+            }.Join(" and ", "[{id}] : [{name}]"));
+        }
     }
 }

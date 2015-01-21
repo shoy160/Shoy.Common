@@ -65,11 +65,10 @@
     <Compile Include="HttpHelper.cs" />
     <Compile Include="ImageCls.cs" />
     <Compile Include="IniCls.cs" />
-    <Compile Include="Plugins\IPlugin.cs" />
-    <Compile Include="Plugins\PluginDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityCls.cs" />
     <Compile Include="Singleton.cs" />
+    <Compile Include="StackHelper.cs" />
     <Compile Include="UseTest\CodeTimer.cs" />
     <Compile Include="UseTest\CodeTimerResult.cs" />
     <Compile Include="Utils.cs" />
