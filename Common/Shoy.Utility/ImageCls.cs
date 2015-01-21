@@ -7,6 +7,9 @@ using System.Drawing.Drawing2D;
 
 namespace Shoy.Utility
 {
+    /// <summary>
+    /// 图片处理辅助类
+    /// </summary>
     public class ImageCls:IDisposable
     {
         private static Image _oldImg;
@@ -19,12 +22,8 @@ namespace Shoy.Utility
         /// <param name="oldPath">图片路径</param>
         public ImageCls(string oldPath)
         {
-            try
-            {
-                _ext = Path.GetExtension(oldPath);
-                _oldImg = Image.FromFile(oldPath);
-            }
-            catch{}
+            _ext = Path.GetExtension(oldPath);
+            _oldImg = Image.FromFile(oldPath);
         }
 
         /// <summary>
@@ -33,11 +32,7 @@ namespace Shoy.Utility
         /// <param name="oldStream">图片流</param>
         public ImageCls(Stream oldStream)
         {
-            try
-            {
-                _oldImg = Image.FromStream(oldStream);
-            }
-            catch { }
+            _oldImg = Image.FromStream(oldStream);
         }
 
         /// <summary>
@@ -210,7 +205,7 @@ namespace Shoy.Utility
         {
             //根据 mime 类型，返回编码器
             ImageCodecInfo[] encoders = ImageCodecInfo.GetImageEncoders();
-            mimeType = "image/" + mimeType.Replace(".", "").ToLower();
+            mimeType = "image/" + mimeType.Replace(".", string.Empty).ToLower();
             mimeType = mimeType.Replace("jpg", "jpeg");
             return encoders.FirstOrDefault(t => t.MimeType == mimeType);
         }

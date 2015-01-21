@@ -1,12 +1,23 @@
 ﻿using System;
 using System.Collections;
+using System.Text;
 using System.Web;
 using System.Web.Caching;
 
 namespace Shoy.Utility
 {
+    /// <summary>
+    /// 缓存辅助类
+    /// </summary>
     public class CacheCls
     {
+        /// <summary>
+        /// 添加缓存
+        /// </summary>
+        /// <param name="key">缓存 键</param>
+        /// <param name="obj">缓存对象</param>
+        /// <param name="minutes">有效时间(分钟)</param>
+        /// <returns></returns>
         public static bool Add(string key, object obj, int minutes)
         {
             if (string.IsNullOrEmpty(key) || minutes <= 0) return false;
@@ -21,6 +32,13 @@ namespace Shoy.Utility
             return true;
         }
 
+        /// <summary>
+        /// 添加缓存
+        /// </summary>
+        /// <param name="key">缓存 键</param>
+        /// <param name="obj">缓存对象</param>
+        /// <param name="path">缓存依赖文件路径</param>
+        /// <returns></returns>
         public static bool Add(string key, object obj, string path)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(path)) return false;
@@ -36,6 +54,12 @@ namespace Shoy.Utility
             return true;
         }
 
+        /// <summary>
+        /// 获取缓存
+        /// </summary>
+        /// <param name="key">缓存 键</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T Get<T>(string key)
         {
             if (HttpContext.Current == null || string.IsNullOrEmpty(key)) return default(T);
@@ -62,23 +86,31 @@ namespace Shoy.Utility
             return c.Cache[key] != null;
         }
 
+        /// <summary>
+        /// 删除缓存
+        /// </summary>
+        /// <param name="key"></param>
         private static void Delete(string key)
         {
             if (HttpContext.Current == null) return;
             HttpContext.Current.Cache.Remove(key);
         }
 
-        ////显示所有缓存 
+        /// <summary>
+        /// 显示所有缓存
+        /// </summary>
+        /// <returns></returns>
         public static string Show()
         {
-            string str = "";
+            var sb = new StringBuilder();
             IDictionaryEnumerator cacheEnum = HttpRuntime.Cache.GetEnumerator();
 
+            sb.AppendLine(string.Format("当前网站总缓存数:{0}", HttpRuntime.Cache.Count));
             while (cacheEnum.MoveNext())
             {
-                str += "<br />缓存名<b>[" + cacheEnum.Key + "]</b><br />";
+                sb.AppendLine(string.Format("缓存名:[{0}]", cacheEnum.Key));
             }
-            return "当前网站总缓存数:" + HttpRuntime.Cache.Count + "<br />" + str;
+            return sb.ToString();
         }
     }
 }

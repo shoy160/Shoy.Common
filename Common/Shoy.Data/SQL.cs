@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Shoy.Data.Core;
 
 namespace Shoy.Data
 {
@@ -134,7 +135,7 @@ namespace Shoy.Data
 
         public T GetValue<T>(IConnectionContext cc)
         {
-            return (T) cc.ExecuteScalar(GetCommand());
+            return cc.ExecuteScalar(GetCommand()).ObjectToT<T>();
         }
 
         public IList<T> GetValues<T>()

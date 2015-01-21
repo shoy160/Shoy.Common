@@ -54,7 +54,7 @@ namespace Shoy.Data
         {
             var server = element as DbConnect;
             if (server == null)
-                return "";
+                return string.Empty;
             return server.Name;
         }
 

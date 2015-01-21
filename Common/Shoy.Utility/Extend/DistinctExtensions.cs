@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Shoy.Utility.Extend
 {
+    /// <summary>
+    /// Linq Distinct扩展
+    /// </summary>
     public static class DistinctExtensions
     {
         public static IEnumerable<T> Distinct<T,V>(this IEnumerable<T> source,Func<T,V> keySelector)
@@ -16,24 +19,15 @@ namespace Shoy.Utility.Extend
             return source.Distinct(new CommonEqualityComparer<T, V>(keySelector, comparer));
         }
 
+        /// <summary>
+        /// 随机排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static IEnumerable<T> RandomSort<T>(this IEnumerable<T> array)
         {
-            int len = array.Count();
-            var list = new List<int>();
-            var ret = new T[len];
-            var rand = Utils.GetRandom();
-            int i = 0;
-            while (list.Count < len)
-            {
-                int iter = rand.Next(0, len);
-                if (!list.Contains(iter))
-                {
-                    list.Add(iter);
-                    ret[i] = array.ToArray()[iter];
-                    i++;
-                }
-            }
-            return ret;
+            return array.OrderBy(t => Utils.GetRandom().Next());
         }
     }
 }

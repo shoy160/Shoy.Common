@@ -40,7 +40,7 @@ namespace Shoy.MvcPlugin
 
         public static void SaveInstalledPluginsFile(IList<String> pluginSystemNames, string filePath)
         {
-            string result = "";
+            string result = string.Empty;
             foreach (var sn in pluginSystemNames)
                 result += string.Format("{0}{1}", sn, Environment.NewLine);
 
@@ -164,7 +164,7 @@ namespace Shoy.MvcPlugin
             keyValues.Add(new KeyValuePair<string, string>("FileName", plugin.PluginFileName));
             if (plugin.LimitedToStores.Count > 0)
             {
-                var storeList = "";
+                var storeList = string.Empty;
                 for (int i = 0; i < plugin.LimitedToStores.Count; i++)
                 {
                     storeList += plugin.LimitedToStores[i];

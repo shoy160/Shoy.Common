@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Win32;
 
 namespace Shoy.Utility
 {
@@ -17,7 +17,7 @@ namespace Shoy.Utility
         public static bool Exists()
         {
             RegistryKey theReg = Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
-            return theReg != null && !string.IsNullOrEmpty(theReg.GetValue("").ToString());
+            return theReg != null && !string.IsNullOrEmpty(theReg.GetValue(string.Empty).ToString());
         }
 
         /// <summary>
@@ -30,19 +30,15 @@ namespace Shoy.Utility
             string rarName = Path.GetFileName(rarPath);
             if (string.IsNullOrEmpty(rarName))
                 return false;
-            string rarDirectory = rarPath.Replace(rarName, "");
-            RegistryKey theReg;
-            object theObj;
-            Process theProcess;
+            string rarDirectory = rarPath.Replace(rarName, string.Empty);
             try
             {
-                theReg =
-                    Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
+                RegistryKey theReg = Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
                 if (theReg == null)
                 {
                     return false;
                 }
-                theObj = theReg.GetValue("");
+                object theObj = theReg.GetValue(string.Empty);
                 string theRar = theObj.ToString();
                 theReg.Close();
                 //theRar = theRar.Substring(1, theRar.Length - 7);
@@ -60,7 +56,7 @@ namespace Shoy.Utility
                                            WorkingDirectory = rarDirectory
                                        };
                 //打包文件存放目录
-                theProcess = new Process {StartInfo = theStartInfo};
+                var theProcess = new Process { StartInfo = theStartInfo };
                 theProcess.Start();
                 theProcess.WaitForExit();
                 theProcess.Close();
@@ -78,22 +74,18 @@ namespace Shoy.Utility
         /// <param name="rarPath">压缩文件路径</param>
         /// <param name="newPath">解压到文件路径</param>
         /// <returns></returns>
-        public static bool DecompressionRar(string rarPath,string newPath)
+        public static bool DecompressionRar(string rarPath, string newPath)
         {
             string rarName = Path.GetFileName(rarPath);
             if (string.IsNullOrEmpty(rarName))
                 return false;
-            string rarDirectory = rarPath.Replace(rarName, "");
-            RegistryKey theReg;
-            object theObj;
-
-
+            string rarDirectory = rarPath.Replace(rarName, string.Empty);
             try
             {
-                theReg = Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
+                RegistryKey theReg = Registry.LocalMachine.OpenSubKey(Consts.WinRarPath);
                 if (theReg == null)
                     return false;
-                theObj = theReg.GetValue("");
+                object theObj = theReg.GetValue(string.Empty);
                 string theRar = theObj.ToString();
                 theReg.Close();
                 //the_rar = the_rar.Substring(1, the_rar.Length - 7);
@@ -114,7 +106,7 @@ namespace Shoy.Utility
                                            WorkingDirectory = rarDirectory
                                        };
 
-                var theProcess = new Process {StartInfo = theStartInfo};
+                var theProcess = new Process { StartInfo = theStartInfo };
                 theProcess.Start();
                 theProcess.WaitForExit();
                 theProcess.Close();

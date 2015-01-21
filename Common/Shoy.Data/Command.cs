@@ -100,7 +100,7 @@ namespace Shoy.Data
         public static Command GetThreadCommand()
         {
             if (_threadCommand == null)
-                _threadCommand = new Command("");
+                _threadCommand = new Command(string.Empty);
             _threadCommand.Clean();
             return _threadCommand;
         }

@@ -93,11 +93,11 @@ namespace Shoy.Utility
             {
                 var reg = Tag.FormatWith(include.Groups[1].Value);
                 var tags = Matches(_html, reg);
-                var html = "";
+                var html = string.Empty;
                 foreach (Match tag in tags)
                 {
                     html += Utils.ClearTrn(tag.Groups[1].Value);
-                    _html = _html.Replace(tag.Value, "");
+                    _html = _html.Replace(tag.Value, string.Empty);
                 }
                 _html = _html.Replace(include.Value, html);
             }
@@ -116,7 +116,7 @@ namespace Shoy.Utility
             var type = t.GetType();
             foreach (Match data in datas)
             {
-                var html = "";
+                var html = string.Empty;
                 var tmpHtml = data.Groups[1].Value;//数据源模板
                 //绑定属性
                 //集合
@@ -158,8 +158,8 @@ namespace Shoy.Utility
         /// <returns></returns>
         private static string BindAttr(string html, object obj,bool isTop)
         {
-            if (obj == null || obj.Equals(""))
-                return "";
+            if (obj == null || obj.Equals(string.Empty))
+                return string.Empty;
             var type = obj.GetType();
             var cDatas = Matches(html, CDataTag);
             //绑定子数据
@@ -174,12 +174,12 @@ namespace Shoy.Utility
                         var val = ps.GetValue(obj, null);
                         if (val == null)
                         {
-                            html = html.Replace(cData.Value, "");
+                            html = html.Replace(cData.Value, string.Empty);
                         }
                         else
                         {
                             var tmp = cData.Groups[2].Value;
-                            var cHtml = "";
+                            var cHtml = string.Empty;
                             var cType = val.GetType();
                             var list = val as ICollection;
                             if (cType.IsGenericType && list != null)
@@ -204,12 +204,12 @@ namespace Shoy.Utility
                 var ps = type.GetProperty(attr.Groups[1].Value);
                 if (ps != null)
                 {
-                    var val = ps.GetValue(obj, null) + "";
+                    var val = ps.GetValue(obj, null) + string.Empty;
                     html = html.Replace(attr.Value, val);
                 }
                 else if (isTop)
                 {
-                    html = html.Replace(attr.Value, "");
+                    html = html.Replace(attr.Value, string.Empty);
                 }
             }
             return html;
@@ -245,7 +245,7 @@ namespace Shoy.Utility
         /// <returns></returns>
         public static string LoadHtml(string path, Encoding encoding)
         {
-            var html = "";
+            var html = string.Empty;
             if (File.Exists(path))
             {
                 StreamReader sr = null;
