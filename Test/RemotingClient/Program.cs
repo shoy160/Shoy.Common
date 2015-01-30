@@ -18,6 +18,7 @@ namespace RemotingClient
                 Console.WriteLine(url);
                 var app = (Person) Activator.GetObject(typeof (Person), url);
                 Console.WriteLine(app.Add(1, 2));
+                Console.WriteLine(app.GetInfo());
                 Console.ReadLine();
             }
             catch (Exception ex)
