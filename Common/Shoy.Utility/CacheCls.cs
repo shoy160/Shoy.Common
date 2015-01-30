@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
+using Shoy.Utility.Extend;
 
 namespace Shoy.Utility
 {
@@ -66,7 +67,7 @@ namespace Shoy.Utility
             var obj = HttpContext.Current.Cache[key];
             try
             {
-                return (T) obj;
+                return obj.CastTo<T>();
             }
             catch
             {

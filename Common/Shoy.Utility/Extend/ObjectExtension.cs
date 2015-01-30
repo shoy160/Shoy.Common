@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
+using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -59,13 +60,26 @@ namespace Shoy.Utility.Extend
         /// <param name="instance"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static int Each(this int instance, Action<int> action)
+        public static void Foreach(this int instance, Action<int> action)
         {
             for (int i = 0; i < instance; i++)
             {
                 action(i);
             }
-            return instance;
+        }
+
+        /// <summary>
+        /// 列表遍历
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Foreach<T>(this IEnumerable<T> instance, Action<T> action)
+        {
+            foreach (T item in instance)
+            {
+                action(item);
+            }
         }
 
         /// <summary>
@@ -125,9 +139,9 @@ namespace Shoy.Utility.Extend
         /// <param name="obj"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T ObjectToT<T>(this object obj)
+        public static T CastTo<T>(this object obj)
         {
-            return obj.ObjectToT(default(T));
+            return obj.CastTo(default(T));
         }
 
         /// <summary>
@@ -137,34 +151,78 @@ namespace Shoy.Utility.Extend
         /// <param name="def"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T ObjectToT<T>(this object obj, T def)
+        public static T CastTo<T>(this object obj, T def)
         {
-            var value = obj.ConvertTo(typeof(T));
+            var value = obj.CastTo(typeof(T));
             if (value == null)
                 return def;
             return (T)value;
         }
 
         /// <summary>
-        /// 类型转换
+        /// 把对象类型转换为指定类型
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="type"></param>
+        /// <param name="value"></param>
+        /// <param name="conversionType"></param>
         /// <returns></returns>
-        public static object ConvertTo(this object obj, Type type)
+        public static object CastTo(this object value, Type conversionType)
         {
-            try
-            {
-                if (type.Name == "Nullable`1")
-                    type = type.GetGenericArguments()[0];
-                if (type.IsValueType)
-                    return Activator.CreateInstance(type);
-                return Convert.ChangeType(obj, type, CultureInfo.InvariantCulture);
-            }
-            catch
+            if (value == null)
             {
                 return null;
             }
+            if (conversionType.IsNullableType())
+            {
+                conversionType = conversionType.GetUnNullableType();
+            }
+            if (conversionType.IsEnum)
+            {
+                return Enum.Parse(conversionType, value.ToString());
+            }
+            if (conversionType == typeof(Guid))
+            {
+                return Guid.Parse(value.ToString());
+            }
+            return Convert.ChangeType(value, conversionType);
+
+            //if (obj == null)
+            //    return null;
+            //try
+            //{
+            //    if (type.Name == "Nullable`1")
+            //        type = type.GetGenericArguments()[0];
+            //    if (type.IsValueType)
+            //        return Activator.CreateInstance(type);
+            //    return Convert.ChangeType(obj, type, CultureInfo.InvariantCulture);
+            //}
+            //catch
+            //{
+            //    return null;
+            //}
+        }
+
+        /// <summary>
+        /// 将对象[主要是匿名对象]转换为dynamic
+        /// </summary>
+        public static dynamic ToDynamic(this object value)
+        {
+            IDictionary<string, object> expando = new ExpandoObject();
+            Type type = value.GetType();
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(type);
+            foreach (PropertyDescriptor property in properties)
+            {
+                var val = property.GetValue(value);
+                if (property.PropertyType.FullName.StartsWith("<>f__AnonymousType"))
+                {
+                    dynamic dval = val.ToDynamic();
+                    expando.Add(property.Name, dval);
+                }
+                else
+                {
+                    expando.Add(property.Name, val);
+                }
+            }
+            return expando as ExpandoObject;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using Shoy.Utility.Extend;
@@ -10,7 +11,7 @@ namespace Shoy.Utility.Config
     /// </summary>
     public class ConfigManager
     {
-        private static readonly IDictionary<string, object> ConfigCache = new Dictionary<string, object>();
+        private static readonly IDictionary<string, object> ConfigCache = new ConcurrentDictionary<string, object>();
         private static readonly string ConfigPath;
         private static readonly object LockObj = new object();
 
@@ -39,7 +40,7 @@ namespace Shoy.Utility.Config
             {
                 if (ConfigCache.ContainsKey(fileName))
                 {
-                    return ConfigCache[fileName].ObjectToT<T>();
+                    return ConfigCache[fileName].CastTo<T>();
                 }
                 T config = default(T);
                 var path = Path.Combine(ConfigPath, fileName);

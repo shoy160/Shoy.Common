@@ -180,7 +180,7 @@ namespace Shoy.Utility
             {
                 fs = new StreamReader(path, false);
                 var serializer = new XmlSerializer(typeof (T));
-                return serializer.Deserialize(fs).ObjectToT<T>();
+                return serializer.Deserialize(fs).CastTo<T>();
             }
             catch
             {

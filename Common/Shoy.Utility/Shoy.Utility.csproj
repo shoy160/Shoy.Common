@@ -55,12 +55,14 @@
     <Compile Include="Extend\CommonEqualityComparer.cs" />
     <Compile Include="Extend\DistinctExtensions.cs" />
     <Compile Include="Extend\EnumExtension.cs" />
+    <Compile Include="Extend\ExpressionExtension.cs" />
     <Compile Include="Extend\IExtension.cs" />
     <Compile Include="Extend\ObjectExtension.cs" />
     <Compile Include="Extend\StringExtension\CommonExtension.cs" />
     <Compile Include="Extend\StringExtension\ConvertExtension.cs" />
     <Compile Include="Extend\StringExtension\HtmlExtension.cs" />
     <Compile Include="Extend\StringExtension\RegexExtension.cs" />
+    <Compile Include="Extend\TypeExtension.cs" />
     <Compile Include="HTemplate.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="ImageCls.cs" />

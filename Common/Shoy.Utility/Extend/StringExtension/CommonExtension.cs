@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -108,67 +109,43 @@ namespace Shoy.Utility.Extend
             //(注:中文的范围:\u4e00 - \u9fa5, 日文在\u0800 - \u4e00, 韩文为\xAC00-\xD7A3)
             var reg = "[\u4e00-\u9fa5]".As<IRegex>().ToRegex(RegexOptions.Compiled);
             var chars = str.ToCharArray();
-            var result = "";
+            var result = string.Empty;
             int index = 0;
-            for (int i = 0; i < chars.Length; i++)
+            foreach (char t in chars)
             {
                 if (index >= start && index < (start + len))
-                    result += chars[i];
+                    result += t;
                 else if (index >= (start + len))
                 {
                     result += v;
                     break;
                 }
-                index += (reg.IsMatch(chars[i].ToString()) ? 2 : 1);
+                index += (reg.IsMatch(t.ToString(CultureInfo.InvariantCulture)) ? 2 : 1);
             }
             return result;
         }
 
+        /// <summary>
+        /// 截断字符扩展
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="len"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public static string Sub(this string str, int len, string v)
         {
             return str.Sub(0, len, v);
         }
 
-        public static string Sub(this string str, int len)
-        {
-            return str.Sub(0, len, "...");
-        }
-
         /// <summary>
-        /// 获取优化字符
+        /// 截断字符扩展
         /// </summary>
         /// <param name="str"></param>
         /// <param name="len"></param>
         /// <returns></returns>
-        public static string SubOptimized(this string str, int len)
+        public static string Sub(this string str, int len)
         {
-            var regex = "[\u4e00-\u9fa5]+".As<IRegex>();
-            char[] stringChar = str.ToCharArray();
-            var sb = new StringBuilder();
-            int nLength = 0;
-            bool isCut = false;
-            for (int i = 0; i < stringChar.Length; i++)
-            {
-                if (regex.IsMatch((stringChar[i]).ToString()))
-                {
-                    sb.Append(stringChar[i]);
-                    nLength += 2;
-                }
-                else
-                {
-                    sb.Append(stringChar[i]);
-                    nLength = nLength + 1;
-                }
-
-                if (nLength > len)
-                {
-                    isCut = true;
-                    break;
-                }
-            }
-            if (isCut)
-                return sb + "..";
-            return sb.ToString();
+            return str.Sub(0, len, "...");
         }
 
         /// <summary>
@@ -226,31 +203,63 @@ namespace Shoy.Utility.Extend
             return serializer.Serialize(obj);
         }
 
+        /// <summary>
+        /// Html编码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string HtmlEncode(this string str)
         {
             return HttpUtility.HtmlEncode(str);
         }
 
+        /// <summary>
+        /// Html解码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string HtmlDecode(this string str)
         {
             return HttpUtility.HtmlDecode(str);
         }
 
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         public static string UrlEncode(this string str,Encoding encoding)
         {
             return HttpUtility.UrlEncode(str, encoding);
         }
 
+        /// <summary>
+        /// Url编码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string UrlEncode(this string str)
         {
             return HttpUtility.UrlEncode(str);
         }
 
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         public static string UrlDecode(this string str,Encoding encoding)
         {
             return HttpUtility.UrlDecode(str, encoding);
         }
 
+        /// <summary>
+        /// Url解码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string UrlDecode(this string str)
         {
             return HttpUtility.UrlDecode(str);
@@ -269,7 +278,7 @@ namespace Shoy.Utility.Extend
             {
                 var c = HttpContext.Current;
                 var qs = c.Request.QueryString[str].Trim();
-                return qs.ObjectToT(def);
+                return qs.CastTo(def);
             }
             catch
             {
@@ -290,7 +299,7 @@ namespace Shoy.Utility.Extend
             {
                 var c = HttpContext.Current;
                 var qs = c.Request.Form[str].Trim();
-                return qs.ObjectToT(def);
+                return qs.CastTo(def);
             }
             catch
             {
@@ -311,7 +320,7 @@ namespace Shoy.Utility.Extend
             {
                 var c = HttpContext.Current;
                 var qs = c.Request[str].Trim();
-                return qs.ObjectToT(def);
+                return qs.CastTo(def);
             }
             catch
             {
@@ -338,7 +347,6 @@ namespace Shoy.Utility.Extend
                       HttpContext.Current.Request.RawUrl;
             }
             var qs = url.Split('?');
-            string search;
             var list = new System.Collections.Specialized.NameValueCollection();
             if (qs.Length < 2)
             {
@@ -354,7 +362,7 @@ namespace Shoy.Utility.Extend
                 }
                 list[key] = UrlEncode(value.ToString());
             }
-            search = "";
+            var search = string.Empty;
             for (int i = 0; i < list.Count; i++)
             {
                 search += list.AllKeys[i] + "=" + list[i];
@@ -372,7 +380,7 @@ namespace Shoy.Utility.Extend
         /// <returns></returns>
         public static string SetQuery(this string key, object value)
         {
-            return key.SetQuery("", value);
+            return key.SetQuery(string.Empty, value);
         }
 
         /// <summary>
@@ -398,6 +406,14 @@ namespace Shoy.Utility.Extend
             return SecurityCls.Md5(str);
         }
 		
+		/// <summary>
+		/// 字符串转换为指定类型
+		/// </summary>
+		/// <param name="str"></param>
+		/// <param name="def"></param>
+		/// <param name="splitor"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
 		public static T To<T>(this string str, T def = default(T), string splitor = ",")
         {
             var type = typeof (T);
@@ -421,27 +437,27 @@ namespace Shoy.Utility.Extend
                     {
                         if (st == typeof (int))
                         {
-                            var rt = Array.ConvertAll(arr, s => s.ObjectToT(0));
+                            var rt = Array.ConvertAll(arr, s => s.CastTo(0));
                             return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
                         }
                         if (st == typeof (double))
                         {
-                            var rt = Array.ConvertAll(arr, s => s.ObjectToT(0.0));
+                            var rt = Array.ConvertAll(arr, s => s.CastTo(0.0));
                             return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
                         }
                         if (st == typeof (decimal))
                         {
-                            var rt = Array.ConvertAll(arr, s => s.ObjectToT(0M));
+                            var rt = Array.ConvertAll(arr, s => s.CastTo(0M));
                             return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
                         }
                         if (st == typeof (float))
                         {
-                            var rt = Array.ConvertAll(arr, s => s.ObjectToT(0F));
+                            var rt = Array.ConvertAll(arr, s => s.CastTo(0F));
                             return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
                         }
                         if (st == typeof (DateTime))
                         {
-                            var rt = Array.ConvertAll(arr, s => s.ObjectToT(DateTime.MinValue));
+                            var rt = Array.ConvertAll(arr, s => s.CastTo(DateTime.MinValue));
                             return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
                         }
                     }
@@ -452,7 +468,7 @@ namespace Shoy.Utility.Extend
                     return def;
                 }
             }
-            return str.ObjectToT(def);
+            return str.CastTo(def);
         }
     }
 }
