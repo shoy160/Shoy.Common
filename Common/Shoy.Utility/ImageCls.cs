@@ -1,20 +1,25 @@
 ﻿using System;
-using System.Linq;
-using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
+using System.IO;
+using System.Linq;
 
 namespace Shoy.Utility
 {
     /// <summary>
     /// 图片处理辅助类
     /// </summary>
-    public class ImageCls:IDisposable
+    public class ImageCls : IDisposable
     {
-        private static Image _oldImg;
-        private static Graphics _newGraphics;
+        #region 私有属性
+
+        private static Bitmap _oldImg;
         private static string _ext = ".jpeg";
+        private const int Threshold = 125;
+
+        #endregion
+
+        #region 构造函数
 
         /// <summary>
         /// 构造函数
@@ -23,7 +28,7 @@ namespace Shoy.Utility
         public ImageCls(string oldPath)
         {
             _ext = Path.GetExtension(oldPath);
-            _oldImg = Image.FromFile(oldPath);
+            _oldImg = (Bitmap) Image.FromFile(oldPath);
         }
 
         /// <summary>
@@ -32,8 +37,21 @@ namespace Shoy.Utility
         /// <param name="oldStream">图片流</param>
         public ImageCls(Stream oldStream)
         {
-            _oldImg = Image.FromStream(oldStream);
+            _oldImg = (Bitmap) Image.FromStream(oldStream);
         }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="bitmap"></param>
+        public ImageCls(Bitmap bitmap)
+        {
+            _oldImg = bitmap;
+        }
+
+        #endregion
+
+        #region 压缩图片
 
         /// <summary>
         /// 压缩图片，返回map
@@ -43,38 +61,7 @@ namespace Shoy.Utility
         /// <returns></returns>
         public Bitmap ResizeImg(int width, int height)
         {
-            if (_oldImg == null)
-                return null;
-            int ow = _oldImg.Width, oh = _oldImg.Height; //原始大小
-            if (height == -2)
-            {
-                var rale = (double)width / Math.Max(ow, oh); //压缩比例
-                width = (int)Math.Ceiling(ow * rale);
-                height = (int)Math.Ceiling(oh * rale);
-            }
-            else
-            {
-                width = (width != -1 ? width : ow);
-                height = (height != -1 ? height : oh);
-            }
-            var bm = new Bitmap(width, height, PixelFormat.Format32bppRgb);
-
-            _newGraphics = Graphics.FromImage(bm);
-            //呈现质量
-            _newGraphics.CompositingQuality = CompositingQuality.HighQuality;
-            //像素偏移方式
-            _newGraphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            //平滑处理
-            _newGraphics.SmoothingMode = SmoothingMode.HighQuality;
-            //插补模式,双三次插值法
-            _newGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            _newGraphics.Clear(Color.Transparent);
-
-            _newGraphics.DrawImage(_oldImg, new Rectangle(0, 0, width, height), new Rectangle(0, 0, ow, oh),
-                                  GraphicsUnit.Pixel);
-            //return "处理成功";
-            return bm;
+            return ImageHelper.ResizeImg(_oldImg, width, height);
         }
 
         /// <summary>
@@ -108,7 +95,7 @@ namespace Shoy.Utility
                 bm.Save(newPath, encoder, encoderParameters);
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -121,7 +108,7 @@ namespace Shoy.Utility
         /// <param name="newPath">新路径</param>
         /// <param name="qt">压缩质量(0-100)</param>
         /// <returns></returns>
-        public bool ResizeImg(int width,string newPath,int qt)
+        public bool ResizeImg(int width, string newPath, int qt)
         {
             return ResizeImg(width, -2, newPath, qt);
         }
@@ -148,60 +135,79 @@ namespace Shoy.Utility
             return ResizeImg(width, -2, newPath, 80);
         }
 
+        #endregion
+
+        #region 剪切图片
+
         /// <summary>
         /// 剪切图片
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="w"></param>
-        /// <param name="h"></param>
-        /// <param name="width">保存图片宽</param>
-        /// <param name="height">保存图片高</param>
-        /// <param name="newPath">新路径</param>
-        /// <param name="qt"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         /// <returns></returns>
-        public bool CutImage(int x, int y, int w, int h, int width, int height, string newPath, int qt)
+        public Bitmap MakeImage(int x, int y, int width, int height)
         {
-            if (_oldImg == null)
-                return false;
-            int ow = _oldImg.Width, oh = _oldImg.Height; //原始大小
-            if (x > ow || y > oh)
-                return false;
-            if (x + w > ow)
-                w = ow - x;
-            if (y + h > oh)
-                h = oh - y;
-            if (width <= 0)
-                width = w;
-            if (height <= 0)
-                height = h;
-            var bm = new Bitmap(width, height, PixelFormat.Format32bppRgb);
-
-            _newGraphics = Graphics.FromImage(bm);
-            //呈现质量
-            _newGraphics.CompositingQuality = CompositingQuality.HighQuality;
-            //像素偏移方式
-            _newGraphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            //平滑处理
-            _newGraphics.SmoothingMode = SmoothingMode.HighQuality;
-            //插补模式,双三次插值法
-            _newGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            _newGraphics.Clear(Color.Transparent);
-
-            _newGraphics.DrawImage(_oldImg, new Rectangle(0, 0, width, height), new Rectangle(x, y, w, h),
-                                   GraphicsUnit.Pixel);
-            //return "处理成功";
-            var encoder = GetEncoderInfo(_ext);
-            if (encoder == null)
-                return false;
-            var encoderParameters = new EncoderParameters(1);
-            encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, qt);
-            bm.Save(newPath, encoder, encoderParameters);
-            return true;
+            return ImageHelper.MakeImage(_oldImg, x, y, width, height);
         }
 
-        private static ImageCodecInfo GetEncoderInfo(string mimeType)
+        #endregion
+
+        #region 图像二值化
+
+        /// <summary>
+        /// 图像二值化
+        /// </summary>
+        /// <param name="threshold">阈值</param>
+        public Bitmap BinarizeImage(byte threshold = Threshold)
+        {
+            return ImageHelper.BinarizeImage(_oldImg, threshold);
+        }
+
+        #endregion
+
+        #region 图片旋转
+
+        /// <summary>
+        /// 任意旋转角度
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public Bitmap RotateImage(float angle, Color color)
+        {
+            return ImageHelper.RotateImage(_oldImg, angle, color);
+        }
+
+        /// <summary>
+        /// 任意旋转角度
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public Bitmap RotateImage(float angle)
+        {
+            return ImageHelper.RotateImage(_oldImg, angle);
+        }
+
+        #endregion
+
+        #region 图片纠偏
+
+        /// <summary>
+        /// 图像纠偏
+        /// </summary>
+        /// <returns></returns>
+        public Bitmap Deskew()
+        {
+            return ImageHelper.Deskew(_oldImg);
+        }
+
+        #endregion
+
+        #region 私有方法
+
+        private ImageCodecInfo GetEncoderInfo(string mimeType)
         {
             //根据 mime 类型，返回编码器
             ImageCodecInfo[] encoders = ImageCodecInfo.GetImageEncoders();
@@ -210,14 +216,14 @@ namespace Shoy.Utility
             return encoders.FirstOrDefault(t => t.MimeType == mimeType);
         }
 
+        #endregion
+
         #region IDisposable 成员
 
         void IDisposable.Dispose()
         {
             if (_oldImg != null)
                 _oldImg.Dispose();
-            if (_newGraphics != null)
-                _newGraphics.Dispose();
         }
 
         #endregion
