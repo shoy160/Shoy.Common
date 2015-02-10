@@ -8,6 +8,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Shoy.Utility.Logging;
 
 namespace Shoy.Core.Data
 {
@@ -16,7 +17,7 @@ namespace Shoy.Core.Data
     /// </summary>
     public class CodeFirstDbContext : DbContext, IUnitOfWork, IDependency
     {
-        //private static readonly Logger Logger = LogManager.GetLogger(typeof(CodeFirstDbContext));
+        private static readonly Logger Logger = LogManager.GetLogger(typeof(CodeFirstDbContext));
 
         /// <summary>
         /// 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例
@@ -73,7 +74,7 @@ namespace Shoy.Core.Data
                 int count = base.SaveChanges();
                 if (count > 0)
                 {
-                    //Logger.Info(logs);
+                    Logger.Info(logs);
                 }
                 TransactionEnabled = false;
                 return count;
@@ -126,7 +127,7 @@ namespace Shoy.Core.Data
                 int count = await base.SaveChangesAsync();
                 if (count > 0)
                 {
-                    //Logger.Info(logs);
+                    Logger.Info(logs);
                 }
                 TransactionEnabled = false;
                 return count;

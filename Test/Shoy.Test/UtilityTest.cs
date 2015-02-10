@@ -69,5 +69,22 @@ namespace Shoy.Test
                 }
             }.Join(" and ", "[{id}] : [{name}]"));
         }
+
+        [TestMethod]
+        public void CombTest()
+        {
+            const int iteration = 50;
+            var result = CodeTimer.Time("Guid", iteration, () =>
+            {
+                var guid = Guid.NewGuid();
+            });
+            Console.WriteLine(result.ToString());
+            result = CodeTimer.Time("CombHelper", iteration, () =>
+            {
+                var guid = CombHelper.NewComb();
+                Console.WriteLine(guid);
+            });
+            Console.WriteLine(result.ToString());
+        }
     }
 }
