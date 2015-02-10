@@ -73,7 +73,7 @@
     <Compile Include="ImageCls.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="IniCls.cs" />
-    <Compile Include="Logging\AdapterCachingBase.cs" />
+    <Compile Include="Logging\LoggerAdapterBase.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\ILoggerAdapter.cs" />

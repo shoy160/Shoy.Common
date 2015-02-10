@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Shoy.Utility.Extend;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Threading;
-using System.Collections.Generic;
-using System.Text;
-using Shoy.Utility.Extend;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Web;
 
 namespace Shoy.Utility
 {
@@ -501,7 +504,7 @@ namespace Shoy.Utility
         public static string GetTxtFromStream(Stream stream, Encoding encoding)
         {
             if (stream == null)
-                return "";
+                return string.Empty;
             _mut = (_mut ?? new Mutex());
             _mut.WaitOne();
             StreamReader sr = null;
@@ -512,7 +515,7 @@ namespace Shoy.Utility
             }
             catch
             {
-                return "";
+                return string.Empty;
             }
             finally
             {
@@ -827,6 +830,47 @@ namespace Shoy.Utility
             return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
         }
 
+        [DllImport("wininet.dll")]
+        private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
+
+        /// <summary>
+        /// 是否有网络链接
+        /// </summary>
+        public static bool IsNetConnected
+        {
+            get
+            {
+                int i;
+                return InternetGetConnectedState(out i, 0);
+            }
+        }
+
+        public static string GetIp()
+        {
+            //var adapters = NetworkInterface.GetAllNetworkInterfaces();
+            //foreach (NetworkInterface adapter in adapters)
+            //{
+            //    var addresses = adapter.GetIPProperties().UnicastAddresses;
+            //    if (addresses != null && addresses.Any())
+            //    {
+            //        var address = addresses.FirstOrDefault(t => t.Address.AddressFamily == AddressFamily.InterNetwork);
+            //        if (address != null)
+            //            return address.ToString();
+            //    }
+            //}
+            //return "127.0.0.1";
+            var ips = Dns.GetHostEntry(Dns.GetHostName());
+            if (ips != null && ips.AddressList.Any())
+            {
+                foreach (IPAddress address in ips.AddressList)
+                {
+                    if (address.AddressFamily == AddressFamily.InterNetwork)
+                        return address.ToString();
+                }
+            }
+            return "127.0.0.1";
+        }
+
         /// <summary>
         /// 获取真实IP
         /// </summary>
@@ -1006,6 +1050,18 @@ namespace Shoy.Utility
             }
             return cnChar;
         }
+
+        public static readonly Func<int, IEnumerable<int>> EachMax = delegate(int max)
+        {
+            max = Math.Abs(max);
+            return Enumerable.Range(0, max);
+        };
+
+        public static readonly Func<int, int, IEnumerable<int>> Each = delegate(int min, int max)
+        {
+            min = Math.Min(min, max);
+            return Enumerable.Range(min, Math.Abs(max - min));
+        };
     }
 }
 

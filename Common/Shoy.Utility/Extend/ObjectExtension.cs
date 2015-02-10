@@ -118,7 +118,7 @@ namespace Shoy.Utility.Extend
                 if (item == null) continue;
                 sb.Append(separator);
                 var type = item.GetType();
-                if (type.IsValueType)
+                if (type.IsValueType || type.Name == "String")
                     sb.Append(string.Format(template, item));
                 else
                 {

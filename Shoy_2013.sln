@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Core", "Core\Shoy.Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Core.Data", "Core\Shoy.Core.Data\Shoy.Core.Data.csproj", "{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.CoreTest", "Test\Shoy.CoreTest\Shoy.CoreTest.csproj", "{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -275,6 +277,16 @@ Global
 		{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,5 +314,6 @@ Global
 		{2526DEB6-4114-4FEB-8601-A4B4D9DB7467} = {1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}
 		{05E11FA9-FC25-4AE1-96CF-DBCBB8BA24BE} = {B7A9E2B8-120F-42F5-AB83-4ABF529DEA73}
 		{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6} = {B7A9E2B8-120F-42F5-AB83-4ABF529DEA73}
+		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8} = {D0D88D78-BA15-4A1A-9832-B19987A6C6FF}
 	EndGlobalSection
 EndGlobal

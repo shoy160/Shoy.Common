@@ -38,11 +38,15 @@
     <Reference Include="Gma.QrCodeNet.Encoding.Net35">
       <HintPath>..\..\Resouce\lib\Gma.QrCodeNet.Encoding.Net35.dll</HintPath>
     </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\..\DLL\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiscreteMarkov.cs" />
     <Compile Include="Transmiter\Consts.cs" />
     <Compile Include="Transmiter\Crc32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

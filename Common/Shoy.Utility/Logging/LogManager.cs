@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Shoy.Utility.Logging
@@ -82,6 +83,16 @@ namespace Shoy.Utility.Logging
             return GetLogger(type.FullName);
         }
 
+        /// <summary>
+        /// 获取日志记录实例
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Logger GetLogger<T>()
+        {
+            return GetLogger(typeof(T));
+        }
+
         private static IEnumerable<ILog> GetAdapters(string name)
         {
             return LoggerAdapters.Select(t => t.GetLogger(name));
@@ -105,6 +116,16 @@ namespace Shoy.Utility.Logging
         private static bool IsEnableLevel(LogLevel level)
         {
             return level >= Level;
+        }
+
+        private const string MessageFormat = "Method:{1}({2}) {3}:{4}{0}Msg:{5}{0}";
+
+        public static string Format(string msg)
+        {
+            var f = new StackFrame(1, true);
+            return string.Format(MessageFormat, Environment.NewLine,
+                f.GetMethod().DeclaringType, f.GetFileName(),
+                f.GetMethod().Name, f.GetFileLineNumber(), msg);
         }
     }
 }
