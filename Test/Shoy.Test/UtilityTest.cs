@@ -150,5 +150,13 @@ namespace Shoy.Test
                 //}
             }
         }
+
+        public void EmailTest()
+        {
+            using (var email = new EmailCls("mail@dayeasy.net", "dayeasy@1233", "得一科技", "smtp.exmail.qq.com", 465, true))
+            {
+                email.SendEmail("634330628@qq.com", "测试邮件标题", "测试邮件内容");
+            }
+        }
     }
 }

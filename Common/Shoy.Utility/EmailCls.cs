@@ -16,6 +16,7 @@ namespace Shoy.Utility
     {
         private SmtpClient _smtpClient;
         private MailMessage _mailMsg;
+        private bool _isImplicit = false;
 
         #region 构造函数
 
@@ -61,13 +62,19 @@ namespace Shoy.Utility
                         break;
                 }
             }
+            if (smtpPort == 465 && useSsl)
+            {
+                _isImplicit = true;
+                smtpPort = 25;
+            }
             _smtpClient = new SmtpClient
             {
                 Credentials = new NetworkCredential(senderEmail, senderPwd),
                 EnableSsl = useSsl,
                 Host = smtpHost,
                 Port = smtpPort,
-                Timeout = 1000 * 60 * 30
+                Timeout = 1000 * 30,
+                DeliveryMethod = SmtpDeliveryMethod.Network
             };
             _mailMsg = new MailMessage
             {
@@ -90,7 +97,7 @@ namespace Shoy.Utility
         /// <returns></returns>
         public bool SendEmail(string receiver, string title, string body, List<string> files, bool async, out string errMsg)
         {
-            bool sendState;
+            bool sendState = false;
             errMsg = string.Empty;
             if (receiver.IsNullOrEmpty())
             {
@@ -125,11 +132,27 @@ namespace Shoy.Utility
                 }
                 else
                 {
-                    _smtpClient.Send(_mailMsg);
+
+                    try
+                    {
+                        _smtpClient.Send(_mailMsg);
+                        sendState = true;
+
+                    }
+                    catch
+                    {
+                        if (_isImplicit)
+                        {
+                            _smtpClient.Port = 465;
+                            _smtpClient.Send(_mailMsg);
+                            sendState = true;
+                        }
+                    }
+                    
                 }
-                sendState = true;
+
             }
-            catch (Exception ex)
+            catch (SmtpException ex)
             {
                 errMsg = ex.Message;
                 sendState = false;
