@@ -3,11 +3,10 @@ using System.Drawing;
 
 namespace Shoy.Utility
 {
-    /// <summary>
-    /// 图像纠偏辅助类
-    /// </summary>
+    /// <summary> 图像纠偏辅助类 </summary>
     public class Deskew
     {
+        /// <summary> 图像 </summary>
         private readonly Bitmap _internalBmp;
         const double AlphaStart = -20;
         const double AlphaStep = 0.2;
@@ -29,25 +28,19 @@ namespace Shoy.Utility
             public double Alpha;
         }
 
-        /// <summary>
-        /// 纠偏构造函数
-        /// </summary>
+        /// <summary> 纠偏构造函数 </summary>
         /// <param name="internalBmp"></param>
         public Deskew(Bitmap internalBmp)
         {
             _internalBmp = internalBmp;
         }
-
         
-        /// <summary>
-        /// 获取图片偏移角度
-        /// </summary>
+        /// <summary> 获取图片偏移角度 </summary>
         /// <returns></returns>
         public double GetSkewAngle()
         {
             try
             {
-                // Hough Transformation
                 Calc();
                 // Top 20 of the detected lines in the image.
                 HougLine[] hl = GetTop(20);
@@ -71,32 +64,31 @@ namespace Shoy.Utility
         private HougLine[] GetTop(int count)
         {
             var hl = new HougLine[count];
-            for (int i = 0; i <= count - 1; i++)
+            int i;
+            for (i = 0; i <= count - 1; i++)
             {
                 hl[i] = new HougLine();
             }
-            for (int i = 0; i <= _hMatrix.Length - 1; i++)
+            for (i = 0; i <= _hMatrix.Length - 1; i++)
             {
-                if (_hMatrix[i] > hl[count - 1].Count)
+                if (_hMatrix[i] <= hl[count - 1].Count)
+                    continue;
+                hl[count - 1].Count = _hMatrix[i];
+                hl[count - 1].Index = i;
+                int j = count - 1;
+                while (j > 0 && hl[j].Count > hl[j - 1].Count)
                 {
-                    hl[count - 1].Count = _hMatrix[i];
-                    hl[count - 1].Index = i;
-                    int j = count - 1;
-                    while (j > 0 && hl[j].Count > hl[j - 1].Count)
-                    {
-                        HougLine tmp = hl[j];
-                        hl[j] = hl[j - 1];
-                        hl[j - 1] = tmp;
-                        j -= 1;
-                    }
+                    HougLine tmp = hl[j];
+                    hl[j] = hl[j - 1];
+                    hl[j - 1] = tmp;
+                    j -= 1;
                 }
             }
-            for (int i = 0; i <= count - 1; i++)
+            for (i = 0; i <= count - 1; i++)
             {
                 int dIndex = hl[i].Index / Steps;
                 int alphaIndex = hl[i].Index - dIndex * Steps;
                 hl[i].Alpha = GetAlpha(alphaIndex);
-                //hl[i].D = dIndex + _min;
             }
             return hl;
         }
@@ -165,6 +157,7 @@ namespace Shoy.Utility
             _count = (int)(2 * (_internalBmp.Width + _internalBmp.Height) / Step);
             _hMatrix = new int[_count * Steps];
         }
+
         private static double GetAlpha(int index)
         {
             return AlphaStart + index * AlphaStep;

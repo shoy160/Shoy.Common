@@ -410,7 +410,6 @@ namespace Shoy.Core.Data
             context.Set<TEntity>().Where(m => ids.Contains(m.Id)).Load();
             context.Update<TEntity, TKey>(propertyExpresion, entities);
             return await context.SaveChangesAsync(false);
-            return 0;
         }
 
         /// <summary>

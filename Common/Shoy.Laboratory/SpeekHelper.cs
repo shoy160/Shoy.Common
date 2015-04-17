@@ -13,7 +13,7 @@ namespace Shoy.Laboratory
     /// </summary>
     public class SpeekHelper
     {
-        public static string Speek(string word)
+        public static string SpeekToFile(string word)
         {
             string url;
             if (!CheckWord(word, out url))
@@ -36,13 +36,10 @@ namespace Shoy.Laboratory
             url = "/SpeekFile/";
             var hash = GetMd5Sum(word) + ".wav";
             var dir = new DirectoryInfo(Utils.GetCurrentDir() + url);
+            if (!dir.Exists)
+                dir.Create();
             url += hash;
             return dir.GetFiles("*.wav").Any(file => file.Name == hash);
-        }
-
-        private static string NewGuid()
-        {
-            return Guid.NewGuid().ToString().Replace("-", "").ToLower();
         }
 
         private static string GetMd5Sum(string str)
@@ -62,6 +59,13 @@ namespace Shoy.Laboratory
             }
 
             return sb.ToString();
+        }
+
+        public static void Speek(string word)
+        {
+            var voice = new SpVoice();
+            voice.Voice = voice.GetVoices(string.Empty, string.Empty).Item(0);
+            voice.Speak(word);
         }
     }
 }

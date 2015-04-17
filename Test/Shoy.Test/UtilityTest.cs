@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shoy.Laboratory;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.UseTest;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Shoy.Test
 {
@@ -121,6 +122,33 @@ namespace Shoy.Test
             Console.WriteLine(preds.Join("\r\n", "{num}:{pred}"));
             Console.WriteLine("预测：{0}[{1}]", value, max);
             //Console.WriteLine("实际：{0}", random.Next(1, 16));
+        }
+
+        [TestMethod]
+        public void SpeekerTest()
+        {
+            SpeekHelper.Speek("杨本国");
+        }
+
+        [TestMethod]
+        public void ReaderTest()
+        {
+            const string name = "sim01.png";
+            var reader = new ImageReader(null, LanguageType.Chinese);
+            using (var bmp = (Bitmap)Image.FromFile(name))
+            {
+                var str = reader.Read(bmp, null, true);
+                Console.WriteLine(str);
+                //foreach (byte i in new byte[] { 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170 })
+                //{
+                //    Console.WriteLine(i);
+                //    using (var item = ImageHelper.BinarizeImage(bmp.Clone() as Bitmap, i))
+                //    {
+                //        str = reader.Read(item, null, true);
+                //        Console.WriteLine(str);
+                //    }
+                //}
+            }
         }
     }
 }

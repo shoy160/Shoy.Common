@@ -1,24 +1,16 @@
-﻿namespace Shoy.MvcPlugin
+﻿
+namespace Shoy.MvcPlugin
 {
-    /// <summary>
-    /// Interface denoting plug-in attributes that are displayed throughout 
-    /// the editing interface.
-    /// </summary>
+    /// <summary> 插件接口 </summary>
     public interface IPlugin
     {
-        /// <summary>
-        /// Gets or sets the plugin descriptor
-        /// </summary>
-        PluginDescriptor PluginDescriptor { get; set; }
+        /// <summary> 初始化插件 </summary>
+        void Initialize();
 
-        /// <summary>
-        /// Install plugin
-        /// </summary>
+        /// <summary> 安装插件 </summary>
         void Install();
 
-        /// <summary>
-        /// Uninstall plugin
-        /// </summary>
+        /// <summary> 卸载插件 </summary>
         void Uninstall();
     }
 }
