@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Shoy.Utility.Extend;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Mail;
-using System.Net;
 using System.IO;
-using Shoy.Utility.Extend;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 邮件发送类
     /// </summary>
-    public class EmailCls : IDisposable
+    public class EmailHelper : IDisposable
     {
         private SmtpClient _smtpClient;
         private MailMessage _mailMsg;
@@ -20,17 +20,17 @@ namespace Shoy.Utility
 
         #region 构造函数
 
-        public EmailCls(string senderEmail, string senderPwd, string senderName, string smtpHost, int smtpPort, bool useSsl)
+        public EmailHelper(string senderEmail, string senderPwd, string senderName, string smtpHost, int smtpPort, bool useSsl)
         {
             CreateClient(senderEmail, senderPwd, senderName, smtpHost, smtpPort, useSsl);
         }
 
-        public EmailCls(string senderEmail, string senderPwd, string senderName)
+        public EmailHelper(string senderEmail, string senderPwd, string senderName)
         {
             CreateClient(senderEmail, senderPwd, senderName, null, 0, false);
         }
 
-        public EmailCls(string senderEmail, string senderPwd)
+        public EmailHelper(string senderEmail, string senderPwd)
         {
             CreateClient(senderEmail, senderPwd, null, null, 0, false);
         }
@@ -148,7 +148,7 @@ namespace Shoy.Utility
                             sendState = true;
                         }
                     }
-                    
+
                 }
 
             }
@@ -165,12 +165,12 @@ namespace Shoy.Utility
             var path = Utils.GetMapPath("/email.log");
             if (e.Error != null)
             {
-                Utils.WriteException(e.Error);
-                Utils.WriteFile(path, "发送失败：" + e.Error.Message + "-->" + Utils.GetTimeNow());
+                FileHelper.WriteException(e.Error);
+                FileHelper.WriteFile(path, "发送失败：" + e.Error.Message + "-->" + Utils.GetTimeNow());
             }
             else
             {
-                Utils.WriteFile(path, "发送成功！-->" + Utils.GetTimeNow());
+                FileHelper.WriteFile(path, "发送成功！-->" + Utils.GetTimeNow());
             }
             _smtpClient.SendCompleted -= SmtpClientSendCompleted;
         }

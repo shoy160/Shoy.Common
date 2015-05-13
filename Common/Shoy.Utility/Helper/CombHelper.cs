@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// COMB（<see cref="Guid"/>与<see cref="DateTime"/>混合构成的可排序<see cref="Guid"/>）类型操作类
@@ -57,9 +58,15 @@ namespace Shoy.Utility
             int msecs = BitConverter.ToInt32(msecsArray, 0);
 
             DateTime date = baseDate.AddDays(days);
-            date = date.AddMilliseconds(msecs*3.333333);
+            date = date.AddMilliseconds(msecs * 3.333333);
 
             return date;
+        }
+
+        public static string Guid16()
+        {
+            var i = Guid.NewGuid().ToByteArray().Aggregate<byte, long>(1, (current, b) => current * ((int)b + 1));
+            return string.Format("{0:x}", i - DateTimeOffset.Now.Ticks);
         }
     }
 }

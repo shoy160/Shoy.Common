@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 调用类辅助

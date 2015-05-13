@@ -3,12 +3,12 @@ using System.Collections.Specialized;
 using System.Web;
 using Shoy.Utility.Extend;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// cookie操作类 Edit by shy 2012-12-19
     /// </summary>
-    public class CookieCls
+    public class CookieHelper
     {
         /// <summary> 
         /// 创建或修改COOKIE对象并赋Value值 

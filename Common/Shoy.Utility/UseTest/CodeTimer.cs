@@ -5,6 +5,9 @@ using System.Threading;
 
 namespace Shoy.Utility.UseTest
 {
+    /// <summary>
+    /// 代码性能测试计时器
+    /// </summary>
     public static class CodeTimer
     {
         [DllImport("kernel32.dll", SetLastError = true)]

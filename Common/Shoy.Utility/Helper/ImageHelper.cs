@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 图片辅助方法

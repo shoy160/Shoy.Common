@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility
 {

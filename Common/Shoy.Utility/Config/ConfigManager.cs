@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Config
 {

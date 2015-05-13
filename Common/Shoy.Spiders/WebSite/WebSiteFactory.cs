@@ -3,6 +3,7 @@ using System.Reflection;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using System.Text;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -39,7 +40,7 @@ namespace Shoy.Spiders.WebSite
                 {
                     DocHtml = http.GetHtml();
                     if (!DocHtml.IsNullOrEmpty())
-                        DocHtml = Utils.ClearTrn(DocHtml);
+                        DocHtml = RegexHelper.ClearTrn(DocHtml);
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Extend
 {
@@ -27,7 +28,7 @@ namespace Shoy.Utility.Extend
         /// <returns></returns>
         public static IEnumerable<T> RandomSort<T>(this IEnumerable<T> array)
         {
-            return array.OrderBy(t => Utils.GetRandom().Next());
+            return array.OrderBy(t => RandomHelper.Random().Next());
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using System.Text;
+﻿using System.IO;
 using System.Runtime.InteropServices;
-using System.IO;
+using System.Text;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 配置文件类
     /// </summary>
-    public class IniCls
+    public class IniHelper
     {
         private readonly string _inipath;
         private string _sectionName;
@@ -20,7 +20,7 @@ namespace Shoy.Utility
         /// 构造方法 
         /// </summary> 
         /// <param name="iniPath">文件路径</param> 
-        public IniCls(string iniPath)
+        public IniHelper(string iniPath)
         {
             _inipath = iniPath;
         }

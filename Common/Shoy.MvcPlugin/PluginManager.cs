@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Web.Compilation;
+using Shoy.Utility.Helper;
 
 [assembly: PreApplicationStartMethod(typeof(PluginManager), "Initialize")]
 namespace Shoy.MvcPlugin

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Shoy.Utility;
+using Shoy.Utility.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Shoy.Utility;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -85,7 +86,7 @@ namespace Shoy.Spiders.WebSite
             //id=J_DivItemDesc
             var desc = "";
             var docHtml = HtmlCls.GetHtmlByUrl(link);
-            var desurl = Utils.GetRegStr(docHtml, "\"apiItemDesc\":\"([^\"]+?)\"");
+            var desurl = RegexHelper.Match(docHtml, "\"apiItemDesc\":\"([^\"]+?)\"");
             if (!string.IsNullOrEmpty(desurl))
             {
                 desurl = desurl.Replace("\\", "");
@@ -108,14 +109,14 @@ namespace Shoy.Spiders.WebSite
             string docHtml = HtmlCls.GetHtmlByUrl(url, Encoding.Default,cookie);
             if (!string.IsNullOrEmpty(docHtml))
             {
-                docHtml = Utils.ClearBr(docHtml);
+                docHtml = RegexHelper.ClearBr(docHtml);
                 next =
-                    Utils.UrlDecode(Utils.GetRegStr(docHtml,
+                    Utils.UrlDecode(RegexHelper.Match(docHtml,
                                                     "<a[^>]*href=['\"]([^'\"\\s]+)['\"][^>]*class=['\"]ui-page-s-next['\"][^>]*>"));
                 var listHtml = HtmlCls.GetHtmlById(docHtml, "J_itemList");
                 const string regStr = "<a[^>]*href=['\"]([^'\"\\s]+?)['\"][^>]*class=['\"]product-Img['\"][^>]*>";
                 //"<a[^>]*class=['\"]product-title['\"][^>]*href=['\"]([^'\"]+)['\"][^>]*>";
-                urls = Utils.GetRegHtmls(listHtml, regStr);
+                urls = RegexHelper.Matches(listHtml, regStr);
                 urls = urls.Select(t => (t.StartsWith("/") ? BaseUrl : "") + Utils.UrlDecode(t)).ToList();
             }
             return urls;
@@ -132,9 +133,9 @@ namespace Shoy.Spiders.WebSite
             string docHtml = HtmlCls.GetHtmlByUrl(url, Encoding.Default, cookie);
             if (!string.IsNullOrEmpty(docHtml))
             {
-                docHtml = Utils.ClearBr(docHtml);
+                docHtml = RegexHelper.ClearBr(docHtml);
                 next =
-                    Utils.UrlDecode(Utils.GetRegStr(docHtml,
+                    Utils.UrlDecode(RegexHelper.Match(docHtml,
                                                     "<a[^>]*href=['\"]([^'\"\\s]+)['\"][^>]*class=['\"]ui-page-s-next['\"][^>]*>"));
                 var listHtml = HtmlCls.GetHtmlById(docHtml, "J_itemList");
                 var list = HtmlCls.GetHtmlByCss(listHtml, "product");
@@ -147,9 +148,9 @@ namespace Shoy.Spiders.WebSite
 
                 urls.AddRange(list.Select(item => new TamllBase
                                                       {
-                                                          Url = Utils.UrlDecode(Utils.GetRegStr(item, regStr, 1)),
-                                                          Title = Utils.GetRegStr(item, regStr, 2),
-                                                          Price = Convert.ToDecimal(Utils.GetRegStr(item, priceReg))
+                                                          Url = Utils.UrlDecode(RegexHelper.Match(item, regStr, 1)),
+                                                          Title = RegexHelper.Match(item, regStr, 2),
+                                                          Price = Convert.ToDecimal(RegexHelper.Match(item, priceReg))
                                                       }));
             }
             return urls;

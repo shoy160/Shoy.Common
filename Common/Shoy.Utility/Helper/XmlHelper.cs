@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Shoy.Utility.Extend;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     public class XmlHelper
     {

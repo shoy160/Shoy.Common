@@ -2,6 +2,7 @@
 using Shoy.Laboratory;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
 using Shoy.Utility.UseTest;
 using System;
 using System.Collections.Generic;
@@ -153,10 +154,23 @@ namespace Shoy.Test
 
         public void EmailTest()
         {
-            using (var email = new EmailCls("mail@dayeasy.net", "dayeasy@1233", "得一科技", "smtp.exmail.qq.com", 465, true))
+            using (var email = new EmailHelper("mail@dayeasy.net", "dayeasy@1233", "得一科技", "smtp.exmail.qq.com", 465, true))
             {
                 email.SendEmail("634330628@qq.com", "测试邮件标题", "测试邮件内容");
             }
+        }
+
+        [TestMethod]
+        public void CompressTest()
+        {
+            var str = "Amaze UI 含近 20 个 CSS 组件、10 个 JS 组件，更有 17 款包含近 60 个主题的 Web 组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率";
+            str = CompressHelper.Compress(str);
+            Console.WriteLine(str);
+            str = CompressHelper.Decompress(str);
+            Console.WriteLine(str);
+
+            Console.WriteLine(CombHelper.NewComb());
+            Console.WriteLine(CombHelper.Guid16());
         }
     }
 }

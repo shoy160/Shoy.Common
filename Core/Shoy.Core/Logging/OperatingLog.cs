@@ -3,6 +3,7 @@ using Shoy.Core.Data;
 using Shoy.Utility;
 using System;
 using System.Collections.Generic;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Core.Logging
 {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Extend
 {
@@ -232,7 +233,7 @@ namespace Shoy.Utility.Extend
         /// <param name="path"></param>
         public static void WriteTo(this Exception ex, string path)
         {
-            Utils.WriteException(path, ex);
+            FileHelper.WriteException(path, ex);
         }
 
         /// <summary>

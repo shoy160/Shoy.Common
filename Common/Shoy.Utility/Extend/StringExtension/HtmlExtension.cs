@@ -2,16 +2,17 @@
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Text;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Extend
 {
-    public interface IHtml:IExtension<string>{}
+    public interface IHtml : IExtension<string> { }
 
     public static class HtmlExtension
     {
         public static bool CheckTags(this IHtml c)
         {
-            var list = Utils.GetRegHtmls(c.GetValue(), "(<[^>]*[^/]>)");
+            var list = RegexHelper.Matches(c.GetValue(), "(<[^>]*[^/]>)");
             if (list.Count % 2 != 0)
                 return false;
             var un = new List<string>();
@@ -71,47 +72,19 @@ namespace Shoy.Utility.Extend
         public static string GetHtmlById(this IHtml c, string id)
         {
             var html = c.GetValue();
-            if (html.IsNullOrEmpty())
-                return "";
-            html = Utils.ClearTrn(html);
-            const string pt =
-                @"<([0-9a-zA-Z]+)[^>]*\bid=([""']){0}\2[^>]*>(?><\1[^>]*>(?<tag>)|</\1>(?<-tag>)|.)*?(?(tag)(?!))</\1>";
-            const string pt1 = @"<([0-9a-zA-Z]+)[^>]*\bid=([""']){0}\2[^>]*/>";
-            string reg = pt.FormatWith(id);
-            if (html.As<IRegex>().IsMatch(pt))
-                reg = pt1.FormatWith(id);
-            return html.As<IRegex>().Match(reg, 0, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            return RegexHelper.FindById(html, id);
         }
 
         public static IEnumerable<string> GetHtmlByCss(this IHtml c, string css)
         {
             var html = c.GetValue();
-            if (html.IsNullOrEmpty())
-                return new List<string>();
-            html = Utils.ClearTrn(html);
-            const string pt =
-                @"<([0-9a-zA-Z]+)[^>]*\bclass=(['""]?)(?<t>[^""'\s]*\s)*{0}(?<b>\s[^""'\s]*)*\2[^>]*>(?><\1[^>]*>(?<tag>)|</\1>(?<-tag>)|.)*?(?(tag)(?!))</\1>";
-            const string pt1 =
-                @"<([0-9a-zA-Z]+)[^>]*\bclass=(['""]?)(?<t>[^""'\s]*\s)*{0}(?<b>\s[^""'\s]*)*\2[^>]*/>";
-            string reg = pt.FormatWith(css);
-            if (!html.As<IRegex>().IsMatch(reg))
-                reg = pt1.FormatWith(css);
-            return html.As<IRegex>().Matches(reg, 0, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            return RegexHelper.FindByCss(html, css);
         }
 
         public static IEnumerable<string> GetHtmlByAttr(this IHtml c, string attr)
         {
             var html = c.GetValue();
-            if (html.IsNullOrEmpty())
-                return new List<string>();
-            html = Utils.ClearTrn(html);
-            const string pt =
-                @"<([0-9a-zA-Z]+)[^>]*\b{0}[^>]*>(?><\1[^>]*>(?<tag>)|</\1>(?<-tag>)|.)*?(?(tag)(?!))</\1>";
-            const string pt1 = @"<([0-9a-zA-Z]+)[^>]*\b{0}[^>]*/>";
-            string reg = pt.FormatWith(attr);
-            if (!html.As<IRegex>().IsMatch(reg))
-                reg = pt1.FormatWith(attr);
-            return html.As<IRegex>().Matches(reg, 0, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            return RegexHelper.FindByAttr(html, attr);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Shoy.Utility.Extend;
 using System.Linq;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility
 {
@@ -96,7 +97,7 @@ namespace Shoy.Utility
                 var html = string.Empty;
                 foreach (Match tag in tags)
                 {
-                    html += Utils.ClearTrn(tag.Groups[1].Value);
+                    html += RegexHelper.ClearTrn(tag.Groups[1].Value);
                     _html = _html.Replace(tag.Value, string.Empty);
                 }
                 _html = _html.Replace(include.Value, html);
@@ -220,7 +221,7 @@ namespace Shoy.Utility
         /// </summary>
         public void WriteToFile()
         {
-            Utils.WriteFile(_outPath, _html, false, Encoding.UTF8);
+            FileHelper.WriteFile(_outPath, _html, false, Encoding.UTF8);
         }
 
         /// <summary>

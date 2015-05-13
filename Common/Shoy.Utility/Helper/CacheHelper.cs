@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.Caching;
 using Shoy.Utility.Extend;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 缓存辅助类
     /// </summary>
-    public class CacheCls
+    public class CacheHelper
     {
         /// <summary>
         /// 添加缓存

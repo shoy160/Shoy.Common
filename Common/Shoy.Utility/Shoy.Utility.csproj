@@ -48,18 +48,19 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheCls.cs" />
-    <Compile Include="CombHelper.cs" />
-    <Compile Include="CompressCls.cs" />
+    <Compile Include="Helper\CacheHelper.cs" />
+    <Compile Include="Helper\CombHelper.cs" />
+    <Compile Include="Helper\CompressHelper.cs" />
     <Compile Include="Config\ConfigBase.cs" />
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Config\ConfigUtils.cs" />
     <Compile Include="Config\FileNameAttribute.cs" />
     <Compile Include="Consts.cs" />
-    <Compile Include="CookieCls.cs" />
+    <Compile Include="Helper\ConvertHelper.cs" />
+    <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="CsvReader.cs" />
     <Compile Include="Deskew.cs" />
-    <Compile Include="EmailCls.cs" />
+    <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Extend\CollectionExtensions.cs" />
     <Compile Include="Extend\CommonEqualityComparer.cs" />
     <Compile Include="Extend\DistinctExtensions.cs" />
@@ -72,11 +73,13 @@
     <Compile Include="Extend\StringExtension\HtmlExtension.cs" />
     <Compile Include="Extend\StringExtension\RegexExtension.cs" />
     <Compile Include="Extend\TypeExtension.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\RegexHelper.cs" />
     <Compile Include="HTemplate.cs" />
-    <Compile Include="HttpHelper.cs" />
+    <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="ImageCls.cs" />
-    <Compile Include="ImageHelper.cs" />
-    <Compile Include="IniCls.cs" />
+    <Compile Include="Helper\ImageHelper.cs" />
+    <Compile Include="Helper\IniHelper.cs" />
     <Compile Include="Logging\LoggerAdapterBase.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogger.cs" />
@@ -88,13 +91,14 @@
     <Compile Include="Observer\ObserverBase.cs" />
     <Compile Include="Observer\PublisherBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityCls.cs" />
+    <Compile Include="Helper\RandomHelper.cs" />
+    <Compile Include="Helper\SecurityHelper.cs" />
     <Compile Include="Singleton.cs" />
-    <Compile Include="StackHelper.cs" />
+    <Compile Include="Helper\StackHelper.cs" />
     <Compile Include="UseTest\CodeTimer.cs" />
     <Compile Include="UseTest\CodeTimerResult.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="XmlHelper.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

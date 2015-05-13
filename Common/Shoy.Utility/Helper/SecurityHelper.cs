@@ -3,12 +3,12 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Shoy.Utility
+namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 加密类
     /// </summary>
-    public static class SecurityCls
+    public static class SecurityHelper
     {
         private const string Key64 = "shoyluyn";
         private const string Iv64 = "shoy1168";

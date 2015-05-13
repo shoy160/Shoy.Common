@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Script.Serialization;
 using System;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Extend
 {
@@ -53,7 +54,7 @@ namespace Shoy.Utility.Extend
         /// <param name="arg0">参数0</param>
         /// <param name="arg1">参数1</param>
         /// <returns>格式化后的字符串</returns>
-        public static string FormatWith(this string str, object arg0,object arg1)
+        public static string FormatWith(this string str, object arg0, object arg1)
         {
             return string.Format(str, arg0, arg1);
         }
@@ -229,7 +230,7 @@ namespace Shoy.Utility.Extend
         /// <param name="str"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string UrlEncode(this string str,Encoding encoding)
+        public static string UrlEncode(this string str, Encoding encoding)
         {
             return HttpUtility.UrlEncode(str, encoding);
         }
@@ -250,7 +251,7 @@ namespace Shoy.Utility.Extend
         /// <param name="str"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string UrlDecode(this string str,Encoding encoding)
+        public static string UrlDecode(this string str, Encoding encoding)
         {
             return HttpUtility.UrlDecode(str, encoding);
         }
@@ -337,7 +338,7 @@ namespace Shoy.Utility.Extend
         /// <returns></returns>
         public static string SetQuery(this string key, string url, object value)
         {
-            if ( key.IsNullOrEmpty())
+            if (key.IsNullOrEmpty())
                 return url;
             if (value == null)
                 value = "";
@@ -391,7 +392,7 @@ namespace Shoy.Utility.Extend
         /// <param name="encoding">编码</param>
         public static void WriteTo(this string msg, string path, Encoding encoding)
         {
-            Utils.WriteFile(path, msg, encoding);
+            FileHelper.WriteFile(path, msg, encoding);
         }
 
         /// <summary>
@@ -403,26 +404,26 @@ namespace Shoy.Utility.Extend
         {
             if (str.IsNullOrEmpty())
                 return str;
-            return SecurityCls.Md5(str);
+            return SecurityHelper.Md5(str);
         }
-		
-		/// <summary>
-		/// 字符串转换为指定类型
-		/// </summary>
-		/// <param name="str"></param>
-		/// <param name="def"></param>
-		/// <param name="splitor"></param>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		public static T To<T>(this string str, T def = default(T), string splitor = ",")
+
+        /// <summary>
+        /// 字符串转换为指定类型
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="def"></param>
+        /// <param name="splitor"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T To<T>(this string str, T def = default(T), string splitor = ",")
         {
-            var type = typeof (T);
+            var type = typeof(T);
 
             if (type.IsArray || type.Name == "List`1")
             {
                 try
                 {
-                    Type st = typeof (string);
+                    Type st = typeof(string);
                     bool isList = false;
                     if (type.IsArray)
                         st = Type.GetType(type.FullName.TrimEnd('[', ']'));
@@ -432,36 +433,36 @@ namespace Shoy.Utility.Extend
                         var reg = Regex.Match(type.FullName, "System.Collections.Generic.List`1\\[\\[([^,]+),");
                         st = Type.GetType(reg.Groups[1].Value);
                     }
-                    var arr = str.Split(new[] {splitor}, StringSplitOptions.RemoveEmptyEntries);
-                    if (st != typeof (string) && st != null)
+                    var arr = str.Split(new[] { splitor }, StringSplitOptions.RemoveEmptyEntries);
+                    if (st != typeof(string) && st != null)
                     {
-                        if (st == typeof (int))
+                        if (st == typeof(int))
                         {
                             var rt = Array.ConvertAll(arr, s => s.CastTo(0));
-                            return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
+                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
                         }
-                        if (st == typeof (double))
+                        if (st == typeof(double))
                         {
                             var rt = Array.ConvertAll(arr, s => s.CastTo(0.0));
-                            return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
+                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
                         }
-                        if (st == typeof (decimal))
+                        if (st == typeof(decimal))
                         {
                             var rt = Array.ConvertAll(arr, s => s.CastTo(0M));
-                            return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
+                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
                         }
-                        if (st == typeof (float))
+                        if (st == typeof(float))
                         {
                             var rt = Array.ConvertAll(arr, s => s.CastTo(0F));
-                            return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
+                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
                         }
-                        if (st == typeof (DateTime))
+                        if (st == typeof(DateTime))
                         {
                             var rt = Array.ConvertAll(arr, s => s.CastTo(DateTime.MinValue));
-                            return (isList ? (T) (object) rt.ToList() : (T) (object) rt);
+                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
                         }
                     }
-                    return (isList ? (T) (object) arr.ToList() : (T) (object) arr);
+                    return (isList ? (T)(object)arr.ToList() : (T)(object)arr);
                 }
                 catch
                 {

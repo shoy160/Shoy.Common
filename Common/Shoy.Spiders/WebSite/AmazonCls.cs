@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Shoy.Utility;
+using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Shoy.Utility;
-using Shoy.Utility.Extend;
 using System.Text.RegularExpressions;
 
 namespace Shoy.Spiders.WebSite
@@ -19,12 +20,12 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "<b[^>]*class=[\"']priceLarge[\"'][^>]*>￥ ([^<]+)</b>");
+                var str = RegexHelper.Match(DocHtml, "<b[^>]*class=[\"']priceLarge[\"'][^>]*>￥ ([^<]+)</b>");
                 return Convert.ToDecimal(str.Replace(",", ""));
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return 0;
             }
         }
@@ -41,7 +42,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch(Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return -1;
             }
         }
@@ -57,7 +58,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return "";
             }
         }
@@ -68,12 +69,12 @@ namespace Shoy.Spiders.WebSite
             {
                 GetHtml(SiteEncoding);
                 var str = HtmlCls.GetHtmlById(DocHtml, "prodImageCell");
-                str = Utils.GetRegStr(str, "\\s+src=[\"']([^\"'>]+)[\"']");
+                str = RegexHelper.Match(str, "\\s+src=[\"']([^\"'>]+)[\"']");
                 return str;
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return "";
             }
         }
@@ -94,18 +95,18 @@ namespace Shoy.Spiders.WebSite
                 {
                     var html = http.GetHtml();
                     if (!html.IsNullOrEmpty())
-                        html = Utils.ClearTrn(html);
+                        html = RegexHelper.ClearTrn(html);
                     var showList = HtmlCls.GetHtmlById(html, "atfResults") + HtmlCls.GetHtmlById(html, "btfResults");
                     var list =
                         HtmlCls.GetHtmlByCss(showList, "productImage").Select(
-                            t => Utils.GetRegStr(t, "<a[^>]*href=[\"']?([^\"'>]+)(#[^\"'>]*)?[\"']?[^>]*>")).Distinct().
+                            t => RegexHelper.Match(t, "<a[^>]*href=[\"']?([^\"'>]+)(#[^\"'>]*)?[\"']?[^>]*>")).Distinct().
                             ToList();
                     return list;
                 }
             }
             catch(Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return new List<string>();
             }
         }
@@ -115,12 +116,12 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "<span[^>]*id=[\"']listPriceValue[\";][^>]*>￥ ([^<]+)</span>");
+                var str = RegexHelper.Match(DocHtml, "<span[^>]*id=[\"']listPriceValue[\";][^>]*>￥ ([^<]+)</span>");
                 return Convert.ToDecimal(str);
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return 0;
             }
         }

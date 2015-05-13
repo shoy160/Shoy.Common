@@ -5,6 +5,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Threading;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders
 {
