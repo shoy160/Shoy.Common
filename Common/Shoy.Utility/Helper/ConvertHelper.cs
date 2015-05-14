@@ -10,7 +10,7 @@ namespace Shoy.Utility.Helper
     /// </summary>
     public class ConvertHelper
     {
-        private static DateTime DefaultTime = DateTime.Parse("1900-01-01");
+        private static readonly DateTime DefaultTime = DateTime.Parse("1900-01-01");
         /// <summary>
         /// string转换为float
         /// </summary>

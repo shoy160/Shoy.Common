@@ -4,21 +4,22 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using Shoy.Utility.Extend;
+using Shoy.Utility.Logging;
 
 namespace Shoy.Utility.Helper
 {
     public class XmlHelper
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<XmlHelper>();
         private static void XmlSerializeInternal(Stream stream, object obj, Encoding encoding)
         {
-            if (obj == null)
-                throw new ArgumentNullException("obj");
-            if (encoding == null)
-                throw new ArgumentNullException("encoding");
+            if (obj == null || encoding == null)
+                return;
+            try
+            {
+                var serializer = new XmlSerializer(obj.GetType());
 
-            var serializer = new XmlSerializer(obj.GetType());
-
-            var settings = new XmlWriterSettings
+                var settings = new XmlWriterSettings
                 {
                     Indent = true,
                     NewLineChars = "\r\n",
@@ -26,10 +27,15 @@ namespace Shoy.Utility.Helper
                     IndentChars = "    "
                 };
 
-            using (XmlWriter writer = XmlWriter.Create(stream, settings))
+                using (XmlWriter writer = XmlWriter.Create(stream, settings))
+                {
+                    serializer.Serialize(writer, obj);
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
             {
-                serializer.Serialize(writer, obj);
-                writer.Close();
+                Logger.Error(ex.Message, ex);
             }
         }
 
@@ -61,8 +67,7 @@ namespace Shoy.Utility.Helper
         public static void XmlSerializeToFile(object obj, string path, Encoding encoding)
         {
             if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("path");
-
+                return;
             using (var file = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 XmlSerializeInternal(file, obj, encoding);
@@ -78,18 +83,23 @@ namespace Shoy.Utility.Helper
         /// <returns>反序列化得到的对象</returns>
         public static T XmlDeserialize<T>(string xml, Encoding encoding)
         {
-            if (string.IsNullOrEmpty(xml))
-                throw new ArgumentNullException("xml");
-            if (encoding == null)
-                throw new ArgumentNullException("encoding");
-
-            var mySerializer = new XmlSerializer(typeof (T));
-            using (var ms = new MemoryStream(encoding.GetBytes(xml)))
+            if (string.IsNullOrEmpty(xml) || encoding == null)
+                return default(T);
+            try
             {
-                using (var sr = new StreamReader(ms, encoding))
+                var mySerializer = new XmlSerializer(typeof(T));
+                using (var ms = new MemoryStream(encoding.GetBytes(xml)))
                 {
-                    return (T) mySerializer.Deserialize(sr);
+                    using (var sr = new StreamReader(ms, encoding))
+                    {
+                        return (T)mySerializer.Deserialize(sr);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                return default(T);
             }
         }
 
@@ -102,26 +112,21 @@ namespace Shoy.Utility.Helper
         /// <returns>反序列化得到的对象</returns>
         public static T XmlDeserializeFromFile<T>(string path, Encoding encoding)
         {
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("path");
-            if (encoding == null)
-                throw new ArgumentNullException("encoding");
-
-            string xml = File.ReadAllText(path, encoding);
+            if (string.IsNullOrEmpty(path) || encoding == null)
+                return default(T);
+            var xml = File.ReadAllText(path, encoding);
             return XmlDeserialize<T>(xml, encoding);
         }
-        
+
 
         /// <summary>
         /// xml序列化
         /// </summary>
         /// <param name="path">xml文件路径</param>
         /// <param name="obj">序列化对象</param>
-        /// <param name="msg">返回信息</param>
         /// <returns></returns>
-        public static bool XmlSerialize(string path, object obj, out string msg)
+        public static bool XmlSerialize(string path, object obj)
         {
-            msg = "";
             if (obj == null) return false;
             var directory = Path.GetDirectoryName(path);
             if (directory == null || !Directory.Exists(directory))
@@ -135,61 +140,15 @@ namespace Shoy.Utility.Helper
                 sw.Flush();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return false;
             }
             finally
             {
                 if (sw != null)
                     sw.Close();
-            }
-        }
-
-        /// <summary>
-        /// xml序列化
-        /// </summary>
-        /// <param name="path">xml文件路径</param>
-        /// <param name="obj">序列化对象</param>
-        /// <returns></returns>
-        public static bool XmlSerialize(string path, object obj)
-        {
-            string msg;
-            return XmlSerialize(path, obj, out msg);
-        }
-
-        public static bool XmlSerialize<T>(T obj, string path, out string msg)
-        {
-            return XmlSerialize(path, obj, out msg);
-        }
-
-        /// <summary>
-        /// xml反序列化
-        /// </summary>
-        /// <typeparam name="T">xml序列化类型</typeparam>
-        /// <param name="path">xml文件路径</param>
-        /// <param name="msg">返回信息</param>
-        /// <returns></returns>
-        public static T XmlDeserialize<T>(string path, out string msg)
-        {
-            msg = "";
-            if (!File.Exists(path))
-                return default(T);
-            StreamReader fs = null;
-            try
-            {
-                fs = new StreamReader(path, false);
-                var serializer = new XmlSerializer(typeof (T));
-                return serializer.Deserialize(fs).CastTo<T>();
-            }
-            catch
-            {
-                return default(T);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Close();
             }
         }
 
@@ -201,8 +160,25 @@ namespace Shoy.Utility.Helper
         /// <returns></returns>
         public static T XmlDeserialize<T>(string path)
         {
-            string msg;
-            return XmlDeserialize<T>(path, out msg);
+            if (!File.Exists(path))
+                return default(T);
+            StreamReader fs = null;
+            try
+            {
+                fs = new StreamReader(path, false);
+                var serializer = new XmlSerializer(typeof(T));
+                return serializer.Deserialize(fs).CastTo<T>();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                return default(T);
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Close();
+            }
         }
     }
 }

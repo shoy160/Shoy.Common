@@ -43,13 +43,11 @@ namespace Shoy.Utility.Config
                 {
                     return ConfigCache[fileName].CastTo<T>();
                 }
-                T config = default(T);
                 var path = Path.Combine(ConfigPath, fileName);
-                if (File.Exists(path))
-                {
-                    config = XmlHelper.XmlDeserialize<T>(path);
-                    ConfigCache.Add(fileName, config);
-                }
+                if (!File.Exists(path))
+                    return null;
+                var config = XmlHelper.XmlDeserialize<T>(path);
+                ConfigCache.Add(fileName, config);
                 return config;
             }
         }
@@ -58,13 +56,13 @@ namespace Shoy.Utility.Config
             where T : ConfigBase
         {
             var path = Path.Combine(ConfigPath, fileName);
-            string msg;
-            var result = XmlHelper.XmlSerialize(path, config, out msg);
+            XmlHelper.XmlSerialize(path, config);
         }
 
         private static void Reset(object sender, FileSystemEventArgs e)
         {
-            ConfigCache.Clear();
+            if (ConfigCache.ContainsKey(e.Name))
+                ConfigCache.Remove(e.Name);
         }
     }
 }

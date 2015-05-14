@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
+using Shoy.Utility.Logging;
 
 namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 文件辅助类
     /// </summary>
-    public static class FileHelper
+    public class FileHelper
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<FileHelper>();
         private static Mutex _mut;
 
         /// <summary>
@@ -33,13 +35,10 @@ namespace Shoy.Utility.Helper
             var dir = Path.GetDirectoryName(path);
             if (string.IsNullOrEmpty(dir))
                 return false;
-            if (!Directory.Exists(dir))
-            {
-                if (create)
-                    Directory.CreateDirectory(dir);
-                return false;
-            }
-            return true;
+            if (Directory.Exists(dir)) return true;
+            if (create)
+                Directory.CreateDirectory(dir);
+            return false;
         }
 
         /// <summary>
@@ -77,8 +76,9 @@ namespace Shoy.Utility.Helper
                 }
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return false;
             }
         }
@@ -102,8 +102,9 @@ namespace Shoy.Utility.Helper
                 sw = new StreamWriter(newPath, false);
                 sw.Write(sr.ReadToEnd());
             }
-            catch
+            catch(Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return false;
             }
             finally
@@ -131,12 +132,16 @@ namespace Shoy.Utility.Helper
             {
                 sr = new StreamReader(path2, Encoding.Default);
                 sw = new StreamWriter(path1, true, Encoding.Default);
-                string str = sr.ReadLine();
+                var str = sr.ReadLine();
                 while (!string.IsNullOrEmpty(str))
                 {
                     sw.WriteLine(str);
                     str = sr.ReadLine();
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
             }
             finally
             {
@@ -170,6 +175,10 @@ namespace Shoy.Utility.Helper
                     sw.WriteLine(s);
                     sw.Flush();
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
             }
             finally
             {

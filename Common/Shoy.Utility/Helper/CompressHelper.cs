@@ -5,14 +5,16 @@ using System.IO.Compression;
 using System.Text;
 using Microsoft.Win32;
 using Shoy.Utility.Extend;
+using Shoy.Utility.Logging;
 
 namespace Shoy.Utility.Helper
 {
     /// <summary>
     /// 压缩解压类
     /// </summary>
-    public static class CompressHelper
+    public class CompressHelper
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<CompressHelper>();
         /// <summary>
         /// 是否安装了Winrar
         /// </summary>
@@ -65,8 +67,9 @@ namespace Shoy.Utility.Helper
                 theProcess.Close();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return false;
             }
         }
@@ -115,8 +118,9 @@ namespace Shoy.Utility.Helper
                 theProcess.Close();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return false;
             }
         }

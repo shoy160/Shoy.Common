@@ -4,6 +4,7 @@ using System.Text;
 using System.Web;
 using System.Web.Caching;
 using Shoy.Utility.Extend;
+using Shoy.Utility.Logging;
 
 namespace Shoy.Utility.Helper
 {
@@ -12,6 +13,7 @@ namespace Shoy.Utility.Helper
     /// </summary>
     public class CacheHelper
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<CacheHelper>();
         /// <summary>
         /// 添加缓存
         /// </summary>
@@ -69,8 +71,9 @@ namespace Shoy.Utility.Helper
             {
                 return obj.CastTo<T>();
             }
-            catch
+            catch(Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return default(T);
             }
         }
