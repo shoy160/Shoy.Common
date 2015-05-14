@@ -12,7 +12,6 @@ namespace Shoy.Utility.Helper
         private const string AllLetter = "mnbvcxzlkjhgfdsapoiuytrewq";
         private const string HardWord = "0oOz29q1ilI6b";
         private const string AllWord = "qwNOPerWXYktyu421ioKfdsS867plVjMZ9hgDEnbTUxcABGHIJaCFmL0vzQR53";
-        private const string HexWords = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
 
         /// <summary>
         /// 获取线程级随机数
@@ -83,43 +82,44 @@ namespace Shoy.Utility.Helper
         }
 
         /// <summary>
-        /// 获取随机汉字
+        /// 随机汉字
         /// </summary>
-        /// <param name="length"></param>
+        /// <param name="length">长度</param>
+        /// <param name="level">汉字级别，1：1级，2：2级，3：1或2级，默认为1级</param>
         /// <returns></returns>
-        public static string RandomHanzi(int length)
+        public static string RandomHanzi(int length, int level = 1)
         {
             if (length <= 0) return string.Empty;
-            //汉字编码的组成元素，十六进制数
-            var baseStrs = HexWords.Split(',');
-            var encoding = Encoding.GetEncoding("GB2312");
-            string result = null;
+            var rm = Random();
+            var bs = new byte[length * 2];
+            var gb = Encoding.GetEncoding("gb2312");
 
-            //每循环一次产生一个含两个元素的十六进制字节数组，并放入bytes数组中
-            //汉字由四个区位码组成，1、2位作为字节数组的第一个元素，3、4位作为第二个元素
-            var rnd = Random();
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
-                int index1 = rnd.Next(11, 14);
-                string str1 = baseStrs[index1];
-
-                int index2 = index1 == 13 ? rnd.Next(0, 7) : rnd.Next(0, 16);
-                string str2 = baseStrs[index2];
-
-                int index3 = rnd.Next(10, 16);
-                string str3 = baseStrs[index3];
-
-                int index4 = index3 == 10 ? rnd.Next(1, 16) : (index3 == 15 ? rnd.Next(0, 15) : rnd.Next(0, 16));
-                string str4 = baseStrs[index4];
-
-                //定义两个字节变量存储产生的随机汉字区位码
-                byte b1 = Convert.ToByte(str1 + str2, 16);
-                byte b2 = Convert.ToByte(str3 + str4, 16);
-                byte[] bs = { b1, b2 };
-
-                result += encoding.GetString(bs);
+                //16 - 55 区为一级汉字，按拼音排序
+                //56 - 87 区为二级汉字，按部首/笔画排序
+                //获取区码(常用汉字的区码范围为16-55)  
+                int regionCode;
+                switch (level)
+                {
+                    case 2:
+                        regionCode = rm.Next(56, 88);
+                        break;
+                    case 3:
+                        regionCode = rm.Next(16, 88);
+                        break;
+                    default:
+                        regionCode = rm.Next(16, 56);
+                        break;
+                }
+                // 获取位码(位码范围为1-94 由于55区的90,91,92,93,94为空,故将其排除)  
+                // 55区排除90,91,92,93,94
+                var positionCode = rm.Next(1, regionCode == 55 ? 90 : 95);
+                // 转换区位码为机内码 + A0H
+                bs[i * 2] = (byte)(regionCode + 0xa0);
+                bs[i * 2 + 1] = (byte)(positionCode + 0xa0);
             }
-            return result;
+            return gb.GetString(bs);
         }
     }
 }

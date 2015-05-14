@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Specialized;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -177,11 +178,10 @@ namespace Shoy.Utility.Extend
             var section =
                 ConfigurationManager.GetSection("system.web.extensions/scripting/webServices/jsonSerialization")
                 as ScriptingJsonSerializationSection;
-            if (section != null)
-            {
-                serializer.MaxJsonLength = section.MaxJsonLength;
-                serializer.RecursionLimit = section.RecursionLimit;
-            }
+            if (section == null)
+                return serializer.Deserialize<T>(json);
+            serializer.MaxJsonLength = section.MaxJsonLength;
+            serializer.RecursionLimit = section.RecursionLimit;
             return serializer.Deserialize<T>(json);
         }
 
@@ -196,11 +196,10 @@ namespace Shoy.Utility.Extend
             var section =
                 ConfigurationManager.GetSection("system.web.extensions/scripting/webServices/jsonSerialization")
                 as ScriptingJsonSerializationSection;
-            if (section != null)
-            {
-                serializer.MaxJsonLength = section.MaxJsonLength;
-                serializer.RecursionLimit = section.RecursionLimit;
-            }
+            if (section == null)
+                return serializer.Serialize(obj);
+            serializer.MaxJsonLength = section.MaxJsonLength;
+            serializer.RecursionLimit = section.RecursionLimit;
             return serializer.Serialize(obj);
         }
 
@@ -333,22 +332,21 @@ namespace Shoy.Utility.Extend
         /// 设置参数
         /// </summary>
         /// <param name="key">key</param>
-        /// <param name="url">url</param>
         /// <param name="value">value</param>
+        /// <param name="url">url</param>
         /// <returns></returns>
-        public static string SetQuery(this string key, string url, object value)
+        public static string SetQuery(this string key, object value, string url = null)
         {
-            if (key.IsNullOrEmpty())
-                return url;
-            if (value == null)
-                value = "";
             if (url.IsNullOrEmpty())
             {
                 url = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"] +
                       HttpContext.Current.Request.RawUrl;
             }
+            if (string.IsNullOrWhiteSpace(url) || key.IsNullOrEmpty())
+                return url;
+            value = value ?? string.Empty;
             var qs = url.Split('?');
-            var list = new System.Collections.Specialized.NameValueCollection();
+            var list = new NameValueCollection();
             if (qs.Length < 2)
             {
                 list.Add(key, UrlEncode(value.ToString()));
@@ -364,24 +362,13 @@ namespace Shoy.Utility.Extend
                 list[key] = UrlEncode(value.ToString());
             }
             var search = string.Empty;
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.AllKeys.Length; i++)
             {
                 search += list.AllKeys[i] + "=" + list[i];
                 if (i < list.Count - 1)
                     search += "&";
             }
             return qs[0] + "?" + search;
-        }
-
-        /// <summary>
-        /// 设置参数
-        /// </summary>
-        /// <param name="key">key</param>
-        /// <param name="value">value</param>
-        /// <returns></returns>
-        public static string SetQuery(this string key, object value)
-        {
-            return key.SetQuery(string.Empty, value);
         }
 
         /// <summary>
@@ -419,57 +406,54 @@ namespace Shoy.Utility.Extend
         {
             var type = typeof(T);
 
-            if (type.IsArray || type.Name == "List`1")
+            if (!type.IsArray && type.Name != "List`1")
+                return str.CastTo(def);
+            try
             {
-                try
+                Type st = typeof(string);
+                bool isList = false;
+                if (type.IsArray)
+                    st = Type.GetType(type.FullName.TrimEnd('[', ']'));
+                else if (type.Name == "List`1")
                 {
-                    Type st = typeof(string);
-                    bool isList = false;
-                    if (type.IsArray)
-                        st = Type.GetType(type.FullName.TrimEnd('[', ']'));
-                    else if (type.Name == "List`1")
-                    {
-                        isList = true;
-                        var reg = Regex.Match(type.FullName, "System.Collections.Generic.List`1\\[\\[([^,]+),");
-                        st = Type.GetType(reg.Groups[1].Value);
-                    }
-                    var arr = str.Split(new[] { splitor }, StringSplitOptions.RemoveEmptyEntries);
-                    if (st != typeof(string) && st != null)
-                    {
-                        if (st == typeof(int))
-                        {
-                            var rt = Array.ConvertAll(arr, s => s.CastTo(0));
-                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
-                        }
-                        if (st == typeof(double))
-                        {
-                            var rt = Array.ConvertAll(arr, s => s.CastTo(0.0));
-                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
-                        }
-                        if (st == typeof(decimal))
-                        {
-                            var rt = Array.ConvertAll(arr, s => s.CastTo(0M));
-                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
-                        }
-                        if (st == typeof(float))
-                        {
-                            var rt = Array.ConvertAll(arr, s => s.CastTo(0F));
-                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
-                        }
-                        if (st == typeof(DateTime))
-                        {
-                            var rt = Array.ConvertAll(arr, s => s.CastTo(DateTime.MinValue));
-                            return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
-                        }
-                    }
+                    isList = true;
+                    var typeName = RegexHelper.Match(type.FullName, "System.Collections.Generic.List`1\\[\\[([^,]+),", 1);
+                    st = Type.GetType(typeName);
+                }
+                var arr = str.Split(new[] { splitor }, StringSplitOptions.RemoveEmptyEntries);
+                if (st == typeof(string) || st == null)
                     return (isList ? (T)(object)arr.ToList() : (T)(object)arr);
-                }
-                catch
+                if (st == typeof(int))
                 {
-                    return def;
+                    var rt = Array.ConvertAll(arr, s => s.CastTo(0));
+                    return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
                 }
+                if (st == typeof(double))
+                {
+                    var rt = Array.ConvertAll(arr, s => s.CastTo(0.0));
+                    return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
+                }
+                if (st == typeof(decimal))
+                {
+                    var rt = Array.ConvertAll(arr, s => s.CastTo(0M));
+                    return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
+                }
+                if (st == typeof(float))
+                {
+                    var rt = Array.ConvertAll(arr, s => s.CastTo(0F));
+                    return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
+                }
+                if (st == typeof(DateTime))
+                {
+                    var rt = Array.ConvertAll(arr, s => s.CastTo(DateTime.MinValue));
+                    return (isList ? (T)(object)rt.ToList() : (T)(object)rt);
+                }
+                return (isList ? (T)(object)arr.ToList() : (T)(object)arr);
             }
-            return str.CastTo(def);
+            catch
+            {
+                return def;
+            }
         }
     }
 }

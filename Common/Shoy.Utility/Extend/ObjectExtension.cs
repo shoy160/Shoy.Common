@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shoy.Utility.Helper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Extend
 {
@@ -168,38 +168,14 @@ namespace Shoy.Utility.Extend
         /// <returns></returns>
         public static object CastTo(this object value, Type conversionType)
         {
-            if (value == null)
-            {
-                return null;
-            }
+            if (value == null) return null;
             if (conversionType.IsNullableType())
-            {
                 conversionType = conversionType.GetUnNullableType();
-            }
             if (conversionType.IsEnum)
-            {
                 return Enum.Parse(conversionType, value.ToString());
-            }
             if (conversionType == typeof(Guid))
-            {
                 return Guid.Parse(value.ToString());
-            }
             return Convert.ChangeType(value, conversionType);
-
-            //if (obj == null)
-            //    return null;
-            //try
-            //{
-            //    if (type.Name == "Nullable`1")
-            //        type = type.GetGenericArguments()[0];
-            //    if (type.IsValueType)
-            //        return Activator.CreateInstance(type);
-            //    return Convert.ChangeType(obj, type, CultureInfo.InvariantCulture);
-            //}
-            //catch
-            //{
-            //    return null;
-            //}
         }
 
         /// <summary>
@@ -208,8 +184,8 @@ namespace Shoy.Utility.Extend
         public static dynamic ToDynamic(this object value)
         {
             IDictionary<string, object> expando = new ExpandoObject();
-            Type type = value.GetType();
-            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(type);
+            var type = value.GetType();
+            var properties = TypeDescriptor.GetProperties(type);
             foreach (PropertyDescriptor property in properties)
             {
                 var val = property.GetValue(value);
@@ -234,6 +210,42 @@ namespace Shoy.Utility.Extend
         public static void WriteTo(this Exception ex, string path)
         {
             FileHelper.WriteException(path, ex);
+        }
+
+        /// <summary>
+        /// 异常信息格式化
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="isHideStackTrace"></param>
+        /// <returns></returns>
+        public static string Format(this Exception ex, bool isHideStackTrace = false)
+        {
+            var sb = new StringBuilder();
+            var count = 0;
+            var appString = string.Empty;
+            while (ex != null)
+            {
+                if (count > 0)
+                {
+                    appString += "  ";
+                }
+                sb.AppendLine(string.Format("{0}异常消息：{1}", appString, ex.Message));
+                sb.AppendLine(string.Format("{0}异常类型：{1}", appString, ex.GetType().FullName));
+                sb.AppendLine(string.Format("{0}异常方法：{1}", appString,
+                    (ex.TargetSite == null ? null : ex.TargetSite.Name)));
+                sb.AppendLine(string.Format("{0}异常源：{1}", appString, ex.Source));
+                if (!isHideStackTrace && ex.StackTrace != null)
+                {
+                    sb.AppendLine(string.Format("{0}异常堆栈：{1}", appString, ex.StackTrace));
+                }
+                if (ex.InnerException != null)
+                {
+                    sb.AppendLine(string.Format("{0}内部异常：", appString));
+                    count++;
+                }
+                ex = ex.InnerException;
+            }
+            return sb.ToString();
         }
 
         /// <summary>

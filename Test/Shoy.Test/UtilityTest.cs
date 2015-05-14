@@ -163,14 +163,25 @@ namespace Shoy.Test
         [TestMethod]
         public void CompressTest()
         {
-            var str = "Amaze UI 含近 20 个 CSS 组件、10 个 JS 组件，更有 17 款包含近 60 个主题的 Web 组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率";
-            str = CompressHelper.Compress(str);
-            Console.WriteLine(str);
-            str = CompressHelper.Decompress(str);
-            Console.WriteLine(str);
+            //var str = "Amaze UI 含近 20 个 CSS 组件、10 个 JS 组件，更有 17 款包含近 60 个主题的 Web 组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率";
+            //str = CompressHelper.Compress(str);
+            //Console.WriteLine(str);
+            //str = CompressHelper.Decompress(str);
+            //Console.WriteLine(str);
 
-            Console.WriteLine(CombHelper.NewComb());
-            Console.WriteLine(CombHelper.Guid16());
+            //Console.WriteLine(RandomHelper.RandomHanzi(4));
+            //Console.WriteLine(RandomHelper.RandomHanzi(4, 3));
+            //Console.WriteLine(CombHelper.NewComb());
+            var list = new List<string>();
+            for (int i = 0; i < 100*1000; i++)
+            {
+                list.Add(CombHelper.Guid16());
+            }
+            var result = list.GroupBy(t => t).Select(t => new {key = t.Key, c = t.Count()}).OrderByDescending(t => t.c);
+            foreach (var item in result.Take(50))
+            {
+                Console.WriteLine(item.ToJson());
+            }
         }
     }
 }

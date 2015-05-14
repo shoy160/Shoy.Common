@@ -48,6 +48,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disposable.cs" />
     <Compile Include="Helper\CacheHelper.cs" />
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\CompressHelper.cs" />

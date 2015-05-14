@@ -10,6 +10,7 @@ namespace Shoy.Utility.Helper
     /// </summary>
     public class ConvertHelper
     {
+        private static DateTime DefaultTime = DateTime.Parse("1900-01-01");
         /// <summary>
         /// string转换为float
         /// </summary>
@@ -109,7 +110,7 @@ namespace Shoy.Utility.Helper
         /// <returns>转换后的int类型结果</returns>
         public static DateTime StrToDateTime(string str)
         {
-            return StrToDateTime(str, DateTime.Now);
+            return StrToDateTime(str, DefaultTime);
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
 ﻿
+using Shoy.Utility.Extend;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Shoy.Utility.Extend;
 
 namespace Shoy.Utility.Helper
 {
@@ -18,6 +18,9 @@ namespace Shoy.Utility.Helper
 
         private const string UrlRegex =
             @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$";
+
+        private const string MobileRegex = @"^(0[0-9]{2,3}-?[0-9]{7,8})|((13|15|18)\d{9})$";
+        private const string EmailRegex = @"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*";
 
         private const string HtmlTagRegex = @"</?[0-9a-zA-Z]+[^>]*/?>";
         private const string FloatRegex = @"^([-]|[0-9])[0-9]*(\.\w*)?$";
@@ -38,14 +41,15 @@ namespace Shoy.Utility.Helper
         /// </summary>
         /// <param name="regex">正则</param>
         /// <param name="str">字符串</param>
-        /// <param name="group">组</param>
         /// <param name="ops">表达式选项</param>
+        /// <param name="group">组</param>
+        /// <param name="groupName"></param>
         /// <returns></returns>
-        public static string Match(string str, string regex, int group, RegexOptions ops)
+        public static string Match(string str, string regex, RegexOptions ops, int group = 1, string groupName = null)
         {
             var reg = new Regex(regex, ops);
             var m = reg.Match(str);
-            return m.Groups[group].Value;
+            return !string.IsNullOrWhiteSpace(groupName) ? m.Groups[groupName].Value : m.Groups[@group].Value;
         }
 
         /// <summary>
@@ -54,44 +58,25 @@ namespace Shoy.Utility.Helper
         /// <param name="regex">正则</param>
         /// <param name="str">字符串</param>
         /// <param name="group">组</param>
+        /// <param name="groupName"></param>
         /// <returns></returns>
-        public static string Match(string str, string regex, int group)
+        public static string Match(string str, string regex, int group = 1, string groupName = null)
         {
-            return Match(str, regex, group, RegexOptions.None);
+            return Match(str, regex, RegexOptions.Compiled, group, groupName);
         }
 
-        /// <summary>
-        /// (简化)获取正则匹配的字符
-        /// </summary>
-        /// <param name="regex">正则</param>
-        /// <param name="str">字符串</param>
-        /// <returns></returns>
-        public static string Match(string str, string regex)
+        public static List<string> Matches(string docHtml, string regStr, RegexOptions options, int index = 1,
+            string groupName = null)
         {
-            return Match(str, regex, 1, RegexOptions.None);
+            var mts = (new Regex(regStr, options)).Matches(docHtml);
+            return !string.IsNullOrWhiteSpace(groupName)
+                ? (from Match mt in mts select mt.Groups[groupName].Value).ToList()
+                : (from Match mt in mts select mt.Groups[index].Value).ToList();
         }
 
-        public static List<string> Matches(string docHtml, string regStr, int index)
+        public static List<string> Matches(string docHtml, string regStr, int index = 1, string groupName = null)
         {
-            var mts = (new Regex(regStr, RegexOptions.IgnoreCase | RegexOptions.Singleline)).Matches(docHtml);
-            return (from Match mt in mts select mt.Groups[index].Value).ToList();
-        }
-
-        public static List<string> Matches(string docHtml, string regStr, string name)
-        {
-            var mts = (new Regex(regStr, RegexOptions.IgnoreCase | RegexOptions.Singleline)).Matches(docHtml);
-            return (from Match mt in mts select mt.Groups[name].Value).ToList();
-        }
-
-        /// <summary>
-        /// 获取多个正则匹配值
-        /// </summary>
-        /// <param name="docHtml">字符源</param>
-        /// <param name="regStr">正则</param>
-        /// <returns></returns>
-        public static List<string> Matches(string docHtml, string regStr)
-        {
-            return Matches(docHtml, regStr, 1);
+            return Matches(docHtml, regStr, RegexOptions.IgnoreCase | RegexOptions.Singleline, index, groupName);
         }
 
         /// <summary>
@@ -128,13 +113,33 @@ namespace Shoy.Utility.Helper
         }
 
         /// <summary>
+        /// 是否是手机号码
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        public static bool IsMobile(string mobile)
+        {
+            return !string.IsNullOrWhiteSpace(mobile) && Regex.IsMatch(mobile, MobileRegex);
+        }
+
+        /// <summary>
+        /// 是否是邮箱
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool IsEmail(string email)
+        {
+            return !string.IsNullOrWhiteSpace(email) && Regex.IsMatch(email, EmailRegex);
+        }
+
+        /// <summary>
         /// 是否是IP
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
         public static bool IsIp(string ip)
         {
-            return Regex.IsMatch(ip, IpRegex);
+            return !string.IsNullOrWhiteSpace(ip) && Regex.IsMatch(ip, IpRegex);
         }
 
         ///<summary>
@@ -144,7 +149,17 @@ namespace Shoy.Utility.Helper
         ///<returns></returns>
         public static bool IsUrl(string strUrl)
         {
-            return Regex.IsMatch(strUrl, UrlRegex);
+            return !string.IsNullOrWhiteSpace(strUrl) && Regex.IsMatch(strUrl, UrlRegex);
+        }
+
+        /// <summary>
+        /// 是否是浮点字符
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsFloat(string str)
+        {
+            return !string.IsNullOrWhiteSpace(str) && Regex.IsMatch(str, FloatRegex);
         }
 
         /// <summary>
@@ -157,16 +172,6 @@ namespace Shoy.Utility.Helper
             return Regex.Replace(str, HtmlTagRegex, string.Empty);
         }
 
-        /// <summary>
-        /// 是否是浮点字符
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static bool IsFloat(string str)
-        {
-            return Regex.IsMatch(str, FloatRegex);
-        }
-
         public static string FindById(string html, string id)
         {
             if (string.IsNullOrEmpty(html))
@@ -175,7 +180,7 @@ namespace Shoy.Utility.Helper
             var reg = HtmlFindByIdRegex.FormatWith(id);
             if (Regex.IsMatch(html, reg))
                 reg = HtmlIdRegex.FormatWith(id);
-            return Match(html, reg, 0, RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            return Match(html, reg, RegexOptions.Singleline | RegexOptions.IgnoreCase, 0);
         }
 
         public static IEnumerable<string> FindByCss(string html, string css)

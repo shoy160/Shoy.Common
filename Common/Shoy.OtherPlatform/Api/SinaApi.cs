@@ -19,7 +19,7 @@ namespace Shoy.OtherPlatform.Api
         private static string AccessToken(string code, string callBackUrl)
         {
             var url = TokenUrl.FormatWith(_appId, _key, callBackUrl, code);
-            string content = url.As<IHtml>().GetHtml("POST", "", Encoding.UTF8);
+            string content = url.As<IHtml>().GetHtml(Encoding.UTF8, "POST");
             return content;
         }
 

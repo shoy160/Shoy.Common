@@ -19,7 +19,7 @@ namespace Shoy.Utility.Extend
         /// <returns> 是返回True，不是返回False </returns>
         public static bool IsNullableType(this Type type)
         {
-            return ((type != null) && type.IsGenericType) && (type.GetGenericTypeDefinition() == typeof (Nullable<>));
+            return ((type != null) && type.IsGenericType) && (type.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
 
         /// <summary>
@@ -39,12 +39,9 @@ namespace Shoy.Utility.Extend
         /// <returns> </returns>
         public static Type GetUnNullableType(this Type type)
         {
-            if (IsNullableType(type))
-            {
-                var nullableConverter = new NullableConverter(type);
-                return nullableConverter.UnderlyingType;
-            }
-            return type;
+            if (!IsNullableType(type)) return type;
+            var nullableConverter = new NullableConverter(type);
+            return nullableConverter.UnderlyingType;
         }
 
         /// <summary>

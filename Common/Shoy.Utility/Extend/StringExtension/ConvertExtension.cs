@@ -44,7 +44,7 @@ namespace Shoy.Utility.Extend
 
         public static DateTime ToDateTime(this IConvert c)
         {
-            return ConvertHelper.StrToDateTime(c.GetValue(), DateTime.Parse("1900-01-01"));
+            return ConvertHelper.StrToDateTime(c.GetValue());
         }
     }
 }
