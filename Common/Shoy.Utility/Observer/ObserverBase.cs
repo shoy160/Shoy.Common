@@ -24,6 +24,7 @@ namespace Shoy.Utility.Observer
         {
             if (_publishers.ContainsKey(key))
                 return;
+            //添加更新方法
             publisher.Update += Response;
             _publishers.TryAdd(key, publisher);
         }

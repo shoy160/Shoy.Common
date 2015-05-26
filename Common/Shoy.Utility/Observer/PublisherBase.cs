@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Threading.Tasks;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Observer
 {
@@ -17,7 +18,7 @@ namespace Shoy.Utility.Observer
 
         protected PublisherBase()
         {
-            PublisherKey = Guid.NewGuid().ToString("N");
+            PublisherKey = CombHelper.Guid16();
         }
 
         /// <summary> 订阅 消息通知 </summary>
