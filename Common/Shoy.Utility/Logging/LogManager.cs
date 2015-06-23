@@ -3,7 +3,6 @@ using Shoy.Utility.Extend;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 
@@ -11,20 +10,24 @@ namespace Shoy.Utility.Logging
 {
     public static class LogManager
     {
-        public static LogLevel Level { get; private set; }
+        private static LogLevel LogLevel
+        {
+            //ConfigurationManager.AppSettings.Get("LogLevel").CastTo(LogLevel.Off);
+            get { return Utils.GetAppSetting(s => s.CastTo(LogLevel.Off)); }
+        }
+
         private static readonly ConcurrentDictionary<string, Logger> LoggerDictionary;
         private static readonly object LockObj = new object();
         /// <summary>
         /// 日志适配器集合
         /// </summary>
-        internal static ICollection<ILoggerAdapter> LoggerAdapters;
+        private static readonly ICollection<ILoggerAdapter> LoggerAdapters;
 
         /// <summary>
         /// 静态构造
         /// </summary>
         static LogManager()
         {
-            Level = ConfigurationManager.AppSettings.Get("LogLevel").CastTo(LogLevel.Off);
             LoggerDictionary = new ConcurrentDictionary<string, Logger>();
             LoggerAdapters = new List<ILoggerAdapter>();
         }
@@ -61,7 +64,7 @@ namespace Shoy.Utility.Logging
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Logger GetLogger(string name)
+        public static Logger Logger(string name)
         {
             Logger logger;
             if (LoggerDictionary.TryGetValue(name, out logger))
@@ -78,9 +81,9 @@ namespace Shoy.Utility.Logging
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static Logger GetLogger(Type type)
+        public static Logger Logger(Type type)
         {
-            return GetLogger(type.FullName);
+            return Logger(type.FullName);
         }
 
         /// <summary>
@@ -88,9 +91,9 @@ namespace Shoy.Utility.Logging
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Logger GetLogger<T>()
+        public static Logger Logger<T>()
         {
-            return GetLogger(typeof(T));
+            return Logger(typeof(T));
         }
 
         private static IEnumerable<ILog> GetAdapters(string name)
@@ -115,7 +118,7 @@ namespace Shoy.Utility.Logging
         /// <returns></returns>
         private static bool IsEnableLevel(LogLevel level)
         {
-            return level >= Level;
+            return level >= LogLevel;
         }
 
         private const string MessageFormat = "Method:{1}({2}) {3}:{4}{0}Msg:{5}{0}";

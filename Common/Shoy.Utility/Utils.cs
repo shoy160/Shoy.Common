@@ -1,11 +1,14 @@
 ﻿using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
+using Shoy.Utility.Logging;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -19,6 +22,7 @@ namespace Shoy.Utility
     public class Utils
     {
         private const string DefaultDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        private static readonly ILogger Logger = LogManager.Logger<Utils>();
         /// <summary>
         /// 获得当前绝对路径
         /// </summary>
@@ -494,6 +498,32 @@ namespace Shoy.Utility
             min = Math.Min(min, max);
             return Enumerable.Range(min, Math.Abs(max - min));
         };
+
+        /// <summary> 配置文件读取 </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="parseFunc">类型转换方法</param>
+        /// <param name="defaultValue">默认值</param>
+        /// <param name="key">配置名</param>
+        /// <param name="supressKey">配置别名</param>
+        /// <returns></returns>
+        public static T GetAppSetting<T>(Func<string, T> parseFunc = null, T defaultValue = default(T), [CallerMemberName] string key = null,
+              string supressKey = null)
+        {
+            if (!string.IsNullOrWhiteSpace(supressKey))
+                key = supressKey;
+            if (parseFunc == null)
+                parseFunc = s => (T)Convert.ChangeType(s, typeof(T));
+            try
+            {
+                var node = ConfigurationManager.AppSettings[key];
+                return string.IsNullOrWhiteSpace(node) ? defaultValue : parseFunc(node);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                return defaultValue;
+            }
+        }
     }
 }
 

@@ -14,7 +14,7 @@ namespace Shoy.Utility.Helper
     /// </summary>
     public class CompressHelper
     {
-        private static readonly ILogger Logger = LogManager.GetLogger<CompressHelper>();
+        private static readonly ILogger Logger = LogManager.Logger<CompressHelper>();
         /// <summary>
         /// 是否安装了Winrar
         /// </summary>

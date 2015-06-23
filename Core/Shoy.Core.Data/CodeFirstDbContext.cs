@@ -1,5 +1,7 @@
 ﻿using Shoy.Core.Data.Extensions;
 using Shoy.Core.Logging;
+using Shoy.Utility;
+using Shoy.Utility.Logging;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -8,7 +10,6 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Shoy.Utility.Logging;
 
 namespace Shoy.Core.Data
 {
@@ -17,13 +18,13 @@ namespace Shoy.Core.Data
     /// </summary>
     public class CodeFirstDbContext : DbContext, IUnitOfWork, IDependency
     {
-        private static readonly Logger Logger = LogManager.GetLogger(typeof(CodeFirstDbContext));
+        private static readonly Logger Logger = LogManager.Logger(typeof(CodeFirstDbContext));
 
         /// <summary>
         /// 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例
         /// </summary>
         public CodeFirstDbContext()
-            : this(GetConnectionStringName())
+            : this(ConnectionStringName)
         { }
 
         /// <summary>
@@ -42,11 +43,12 @@ namespace Shoy.Core.Data
         /// 获取 数据库连接串名称
         /// </summary>
         /// <returns></returns>
-        private static string GetConnectionStringName()
+        private static string ConnectionStringName
         {
-            string name = ConfigurationManager.AppSettings.Get("OSharp-ConnectionStringName")
-                ?? ConfigurationManager.AppSettings.Get("ConnectionStringName") ?? "default";
-            return name;
+            //string name = ConfigurationManager.AppSettings.Get("OSharp-ConnectionStringName")
+            //    ?? ConfigurationManager.AppSettings.Get("ConnectionStringName") ?? "default";
+            //return name;
+            get { return Utils.GetAppSetting(defaultValue: "default"); }
         }
 
         /// <summary>

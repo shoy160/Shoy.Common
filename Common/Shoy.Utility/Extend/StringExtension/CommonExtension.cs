@@ -1,4 +1,6 @@
-﻿using System.Collections.Specialized;
+﻿using Shoy.Utility.Helper;
+using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
@@ -7,8 +9,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Script.Serialization;
-using System;
-using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Extend
 {
@@ -392,6 +392,16 @@ namespace Shoy.Utility.Extend
             if (str.IsNullOrEmpty())
                 return str;
             return SecurityHelper.Md5(str);
+        }
+
+        /// <summary> 读取配置文件 </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="configName"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public static T Config<T>(this string configName, T def = default(T))
+        {
+            return Utils.GetAppSetting(null, def, supressKey: configName);
         }
 
         /// <summary>

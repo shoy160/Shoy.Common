@@ -12,7 +12,7 @@ namespace Shoy.Utility.Helper
     /// </summary>
     public class FileHelper
     {
-        private static readonly ILogger Logger = LogManager.GetLogger<FileHelper>();
+        private static readonly ILogger Logger = LogManager.Logger<FileHelper>();
         private static Mutex _mut;
 
         /// <summary>

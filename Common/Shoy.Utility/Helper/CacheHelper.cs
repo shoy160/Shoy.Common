@@ -13,7 +13,7 @@ namespace Shoy.Utility.Helper
     /// </summary>
     public class CacheHelper
     {
-        private static readonly ILogger Logger = LogManager.GetLogger<CacheHelper>();
+        private static readonly ILogger Logger = LogManager.Logger<CacheHelper>();
         /// <summary>
         /// 添加缓存
         /// </summary>

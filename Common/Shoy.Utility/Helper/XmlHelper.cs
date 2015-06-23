@@ -10,7 +10,7 @@ namespace Shoy.Utility.Helper
 {
     public class XmlHelper
     {
-        private static readonly ILogger Logger = LogManager.GetLogger<XmlHelper>();
+        private static readonly ILogger Logger = LogManager.Logger<XmlHelper>();
         private static void XmlSerializeInternal(Stream stream, object obj, Encoding encoding)
         {
             if (obj == null || encoding == null)

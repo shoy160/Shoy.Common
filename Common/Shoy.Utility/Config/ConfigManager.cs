@@ -1,24 +1,28 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using Shoy.Utility.Extend;
+﻿using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Shoy.Utility.Config
 {
     /// <summary>
     /// 配置文件管理
     /// </summary>
-    public class ConfigManager
+    public static class ConfigManager
     {
-        private static readonly IDictionary<string, object> ConfigCache = new ConcurrentDictionary<string, object>();
-        private static readonly string ConfigPath;
+        private static readonly IDictionary<string, object> ConfigCache;
+
+        private static string ConfigPath
+        {
+            get { return Utils.GetAppSetting<string>(); }
+        }
         private static readonly object LockObj = new object();
 
         static ConfigManager()
         {
-            ConfigPath = ConfigurationManager.AppSettings.Get("configPath");
+            ConfigCache = new ConcurrentDictionary<string, object>();
+            //ConfigPath = ConfigurationManager.AppSettings.Get("configPath");
             if (!Directory.Exists(ConfigPath)) return;
             //文件监控
             var watcher = new FileSystemWatcher(ConfigPath)

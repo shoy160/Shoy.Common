@@ -3,6 +3,7 @@ using Shoy.Laboratory;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
+using Shoy.Utility.Logging;
 using Shoy.Utility.UseTest;
 using System;
 using System.Collections.Generic;
@@ -173,15 +174,31 @@ namespace Shoy.Test
             //Console.WriteLine(RandomHelper.RandomHanzi(4, 3));
             //Console.WriteLine(CombHelper.NewComb());
             var list = new List<string>();
-            for (int i = 0; i < 100*1000; i++)
+            for (int i = 0; i < 100 * 1000; i++)
             {
                 list.Add(CombHelper.Guid16());
             }
-            var result = list.GroupBy(t => t).Select(t => new {key = t.Key, c = t.Count()}).OrderByDescending(t => t.c);
+            var result = list.GroupBy(t => t).Select(t => new { key = t.Key, c = t.Count() }).OrderByDescending(t => t.c);
             foreach (var item in result.Take(50))
             {
                 Console.WriteLine(item.ToJson());
             }
+        }
+
+        private string ConfigPath
+        {
+            get { return Utils.GetAppSetting(null, "hello"); }
+        }
+
+        [TestMethod]
+        public void ConfigTest()
+        {
+            var config = ConfigPath;
+            Console.WriteLine(config);
+            config = Utils.GetAppSetting(null, "test");
+            Console.WriteLine(config);
+            var level = Utils.GetAppSetting(s => s.CastTo(LogLevel.Off), supressKey: "LogLevel");
+            Assert.AreEqual(level, LogLevel.Debug);
         }
     }
 }
