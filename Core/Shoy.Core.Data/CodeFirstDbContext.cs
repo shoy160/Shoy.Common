@@ -1,17 +1,18 @@
-﻿using Shoy.Core.Data.Extensions;
-using Shoy.Core.Logging;
-using Shoy.Utility;
-using Shoy.Utility.Logging;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Shoy.Core;
+using Shoy.Core.Data;
+using Shoy.Core.Logging;
+using Shoy.EntityFramework.Extensions;
+using Shoy.Utility;
+using Shoy.Utility.Logging;
 
-namespace Shoy.Core.Data
+namespace Shoy.EntityFramework
 {
     /// <summary>
     /// EntityFramework-CodeFirst数据上下文
@@ -45,9 +46,6 @@ namespace Shoy.Core.Data
         /// <returns></returns>
         private static string ConnectionStringName
         {
-            //string name = ConfigurationManager.AppSettings.Get("OSharp-ConnectionStringName")
-            //    ?? ConfigurationManager.AppSettings.Get("ConnectionStringName") ?? "default";
-            //return name;
             get { return Utils.GetAppSetting(defaultValue: "default"); }
         }
 

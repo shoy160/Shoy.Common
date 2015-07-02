@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace Shoy.Core.Data.Migrations
+namespace Shoy.EntityFramework.Migrations
 {
     /// <summary>
     /// 数据迁移初始化种子数据操作基类

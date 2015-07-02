@@ -1,5 +1,4 @@
-﻿using Shoy.Core.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -9,8 +8,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using Shoy.Core.Domain.Entities;
+using Shoy.Core.Logging;
 
-namespace Shoy.Core.Data.Extensions
+namespace Shoy.EntityFramework.Extensions
 {
     public static class DbContextExtensions
     {
@@ -21,7 +22,7 @@ namespace Shoy.Core.Data.Extensions
         /// <typeparam name="TKey">主键类型</typeparam>
         /// <param name="dbContext">上下文对象</param>
         /// <param name="entities">要更新的实体类型</param>
-        public static void Update<TEntity, TKey>(this DbContext dbContext, params TEntity[] entities) where TEntity : EntityBase<TKey>
+        public static void Update<TEntity, TKey>(this DbContext dbContext, params TEntity[] entities) where TEntity : Entity<TKey>
         {
             foreach (TEntity entity in entities)
             {
@@ -54,7 +55,7 @@ namespace Shoy.Core.Data.Extensions
         public static void Update<TEntity, TKey>(this DbContext dbContext,
             Expression<Func<TEntity, object>> propertyExpression,
             params TEntity[] entities)
-            where TEntity : EntityBase<TKey>
+            where TEntity : Entity<TKey>
         {
             ReadOnlyCollection<MemberInfo> memberInfos = ((dynamic)propertyExpression.Body).Members;
             foreach (TEntity entity in entities)

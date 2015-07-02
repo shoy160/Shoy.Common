@@ -3,6 +3,7 @@ using Shoy.Core.Data;
 using Shoy.Utility;
 using System;
 using System.Collections.Generic;
+using Shoy.Core.Domain.Entities;
 using Shoy.Utility.Helper;
 
 namespace Shoy.Core.Logging
@@ -10,7 +11,7 @@ namespace Shoy.Core.Logging
     /// <summary>
     /// 实体数据操作日志信息类
     /// </summary>
-    public class OperatingLog : EntityBase<Guid>
+    public class OperatingLog : Entity<Guid>
     {
         /// <summary>
         /// 初始化一个<see cref="OperatingLog"/>类型的新实例

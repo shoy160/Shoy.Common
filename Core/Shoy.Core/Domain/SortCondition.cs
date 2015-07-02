@@ -5,9 +5,7 @@ using System.Linq.Expressions;
 
 namespace Shoy.Core.Data
 {
-    /// <summary>
-    /// 排序条件
-    /// </summary>
+    /// <summary> 排序条件 </summary>
     public class SortCondition
     {
         public SortCondition(string sortField)

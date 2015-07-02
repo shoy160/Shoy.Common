@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 
-namespace Shoy.Core.Data.Migrations
+namespace Shoy.EntityFramework.Migrations
 {
     /// <summary>
     /// 在数据库不存在时使用种子数据创建数据库

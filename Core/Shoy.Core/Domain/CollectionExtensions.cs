@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Shoy.Core.Data;
+using Shoy.Core.Domain.Entities;
 
-namespace Shoy.Core.Data
+namespace Shoy.Core.Domain
 {
     /// <summary>
     /// IQueryable 扩展
@@ -26,7 +28,7 @@ namespace Shoy.Core.Data
             int pageIndex,
             int pageSize,
             out int total,
-            SortCondition[] sortConditions = null) where TEntity : EntityBase<TKey>
+            SortCondition[] sortConditions = null) where TEntity : Entity<TKey>
         {
             total = source.Count(predicate);
             source = source.Where(predicate);

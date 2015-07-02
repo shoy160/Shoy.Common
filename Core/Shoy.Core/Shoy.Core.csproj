@@ -49,16 +49,20 @@
   <ItemGroup>
     <Compile Include="Context\Operator.cs" />
     <Compile Include="Context\ShoyContext.cs" />
-    <Compile Include="Data\CollectionExtensions.cs" />
-    <Compile Include="Data\EntityBase.cs" />
-    <Compile Include="Data\IAddDto.cs" />
-    <Compile Include="Data\IEditDto.cs" />
-    <Compile Include="Data\IRepository.cs" />
-    <Compile Include="Data\OperateResult.cs" />
-    <Compile Include="Data\QueryablePropertySorter.cs" />
-    <Compile Include="Data\SortCondition.cs" />
+    <Compile Include="Domain\CollectionExtensions.cs" />
+    <Compile Include="Domain\Entities\Entity.cs" />
+    <Compile Include="Domain\Entities\EntityExtensions.cs" />
+    <Compile Include="Domain\Entities\IAudited.cs" />
+    <Compile Include="Domain\Entities\IEntity.cs" />
+    <Compile Include="Domain\Entities\IHasStatus.cs" />
+    <Compile Include="Domain\Entities\ISoftDelete.cs" />
+    <Compile Include="Domain\Repositories\IRepository.cs" />
+    <Compile Include="Domain\OperateResult.cs" />
+    <Compile Include="Domain\QueryablePropertySorter.cs" />
+    <Compile Include="Domain\Repositories\ShoyRepositoryBase.cs" />
+    <Compile Include="Domain\SortCondition.cs" />
     <Compile Include="IDependency.cs" />
-    <Compile Include="Data\IUnitOfWork.cs" />
+    <Compile Include="Domain\IUnitOfWork.cs" />
     <Compile Include="Logging\Log4NetAdapter.cs" />
     <Compile Include="Logging\Log4NetLog.cs" />
     <Compile Include="Logging\OperatingLog.cs" />
@@ -74,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Caching\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,7 +2,7 @@
 using System.Data.Entity.Migrations;
 using System.Linq;
 
-namespace Shoy.Core.Data.Migrations
+namespace Shoy.EntityFramework.Migrations
 {
     public class MigrationsConfiguration : DbMigrationsConfiguration<CodeFirstDbContext>
     {
