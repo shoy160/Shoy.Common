@@ -1,8 +1,8 @@
-﻿using Shoy.Utility.Extend;
-using Shoy.Utility.Helper;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Utility.Config
 {
@@ -17,6 +17,7 @@ namespace Shoy.Utility.Config
         {
             get { return Utils.GetAppSetting<string>(); }
         }
+
         private static readonly object LockObj = new object();
 
         static ConfigManager()
@@ -26,11 +27,11 @@ namespace Shoy.Utility.Config
             if (!Directory.Exists(ConfigPath)) return;
             //文件监控
             var watcher = new FileSystemWatcher(ConfigPath)
-                {
-                    IncludeSubdirectories = true,
-                    Filter = "*.config", //"*.config|*.xml"多个扩展名不受支持！
-                    NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Size
-                };
+            {
+                IncludeSubdirectories = true,
+                Filter = "*.config", //"*.config|*.xml"多个扩展名不受支持！
+                NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Size
+            };
             watcher.Changed += Reset;
             watcher.Deleted += Reset;
             watcher.Renamed += Reset;
@@ -67,6 +68,15 @@ namespace Shoy.Utility.Config
         {
             if (ConfigCache.ContainsKey(e.Name))
                 ConfigCache.Remove(e.Name);
+            if (Change != null)
+            {
+                Change(e.Name);
+            }
         }
+        /// <summary> 配置文件改变委托 </summary>
+        /// <param name="fileName"></param>
+        public delegate void ConfigChange(string fileName);
+
+        public static event ConfigChange Change;
     }
 }
