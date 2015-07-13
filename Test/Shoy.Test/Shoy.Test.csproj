@@ -74,6 +74,10 @@
       <Project>{44071857-a867-4c82-8c0e-18e0df13b256}</Project>
       <Name>Shoy.Laboratory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\Shoy.ThirdPlatform\Shoy.ThirdPlatform.csproj">
+      <Project>{905ae039-4eb4-4703-ac79-5541cb4641b4}</Project>
+      <Name>Shoy.ThirdPlatform</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">
       <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>
       <Name>Shoy.Utility</Name>

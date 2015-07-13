@@ -1,16 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Shoy.Laboratory;
-using Shoy.Utility;
-using Shoy.Utility.Extend;
-using Shoy.Utility.Helper;
-using Shoy.Utility.Logging;
-using Shoy.Utility.UseTest;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shoy.Laboratory;
+using Shoy.ThirdPlatform;
+using Shoy.ThirdPlatform.Api;
+using Shoy.ThirdPlatform.Entity.Config;
+using Shoy.Utility;
+using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
+using Shoy.Utility.Logging;
+using Shoy.Utility.UseTest;
 
 namespace Shoy.Test
 {
@@ -199,6 +202,28 @@ namespace Shoy.Test
             Console.WriteLine(config);
             var level = Utils.GetAppSetting(s => s.CastTo(LogLevel.Off), supressKey: "LogLevel");
             Assert.AreEqual(level, LogLevel.Debug);
+        }
+
+        [TestMethod]
+        public void ThirdPlatTest()
+        {
+            //            var config = new PlatformConfig
+            //            {
+            //                Platforms = new List<Platform>
+            //                {
+            //                    new Platform
+            //                    {
+            //                        PlatType = (int) PlatformType.Alipay,
+            //                        Partner = "",
+            //                        Key = "",
+            //                        AuthorizeUrl = "",
+            //                        TokenUrl = "https://mapi.alipay.com/gateway.do?"
+            //                    }
+            //                }
+            //            };
+            //            ConfigUtils<PlatformConfig>.Instance().Set(config);
+            var url = PlatformFactory.GetInstance(PlatformType.Tencent).Login("http://100hg.com");
+            Console.WriteLine(url.ToJson());
         }
     }
 }
