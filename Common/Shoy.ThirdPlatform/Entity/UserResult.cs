@@ -1,10 +1,12 @@
-﻿using System;
-
+﻿
 namespace Shoy.ThirdPlatform.Entity
 {
-    [Serializable]
-    public class WeiboUser : UserBase
+    public class UserResult
     {
+        /// <summary>
+        /// Id：OpenId/Uid/user_id
+        /// </summary>
+        public string Id { get; set; }
         public string AccessToken { get; set; }
         public string Nick { get; set; }
         public string Profile { get; set; }

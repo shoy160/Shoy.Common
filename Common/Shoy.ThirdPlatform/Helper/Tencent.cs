@@ -2,6 +2,7 @@
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
 using Shoy.ThirdPlatform.Entity.Result;
+using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
 
@@ -35,36 +36,39 @@ namespace Shoy.ThirdPlatform.Helper
         protected override void Init()
         {
             LoadPlatform(PlatformType.Tencent);
+            Callback = string.Format(Callback, PlatformType.Tencent.GetValue());
         }
 
-        public override string LoginUrl(string callback)
+        public override string LoginUrl()
         {
-            return Config.AuthorizeUrl.FormatWith(Config.Partner, callback.UrlEncode());
+            return Config.AuthorizeUrl.FormatWith(Config.Partner, Callback.UrlEncode());
         }
 
-        public override UserBase Login(string callbackUrl)
+        public override DResult<UserResult> User()
         {
             var code = "code".Query(string.Empty);
-            string accessToken = GetAccessToken(code, callbackUrl);
+            string accessToken = GetAccessToken(code, Callback);
             string openId = GetOpenId(accessToken);
             string userJson = GetUserInfoString(accessToken, openId);
             try
             {
                 var result = userJson.JsonToObject<TencentResult>();
-                return new TencentUser
+                if (result.ret == 0)
                 {
-                    Status = (result.ret == 0),
-                    Message = result.msg,
-                    Profile = result.figureurl_2,
-                    Gender = result.gender,
-                    Nick = result.nickname,
-                    Id = openId,
-                    AccessToken = accessToken
-                };
+                    return new DResult<UserResult>(true, new UserResult
+                    {
+                        Profile = result.figureurl_2,
+                        Gender = result.gender,
+                        Nick = result.nickname,
+                        Id = openId,
+                        AccessToken = accessToken
+                    });
+                }
+                return new DResult<UserResult>(result.msg);
             }
             catch
             {
-                return new TencentUser { Status = false, Message = "获取用户数据失败！" };
+                return new DResult<UserResult>("获取用户数据失败！");
             }
         }
     }

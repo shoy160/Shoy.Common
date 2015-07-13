@@ -23,7 +23,6 @@ namespace Shoy.ThirdPlatform
         {
             lock (LockObj)
             {
-
                 if (HelperCache.ContainsKey(type))
                     return HelperCache[type];
                 var instance = HelperBase.GetInstance(type);

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
+using Shoy.Utility;
 using Shoy.Utility.Extend;
 
 namespace Shoy.ThirdPlatform.Helper
@@ -17,31 +18,29 @@ namespace Shoy.ThirdPlatform.Helper
         protected override void Init()
         {
             LoadPlatform(PlatformType.TencentWeibo);
+            Callback = string.Format(Callback, PlatformType.TencentWeibo.GetValue());
         }
 
-        public override string LoginUrl(string callback)
+        public override string LoginUrl()
         {
-            return Config.AuthorizeUrl.FormatWith(Config.Partner, callback.UrlEncode());
+            return Config.AuthorizeUrl.FormatWith(Config.Partner, Callback.UrlEncode());
         }
 
-        public override UserBase Login(string callbackUrl)
+        public override DResult<UserResult> User()
         {
             var code = "code".Query(string.Empty);
-            string context = GetAccessToken(code, callbackUrl);
+            string context = GetAccessToken(code, Callback);
 
             var info = PlatformUtility.GetContext(context);
-            var uInfo = new TencentWeiboUser();
-            if (info["openid"].IsNotNullOrEmpty())
+            if (info["errorCode"] == "0")
             {
-                uInfo.Id = info["openid"];
-                uInfo.Nick = info["nick"];
+                return new DResult<UserResult>(true, new UserResult
+                {
+                    Id = info["openid"],
+                    Nick = info["nick"]
+                });
             }
-            else
-            {
-                uInfo.Status = info["errorCode"] == "0";
-                uInfo.Message = info["errorMsg"];
-            }
-            return uInfo;
+            return new DResult<UserResult>(info["errorMsg"]);
         }
     }
 }

@@ -221,7 +221,7 @@ namespace Shoy.Test
             //                }
             //            };
             //            ConfigUtils<PlatformConfig>.Instance().Set(config);
-            var url = PlatformFactory.GetInstance(PlatformType.Weibo).Login("http://100hg.com");
+            var url = PlatformFactory.GetInstance(PlatformType.Tencent).LoginUrl();
             Console.WriteLine(url);
         }
     }

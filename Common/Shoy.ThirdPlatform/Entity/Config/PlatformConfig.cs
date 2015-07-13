@@ -11,6 +11,9 @@ namespace Shoy.ThirdPlatform.Entity.Config
     [XmlRoot("root")]
     public class PlatformConfig : ConfigBase
     {
+        [XmlElement("callback")]
+        public string Callback { get; set; }
+
         [XmlArray("platforms"), XmlArrayItem("item")]
         public List<Platform> Platforms { get; set; }
     }

@@ -2,6 +2,7 @@
 using System.Reflection;
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
+using Shoy.Utility;
 using Shoy.Utility.Config;
 using Shoy.Utility.Extend;
 
@@ -9,12 +10,8 @@ namespace Shoy.ThirdPlatform.Helper
 {
     public abstract class HelperBase
     {
+        protected static string Callback { get; set; }
         protected static Platform Config { get; private set; }
-
-        internal static HelperBase GetInstance(PlatformType type)
-        {
-            return GetInstance(type.ToString());
-        }
 
         internal static HelperBase GetInstance(string type)
         {
@@ -43,20 +40,24 @@ namespace Shoy.ThirdPlatform.Helper
             if (Config != null)
                 return;
             var config = ConfigUtils<PlatformConfig>.Instance().Get();
-            Config = (config == null
-                ? new Platform()
-                : config.Platforms.FirstOrDefault(t => t.PlatType == type.GetValue())
-                  ?? new Platform());
+            if (config != null)
+            {
+                Callback = config.Callback;
+                Config = config.Platforms.FirstOrDefault(t => t.PlatType == type.GetValue())
+                         ?? new Platform();
+            }
+            else
+            {
+                Config = new Platform();
+            }
         }
 
         /// <summary> 获取登录链接 </summary>
-        /// <param name="callback"></param>
         /// <returns></returns>
-        public abstract string LoginUrl(string callback);
+        public abstract string LoginUrl();
 
         /// <summary> 获取登录用户 </summary>
-        /// <param name="callbackUrl"></param>
         /// <returns></returns>
-        public abstract UserBase Login(string callbackUrl);
+        public abstract DResult<UserResult> User();
     }
 }

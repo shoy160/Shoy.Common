@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
+using Shoy.Utility;
 using Shoy.Utility.Extend;
 
 namespace Shoy.ThirdPlatform.Helper
@@ -77,16 +78,17 @@ namespace Shoy.ThirdPlatform.Helper
         protected override void Init()
         {
             LoadPlatform(PlatformType.Alipay);
+            Callback = string.Format(Callback, PlatformType.Alipay.GetValue());
         }
 
-        public override string LoginUrl(string callBack)
+        public override string LoginUrl()
         {
 
             var sArray = new ArrayList
             {
                 "service=user_authentication",
                 "partner=" + Config.Partner,
-                "return_url=" + callBack,
+                "return_url=" + Callback,
                 "email=",
                 "_input_charset=" + Config.Charset
             };
@@ -96,7 +98,7 @@ namespace Shoy.ThirdPlatform.Helper
             return (Config.TokenUrl + CreateLinkstringEncode(sArray) + "&sign=" + str2 + "&sign_type=" + Config.SignType);
         }
 
-        public override UserBase Login(string callbackUrl)
+        public override DResult<UserResult> User()
         {
             NameValueCollection coll = HttpContext.Current.Request.QueryString;
 
@@ -104,7 +106,7 @@ namespace Shoy.ThirdPlatform.Helper
             {
                 string verifyUrl = Config.TokenUrl + "service=notify_verify&partner={0}&notify_id={1}";
                 var result = verifyUrl.FormatWith(Config.Partner, coll["notify_id"]).As<IHtml>().GetHtml();
-                if (result != "true") return new AlipayUser { Status = false, Message = "验证失败！" };
+                if (result != "true") return new DResult<UserResult>("验证失败！");
                 var pams = new[] { "sign", "sign_type", "target", "subdomain" };
                 var str = coll.AllKeys.Where(key => !key.In(pams)).Aggregate("",
                     (current, key) =>
@@ -113,13 +115,13 @@ namespace Shoy.ThirdPlatform.Helper
                 var sign = GetMd5(str, Config.Charset);
                 if (sign == coll["sign"])
                 {
-                    return new AlipayUser
+                    return new DResult<UserResult>(true, new UserResult
                     {
                         Id = coll["user_id"]
-                    };
+                    });
                 }
             }
-            return new AlipayUser { Status = false, Message = "获取登录信息失败！" };
+            return new DResult<UserResult>("获取登录信息失败！");
         }
     }
 }
