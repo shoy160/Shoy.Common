@@ -7,7 +7,6 @@ using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shoy.Laboratory;
 using Shoy.ThirdPlatform;
-using Shoy.ThirdPlatform.Api;
 using Shoy.ThirdPlatform.Entity.Config;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
@@ -222,8 +221,8 @@ namespace Shoy.Test
             //                }
             //            };
             //            ConfigUtils<PlatformConfig>.Instance().Set(config);
-            var url = PlatformFactory.GetInstance(PlatformType.Tencent).Login("http://100hg.com");
-            Console.WriteLine(url.ToJson());
+            var url = PlatformFactory.GetInstance(PlatformType.Weibo).Login("http://100hg.com");
+            Console.WriteLine(url);
         }
     }
 }

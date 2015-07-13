@@ -6,16 +6,13 @@ using System.Text;
 using System.Web;
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
-using Shoy.Utility;
 using Shoy.Utility.Extend;
 
-namespace Shoy.ThirdPlatform.Api
+namespace Shoy.ThirdPlatform.Helper
 {
-    /// <summary> 支付宝登录辅助 </summary>
-    public class AlipayHelper : HelperBase
+    /// <summary> 支付宝登录 </summary>
+    internal class Alipay : HelperBase
     {
-        private AlipayHelper() { }
-
         private static ArrayList ParaFilter(ArrayList sArray)
         {
             int count = sArray.Count;
@@ -118,7 +115,7 @@ namespace Shoy.ThirdPlatform.Api
                 {
                     return new AlipayUser
                     {
-                        UserId = coll["user_id"]
+                        Id = coll["user_id"]
                     };
                 }
             }

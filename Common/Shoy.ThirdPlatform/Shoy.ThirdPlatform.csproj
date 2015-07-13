@@ -42,11 +42,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\AlipayHelper.cs" />
-    <Compile Include="Api\HelperBase.cs" />
-    <Compile Include="Api\TencentHelper.cs" />
-    <Compile Include="Api\WeiboHelper.cs" />
-    <Compile Include="Api\TencentWeiboHelper.cs" />
+    <Compile Include="Helper\Alipay.cs" />
+    <Compile Include="Helper\HelperBase.cs" />
+    <Compile Include="Helper\Tencent.cs" />
+    <Compile Include="Helper\Weibo.cs" />
+    <Compile Include="Helper\TencentWeibo.cs" />
     <Compile Include="Entity\AlipayUser.cs" />
     <Compile Include="Entity\Config\PlatformConfig.cs" />
     <Compile Include="Entity\Config\PlatformType.cs" />

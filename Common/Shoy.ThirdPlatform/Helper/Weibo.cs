@@ -1,14 +1,13 @@
 ﻿using System.Text;
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
-using Shoy.Utility;
 using Shoy.Utility.Extend;
 
-namespace Shoy.ThirdPlatform.Api
+namespace Shoy.ThirdPlatform.Helper
 {
-    internal class WeiboHelper : HelperBase
+    /// <summary> 微博登录 </summary>
+    internal class Weibo : HelperBase
     {
-        private WeiboHelper() { }
         private static string AccessToken(string code, string callBackUrl)
         {
             var url = Config.TokenUrl.FormatWith(Config.Partner, Config.Key, callBackUrl, code);
@@ -22,7 +21,7 @@ namespace Shoy.ThirdPlatform.Api
 
         public override string LoginUrl(string callback)
         {
-            return Config.AuthorizeUrl.FormatWith(Config.Partner, callback);
+            return Config.AuthorizeUrl.FormatWith(Config.Partner, callback.UrlEncode());
         }
 
         public override UserBase Login(string callbackUrl)
@@ -36,9 +35,9 @@ namespace Shoy.ThirdPlatform.Api
             else
             {
                 var val = PlatformUtility.GetContext(accessToken);
-                info.UserId = val["uid"];
+                info.Id = val["uid"];
                 var token = val["access_token"];
-                var json = Config.UserUrl.FormatWith(info.UserId, token).As<IHtml>().GetHtml(Encoding.UTF8);
+                var json = Config.UserUrl.FormatWith(info.Id, token).As<IHtml>().GetHtml(Encoding.UTF8);
                 val = PlatformUtility.GetContext(json);
                 info.Message = val["error"];
                 if (info.Message.IsNotNullOrEmpty())

@@ -1,12 +1,11 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
 using Shoy.Utility.Config;
 using Shoy.Utility.Extend;
 
-namespace Shoy.ThirdPlatform.Api
+namespace Shoy.ThirdPlatform.Helper
 {
     public abstract class HelperBase
     {
@@ -22,10 +21,10 @@ namespace Shoy.ThirdPlatform.Api
             HelperBase instance;
             if (!string.IsNullOrEmpty(type))
             {
-                var ass = Assembly.GetCallingAssembly();
+                var ass = Assembly.GetExecutingAssembly();
                 instance =
                     (HelperBase)
-                        ass.CreateInstance("Shoy.OtherPlatform.Platform." + type);
+                        ass.CreateInstance(string.Format("{0}.Helper.{1}", ass.GetName().Name, type));
                 if (instance != null)
                     instance.Init();
             }

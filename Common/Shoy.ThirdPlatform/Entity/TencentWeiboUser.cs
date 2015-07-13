@@ -1,7 +1,7 @@
 ﻿namespace Shoy.ThirdPlatform.Entity
 {
-    public  class TencentWeiboUser:UserBase
+    public class TencentWeiboUser : UserBase
     {
-        public string nick { set; get; }
+        public string Nick { get; set; }
     }
 }

@@ -2,6 +2,5 @@
 {
     public class AlipayUser : UserBase
     {
-        public string UserId { get; set; }
     }
 }

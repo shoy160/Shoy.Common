@@ -2,16 +2,14 @@
 using Shoy.ThirdPlatform.Entity;
 using Shoy.ThirdPlatform.Entity.Config;
 using Shoy.ThirdPlatform.Entity.Result;
-using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
 
-namespace Shoy.ThirdPlatform.Api
+namespace Shoy.ThirdPlatform.Helper
 {
-    /// <summary> 腾讯QQ登录辅助类 </summary>
-    public class TencentHelper : HelperBase
+    /// <summary> 腾讯QQ登录 </summary>
+    internal class Tencent : HelperBase
     {
-        private TencentHelper() { }
         private static string GetAccessToken(string code, string callBackUrl)
         {
             var url = Config.TokenUrl.FormatWith(Config.Partner, Config.Key, code, callBackUrl);
@@ -41,7 +39,7 @@ namespace Shoy.ThirdPlatform.Api
 
         public override string LoginUrl(string callback)
         {
-            return Config.AuthorizeUrl.FormatWith(Config.Partner, callback);
+            return Config.AuthorizeUrl.FormatWith(Config.Partner, callback.UrlEncode());
         }
 
         public override UserBase Login(string callbackUrl)
@@ -60,7 +58,7 @@ namespace Shoy.ThirdPlatform.Api
                     Profile = result.figureurl_2,
                     Gender = result.gender,
                     Nick = result.nickname,
-                    OpenId = openId,
+                    Id = openId,
                     AccessToken = accessToken
                 };
             }

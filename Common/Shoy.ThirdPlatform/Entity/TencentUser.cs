@@ -7,7 +7,6 @@ namespace Shoy.ThirdPlatform.Entity
     public class TencentUser : UserBase
     {
         public string AccessToken { get; set; }
-        public string OpenId { get; set; }
         public string Nick { get; set; }
         public string Profile { get; set; }
         public string Gender { get; set; }
