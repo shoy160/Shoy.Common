@@ -8,8 +8,8 @@
     <ProjectGuid>{905AE039-4EB4-4703-AC79-5541CB4641B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Shoy.OtherPlatform</RootNamespace>
-    <AssemblyName>Shoy.OtherPlatform</AssemblyName>
+    <RootNamespace>Shoy.ThirdPlatform</RootNamespace>
+    <AssemblyName>Shoy.ThirdPlatform</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

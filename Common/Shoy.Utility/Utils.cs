@@ -1,9 +1,5 @@
-﻿using Shoy.Utility.Extend;
-using Shoy.Utility.Helper;
-using Shoy.Utility.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,6 +9,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Web;
+using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
+using Shoy.Utility.Logging;
 
 namespace Shoy.Utility
 {
@@ -506,24 +505,10 @@ namespace Shoy.Utility
         /// <param name="key">配置名</param>
         /// <param name="supressKey">配置别名</param>
         /// <returns></returns>
-        public static T GetAppSetting<T>(Func<string, T> parseFunc = null, T defaultValue = default(T), [CallerMemberName] string key = null,
-              string supressKey = null)
+        public static T GetAppSetting<T>(Func<string, T> parseFunc = null, T defaultValue = default(T),
+            [CallerMemberName] string key = null, string supressKey = null)
         {
-            if (!string.IsNullOrWhiteSpace(supressKey))
-                key = supressKey;
-            if (parseFunc == null)
-                parseFunc = s => (T)Convert.ChangeType(s, typeof(T));
-            try
-            {
-                var node = ConfigurationManager.AppSettings[key];
-                return string.IsNullOrWhiteSpace(node) ? defaultValue : parseFunc(node);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message, ex);
-                return defaultValue;
-            }
+            return ConfigHelper.GetAppSetting(parseFunc, defaultValue, key, supressKey);
         }
     }
 }
-

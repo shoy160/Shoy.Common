@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disposable.cs" />
+    <Compile Include="Extend\ListExtension.cs" />
     <Compile Include="Helper\CacheHelper.cs" />
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\CompressHelper.cs" />
@@ -57,14 +58,13 @@
     <Compile Include="Config\ConfigUtils.cs" />
     <Compile Include="Config\FileNameAttribute.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Helper\ConvertHelper.cs" />
     <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="CsvReader.cs" />
     <Compile Include="Deskew.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
-    <Compile Include="Extend\CollectionExtensions.cs" />
     <Compile Include="Extend\CommonEqualityComparer.cs" />
-    <Compile Include="Extend\DistinctExtensions.cs" />
     <Compile Include="Extend\EnumExtension.cs" />
     <Compile Include="Extend\ExpressionExtension.cs" />
     <Compile Include="Extend\IExtension.cs" />

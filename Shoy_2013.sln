@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.MvcPlugin", "Common\Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.OnlinePay", "Common\Shoy.OnlinePay\Shoy.OnlinePay.csproj", "{7194A643-91C1-4173-913D-7D7A4A402E71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.OtherPlatform", "Common\Shoy.OtherPlatform\Shoy.OtherPlatform.csproj", "{905AE039-4EB4-4703-AC79-5541CB4641B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.ThirdPlatform", "Common\Shoy.OtherPlatform\Shoy.ThirdPlatform.csproj", "{905AE039-4EB4-4703-AC79-5541CB4641B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Solr", "Common\Shoy.Solr\Shoy.Solr.csproj", "{C13E1458-F8C2-4FD8-BCE7-2A0E752BBAE1}"
 EndProject

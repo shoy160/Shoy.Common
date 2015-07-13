@@ -1,7 +1,8 @@
 ﻿using System.Web;
 using Shoy.OtherPlatform.Api;
 using Shoy.OtherPlatform.Entity;
- 
+using Shoy.ThirdPlatform.Api;
+
 
 namespace Shoy.OtherPlatform.Platform
 {

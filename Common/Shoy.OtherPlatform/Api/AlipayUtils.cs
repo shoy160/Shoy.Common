@@ -4,10 +4,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using Shoy.OtherPlatform;
 using Shoy.OtherPlatform.Entity;
 using Shoy.Utility.Extend;
 
-namespace Shoy.OtherPlatform.Api
+namespace Shoy.ThirdPlatform.Api
 {
     public class AlipayUtils
     {

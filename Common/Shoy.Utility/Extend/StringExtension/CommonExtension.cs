@@ -465,5 +465,16 @@ namespace Shoy.Utility.Extend
                 return def;
             }
         }
+
+        /// <summary>
+        /// Xml反序列化
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="path">xml路径</param>
+        /// <returns></returns>
+        public static T XmlToObject<T>(this string path)
+        {
+            return XmlHelper.XmlDeserialize<T>(path);
+        }
     }
 }
