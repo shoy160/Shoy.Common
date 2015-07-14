@@ -82,7 +82,7 @@
     <Compile Include="ImageCls.cs" />
     <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Helper\IniHelper.cs" />
-    <Compile Include="JsonResult.cs" />
+    <Compile Include="DResult.cs" />
     <Compile Include="Logging\LoggerAdapterBase.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogger.cs" />

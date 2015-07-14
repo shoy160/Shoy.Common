@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using Shoy.ThirdPlatform.Entity.Config;
 using Shoy.ThirdPlatform.Helper;
+using Shoy.Utility.Config;
 
 namespace Shoy.ThirdPlatform
 {
@@ -12,6 +13,14 @@ namespace Shoy.ThirdPlatform
         static PlatformFactory()
         {
             HelperCache = new ConcurrentDictionary<string, HelperBase>();
+            //添加监听
+            ConfigManager.Change += file =>
+            {
+                if (file == ConfigUtils<PlatformConfig>.Instance().FileName)
+                {
+                    HelperCache.Clear();
+                }
+            };
         }
 
         public static HelperBase GetInstance(PlatformType type)
