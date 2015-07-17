@@ -76,6 +76,7 @@
     <Compile Include="Extend\StringExtension\RegexExtension.cs" />
     <Compile Include="Extend\TypeExtension.cs" />
     <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\IdHelper.cs" />
     <Compile Include="Helper\RegexHelper.cs" />
     <Compile Include="HTemplate.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
@@ -83,6 +84,10 @@
     <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Helper\IniHelper.cs" />
     <Compile Include="DResult.cs" />
+    <Compile Include="License\CodeLengthAttribute.cs" />
+    <Compile Include="License\LicenseHelper.cs" />
+    <Compile Include="License\LicenseManager.cs" />
+    <Compile Include="License\LicenseType.cs" />
     <Compile Include="Logging\LoggerAdapterBase.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogger.cs" />

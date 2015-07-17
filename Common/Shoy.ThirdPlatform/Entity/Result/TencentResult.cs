@@ -1,6 +1,7 @@
 ﻿
 namespace Shoy.ThirdPlatform.Entity.Result
 {
+    /// <summary> 腾讯QQ返回原始数据 </summary>
     internal class TencentResult
     {
         public int ret { get; set; }

@@ -51,6 +51,7 @@
     <Compile Include="Entity\Config\PlatformConfig.cs" />
     <Compile Include="Entity\Config\PlatformType.cs" />
     <Compile Include="Entity\Result\TencentResult.cs" />
+    <Compile Include="Helper\Weixin.cs" />
     <Compile Include="PlatformFactory.cs" />
     <Compile Include="PlatformUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
