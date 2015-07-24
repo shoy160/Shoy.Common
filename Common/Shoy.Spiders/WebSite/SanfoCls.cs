@@ -4,6 +4,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using Shoy.Utility;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -45,7 +46,7 @@ namespace Shoy.Spiders.WebSite
         public static string GetSanfoId(string url)
         {
             const string regStr = "http://www.sanfo.com/hwyp/product/(\\d+).html";
-            return Utils.GetRegStr(url, regStr);
+            return RegexHelper.Match(url, regStr);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace Shoy.Spiders.WebSite
         public static string GetProName(string docHtml)
         {
             const string regStr = "<dt[^>]*class=['\"]headline['\"][^>]*>([^<]+)</dt>";
-            return Utils.GetRegStr(docHtml, regStr);
+            return RegexHelper.Match(docHtml, regStr);
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Shoy.Spiders.WebSite
         public static string GetBigPic(string docHtml)
         {
             const string regStr = "<dt[^>]*class=['\"]pic['\"][^>]*><img[^>]*src=['\"]([^'\"]+)['\"][^>]*></dt>";
-            return Utils.GetRegStr(docHtml, regStr);
+            return RegexHelper.Match(docHtml, regStr);
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Shoy.Spiders.WebSite
         public static decimal GetMarketerPrice(string docHtml)
         {
             const string regStr = "<li>零售价： <span class=\"font_grey_12_th\">￥([0-9,.]+)</span></li>";
-            var p = Utils.GetRegStr(docHtml, regStr);
+            var p = RegexHelper.Match(docHtml, regStr);
             if (string.IsNullOrEmpty(p))
                 return 0;
             return Math.Round(Convert.ToDecimal(p), 1);
@@ -92,7 +93,7 @@ namespace Shoy.Spiders.WebSite
         public static decimal GetShopPrice(string docHtml)
         {
             const string regStr = "<li>网上价： <span class=\"font_red_16B\">￥([0-9,.]+)</span></li>";
-            var p = Utils.GetRegStr(docHtml, regStr);
+            var p = RegexHelper.Match(docHtml, regStr);
             if (string.IsNullOrEmpty(p))
                 return 0;
             return Math.Round(Convert.ToDecimal(p), 1);
@@ -106,13 +107,13 @@ namespace Shoy.Spiders.WebSite
         public static string GetBrandName(string docHtml)
         {
             const string regStr = "<li>品牌：\\s*([^<]+)</li>";
-            return Utils.GetRegStr(docHtml, regStr);
+            return RegexHelper.Match(docHtml, regStr);
         }
 
         public static string GetProNum(string docHtml)
         {
             const string regStr = "<li>款号：\\s*([^<]+)</li>";
-            return Utils.GetRegStr(docHtml, regStr);
+            return RegexHelper.Match(docHtml, regStr);
         }
 
         /// <summary>
@@ -123,12 +124,12 @@ namespace Shoy.Spiders.WebSite
         public static int GetProWeigth(string docHtml)
         {
             const string regStr = "<li>重量： 约([^<]+)</li>";
-            var w = Utils.GetRegStr(docHtml, regStr);
+            var w = RegexHelper.Match(docHtml, regStr);
             if (!string.IsNullOrEmpty(w))
             {
                 if (w.IndexOf("千克") >= 0)
-                    return Utils.StrToInt(w.Replace("千克", "").Trim(), 0)*1000;
-                return Utils.StrToInt(w.Replace("克", "").Trim(), 0);
+                    return ConvertHelper.StrToInt(w.Replace("千克", "").Trim(), 0)*1000;
+                return ConvertHelper.StrToInt(w.Replace("克", "").Trim(), 0);
             }
             return 0;
         }
@@ -195,7 +196,7 @@ namespace Shoy.Spiders.WebSite
             {
                 var listHtml = HtmlCls.GetHtmlById(docHtml, "Id_prodItemList");
                 const string regStr = "<div[^>]*class=['\"]proPic['\"][^>]*><a[^>]*href=['\"]([^'\"]+)['\"][^>]*>";
-                urls = Utils.GetRegHtmls(listHtml, regStr);
+                urls = RegexHelper.Matches(listHtml, regStr);
                 urls = urls.Select(t => (t.StartsWith("/") ? SanfoUrl + t : t)).ToList();
             }
             return urls;

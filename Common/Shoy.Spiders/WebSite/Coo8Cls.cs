@@ -5,6 +5,7 @@ using System.Text;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using System.Text.RegularExpressions;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -19,7 +20,7 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "product_price:\"([^\"']+)\"");
+                var str = RegexHelper.Match(DocHtml, "product_price:\"([^\"']+)\"");
                 return Convert.ToDecimal(str.Replace(",", ""));
             }
             catch (Exception)
@@ -37,20 +38,20 @@ namespace Shoy.Spiders.WebSite
                 //成都青羊区
                 //var data= {"productId":0,"storeStatus":"0","useTrans":"宅急送","goodsPattern":"SMI","isArrive":"1","isArrivePay":"1","freightPrice":"0","comeTime":"9月29日","refuseOrderTime":"7小时51分钟"}
                 //var states = ["现货","预订","无货","在途"];
-                var proId = Utils.GetRegStr(ProLink, "product/([\\d]+).html");
-                var url = String.Format(stockUrl, proId, Utils.GetRandom().NextDouble());
+                var proId = RegexHelper.Match(ProLink, "product/([\\d]+).html");
+                var url = String.Format(stockUrl, proId, RandomHelper.Random().NextDouble());
                 using (var http = new HttpHelper(url, SiteEncoding))
                 {
                     var html = http.GetHtml();
                     if (!html.IsNullOrEmpty())
-                        html = Utils.ClearTrn(html);
-                    var status = Utils.GetRegStr(html, "\"storeStatus\":\"([\\d]+)\"");
+                        html = RegexHelper.ClearTrn(html);
+                    var status = RegexHelper.Match(html, "\"storeStatus\":\"([\\d]+)\"");
                     return (status == "0" ? 1 : 0);
                 }
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return -1;
             }
         }
@@ -75,7 +76,7 @@ namespace Shoy.Spiders.WebSite
             {
                 GetHtml(SiteEncoding);
                 var pic = HtmlCls.GetHtmlById(DocHtml, "BigPic");
-                return Utils.GetRegStr(pic, "\\s+src=[\"']([^\"'>\\?]+)(\\?[^\"']*)?[\"']");
+                return RegexHelper.Match(pic, "\\s+src=[\"']([^\"'>\\?]+)(\\?[^\"']*)?[\"']");
             }
             catch (Exception)
             {
@@ -91,11 +92,11 @@ namespace Shoy.Spiders.WebSite
                 {
                     var html = http.GetHtml();
                     if (!html.IsNullOrEmpty())
-                        html = Utils.ClearTrn(html);
+                        html = RegexHelper.ClearTrn(html);
                     html = HtmlCls.GetHtmlByCss(html, "search-content").FirstOrDefault();
                     var showList = HtmlCls.GetHtmlByCss(html, "name");
                     var list =
-                        showList.Select(t => Utils.GetRegStr(t, "<a[^>]*href=[\"']?([^\"'>]+)(#[^\"'>]*)?[\"']?[^>]*>"))
+                        showList.Select(t => RegexHelper.Match(t, "<a[^>]*href=[\"']?([^\"'>]+)(#[^\"'>]*)?[\"']?[^>]*>"))
                             .Distinct().ToList();
                     return list.Where(t => !t.IsNullOrEmpty()).Select(t => Utils.GetAbsoluteUrl(GetWebSiteInfo().BaseUrl, t)).ToList();
                 }
@@ -119,7 +120,7 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "<del[^>]*>￥([^<]+)</del>");
+                var str = RegexHelper.Match(DocHtml, "<del[^>]*>￥([^<]+)</del>");
                 return Convert.ToDecimal(str.Replace(",", ""));
             }
             catch (Exception)

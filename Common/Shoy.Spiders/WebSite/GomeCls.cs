@@ -5,6 +5,7 @@ using System.Text;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using System.Text.RegularExpressions;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -22,12 +23,12 @@ namespace Shoy.Spiders.WebSite
                 using (var http = new HttpHelper(listUrl, SiteEncoding))
                 {
                     var html = http.GetHtml();
-                    html = (!html.IsNullOrEmpty() ? Utils.ClearTrn(html) : http.GetHtml());
+                    html = (!html.IsNullOrEmpty() ? RegexHelper.ClearTrn(html) : http.GetHtml());
                     if (html.IsNullOrEmpty())
                         return new List<string>();
                     var showList = HtmlCls.GetHtmlByCss(html, "pic");
                     var list =
-                        showList.Select(t => Utils.GetRegStr(t, "<a[^>]*href=[\"']?([^\"'>;]+)(;[^\"'>]*)?[\"']?[^>]*>"))
+                        showList.Select(t => RegexHelper.Match(t, "<a[^>]*href=[\"']?([^\"'>;]+)(;[^\"'>]*)?[\"']?[^>]*>"))
                             .Distinct().ToList();
                     return list.Where(t => !t.IsNullOrEmpty()).Select(t => Utils.GetAbsoluteUrl(GetWebSiteInfo().BaseUrl, t)).ToList();
                 }
@@ -51,7 +52,7 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);//prdprice
-                var str = Utils.GetRegStr(DocHtml, "<b[^>]*class=[\"'][\"'][^>]*>\\s*([^<\\s]+)\\s*</b>");
+                var str = RegexHelper.Match(DocHtml, "<b[^>]*class=[\"'][\"'][^>]*>\\s*([^<\\s]+)\\s*</b>");
                 return Convert.ToDecimal(str.Replace(",", ""));
             }
             catch (Exception)
@@ -77,7 +78,7 @@ namespace Shoy.Spiders.WebSite
                 using (var http = new HttpHelper(stockUrl, SiteEncoding))
                 {
                     var html = http.GetHtml();
-                    var str = Utils.GetRegStr(html, "\"result\":\"([a-zA-Z])\"");
+                    var str = RegexHelper.Match(html, "\"result\":\"([a-zA-Z])\"");
                     return (str == "Y" ? 1 : 0);
                 }
             }
@@ -92,7 +93,7 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var name = Utils.GetRegStr(DocHtml, "var tdisplayName = encodeURI(Component)?\\('([^']+)'\\);", 2);
+                var name = RegexHelper.Match(DocHtml, "var tdisplayName = encodeURI(Component)?\\('([^']+)'\\);", 2);
                 return name;
             }
             catch (Exception)
@@ -107,7 +108,7 @@ namespace Shoy.Spiders.WebSite
             {
                 GetHtml(SiteEncoding);
                 var pic = HtmlCls.GetHtmlById(DocHtml, "bgPics");
-                return Utils.GetRegStr(pic, "\\s+src=[\"']([^\"'>]+)[\"']");
+                return RegexHelper.Match(pic, "\\s+src=[\"']([^\"'>]+)[\"']");
             }
             catch (Exception)
             {

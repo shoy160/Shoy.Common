@@ -20,6 +20,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,19 +78,6 @@
     <None Include="plugs\fontAwesome\fonts\fontawesome-webfont.woff" />
     <None Include="plugs\fontAwesome\fonts\FontAwesome.otf" />
     <None Include="source\css\base.less" />
-    <None Include="source\css\plugs\pager.less" />
-    <None Include="source\css\plugs\valid-form.less" />
-    <None Include="source\css\tjzx\base-responsive.less" />
-    <None Include="source\css\tjzx\base-v1.less" />
-    <None Include="source\css\tjzx\m\m-base.less" />
-    <None Include="source\css\tjzx\m\main.less" />
-    <None Include="source\css\tjzx\m\page-login.less" />
-    <None Include="source\css\tjzx\page-contact.less" />
-    <None Include="source\css\tjzx\page-exchanges.less" />
-    <None Include="source\css\tjzx\page-home.less" />
-    <None Include="source\css\tjzx\page-news.less" />
-    <None Include="source\css\tjzx\page-package.less" />
-    <None Include="source\css\tjzx\t-form.less" />
     <None Include="source\plugs\easyui\themes\black\images\Thumbs.db" />
     <None Include="source\plugs\easyui\themes\bootstrap\images\Thumbs.db" />
     <None Include="source\plugs\easyui\themes\default\images\Thumbs.db" />
@@ -104,24 +95,6 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\h-pager.min.css" />
-    <Content Include="css\plugs\Jq-jCal.min.css" />
-    <Content Include="css\plugs\lhgcalendar.min.css" />
-    <Content Include="css\plugs\pager.min.css" />
-    <Content Include="css\plugs\valid-form.min.css" />
-    <Content Include="css\reset.min.css" />
-    <Content Include="css\tjzx\base-responsive.min.css" />
-    <Content Include="css\tjzx\base-v1.min.css" />
-    <Content Include="css\tjzx\m\login.min.css" />
-    <Content Include="css\tjzx\m\m-base.min.css" />
-    <Content Include="css\tjzx\m\main.min.css" />
-    <Content Include="css\tjzx\m\page-login.min.css" />
-    <Content Include="css\tjzx\page-contact.min.css" />
-    <Content Include="css\tjzx\page-exchanges.min.css" />
-    <Content Include="css\tjzx\page-home.min.css" />
-    <Content Include="css\tjzx\page-news.min.css" />
-    <Content Include="css\tjzx\page-package.min.css" />
-    <Content Include="css\tjzx\t-form.min.css" />
     <Content Include="Gruntfile.js" />
     <Content Include="img\error.png" />
     <Content Include="img\home.png" />
@@ -185,23 +158,6 @@
     <Content Include="js\plugs\skins\img\default_s2.gif" />
     <Content Include="js\plugs\skins\lhgcalendar.css" />
     <Content Include="js\respond.min.js" />
-    <Content Include="js\singer.js" />
-    <Content Include="js\tjzx\base-lt9.min.js" />
-    <Content Include="js\tjzx\base-v1.min.js" />
-    <Content Include="js\tjzx\m\m-base.min.js" />
-    <Content Include="js\tjzx\m\page-album.min.js" />
-    <Content Include="js\tjzx\m\page-category.min.js" />
-    <Content Include="js\tjzx\m\page-consulting.min.js" />
-    <Content Include="js\tjzx\m\page-main.min.js" />
-    <Content Include="js\tjzx\m\page-member.min.js" />
-    <Content Include="js\tjzx\m\page-news.min.js" />
-    <Content Include="js\tjzx\m\page-package.min.js" />
-    <Content Include="js\tjzx\m\page-process.min.js" />
-    <Content Include="js\tjzx\m\page-reservation.min.js" />
-    <Content Include="js\tjzx\m\page-user.min.js" />
-    <Content Include="js\tjzx\page-common.min.js" />
-    <Content Include="js\tjzx\page-news.min.js" />
-    <Content Include="js\tjzx\page-package.min.js" />
     <Content Include="nginx设置.txt" />
     <Content Include="plugs\artDialog\v4\artDialog.js" />
     <Content Include="plugs\artDialog\v4\artDialog.source.js" />
@@ -664,23 +620,6 @@
     <Content Include="plugs\jsTree\themes\default\style.min.css" />
     <Content Include="plugs\jsTree\themes\default\throbber.gif" />
     <Content Include="source\css\base.css" />
-    <Content Include="source\css\h-pager.css" />
-    <Content Include="source\css\plugs\Jq-jCal.css" />
-    <Content Include="source\css\plugs\lhgcalendar.css" />
-    <Content Include="source\css\plugs\pager.css" />
-    <Content Include="source\css\plugs\valid-form.css" />
-    <Content Include="source\css\reset.css" />
-    <Content Include="source\css\tjzx\base-responsive.css" />
-    <Content Include="source\css\tjzx\base-v1.css" />
-    <Content Include="source\css\tjzx\m\m-base.css" />
-    <Content Include="source\css\tjzx\m\main.css" />
-    <Content Include="source\css\tjzx\m\page-login.css" />
-    <Content Include="source\css\tjzx\page-contact.css" />
-    <Content Include="source\css\tjzx\page-exchanges.css" />
-    <Content Include="source\css\tjzx\page-home.css" />
-    <Content Include="source\css\tjzx\page-news.css" />
-    <Content Include="source\css\tjzx\page-package.css" />
-    <Content Include="source\css\tjzx\t-form.css" />
     <Content Include="source\js\plugs\dragDrop.js" />
     <Content Include="source\js\plugs\Jq-common.js" />
     <Content Include="source\js\plugs\Jq-cycle.js" />
@@ -693,22 +632,6 @@
     <Content Include="source\js\plugs\Jq-tree.js" />
     <Content Include="source\js\plugs\Jq-validForm.js" />
     <Content Include="source\js\plugs\shoyLazy.js" />
-    <Content Include="source\js\tjzx\base-lt9.js" />
-    <Content Include="source\js\tjzx\base-v1.js" />
-    <Content Include="source\js\tjzx\m\m-base.js" />
-    <Content Include="source\js\tjzx\m\page-album.js" />
-    <Content Include="source\js\tjzx\m\page-category.js" />
-    <Content Include="source\js\tjzx\m\page-consulting.js" />
-    <Content Include="source\js\tjzx\m\page-main.js" />
-    <Content Include="source\js\tjzx\m\page-member.js" />
-    <Content Include="source\js\tjzx\m\page-news.js" />
-    <Content Include="source\js\tjzx\m\page-package.js" />
-    <Content Include="source\js\tjzx\m\page-process.js" />
-    <Content Include="source\js\tjzx\m\page-reservation.js" />
-    <Content Include="source\js\tjzx\m\page-user.js" />
-    <Content Include="source\js\tjzx\page-common.js" />
-    <Content Include="source\js\tjzx\page-news.js" />
-    <Content Include="source\js\tjzx\page-package.js" />
     <Content Include="source\plugs\easyui\easyloader.js" />
     <Content Include="source\plugs\easyui\jquery.easyui.min.js" />
     <Content Include="source\plugs\easyui\locale\easyui-lang-af.js" />
@@ -1081,6 +1004,9 @@
     <Content Include="test\sitemapTest.html" />
     <Content Include="test\table.html" />
     <Content Include="test\tree.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

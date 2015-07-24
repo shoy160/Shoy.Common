@@ -34,7 +34,6 @@ namespace Shoy.Test
             using (var db = DbContext.Get("postgre"))
             {
                 SQL sql = "select [Id],[Info]->'name' as [Name] from [User]";
-
                 var list = sql.List<User>();
                 Console.Write(list.ToJson());
                 Assert.AreNotEqual(list, null);

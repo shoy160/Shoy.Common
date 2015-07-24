@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using System.Collections.Generic;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -32,12 +33,12 @@ namespace Shoy.Spiders.WebSite
                 using (var http = new HttpHelper(url, "", SiteEncoding, "", ProLink, ""))
                 {
                     var html = http.GetHtml();
-                    var str = Utils.GetRegStr(html, "\"promotionPrice\":\\s*\"([^\"]+)\"");
-                    var mStr = Utils.GetRegStr(html, "\"itemPrice\":\\s*\"([^\"]+)\"");
+                    var str = RegexHelper.Match(html, "\"promotionPrice\":\\s*\"([^\"]+)\"");
+                    var mStr = RegexHelper.Match(html, "\"itemPrice\":\\s*\"([^\"]+)\"");
                     _mkPrice = (mStr.IsNullOrEmpty() ? 0M : Convert.ToDecimal(mStr.Replace(",", "")));
-                    var salesOrg = Utils.GetRegStr(html, "\"salesOrg\":\\s*\"([^\"]+)\"");
-                    var deptNo = Utils.GetRegStr(html, "\"deptNo\":\\s*\"([^\"]+)\"");
-                    var vendor = Utils.GetRegStr(html, "\"vendor\":\\s*\"([^\"]+)\"");
+                    var salesOrg = RegexHelper.Match(html, "\"salesOrg\":\\s*\"([^\"]+)\"");
+                    var deptNo = RegexHelper.Match(html, "\"deptNo\":\\s*\"([^\"]+)\"");
+                    var vendor = RegexHelper.Match(html, "\"vendor\":\\s*\"([^\"]+)\"");
                     _stockUrl = GetWebSiteInfo().BaseUrl +
                                 "/emall/SNProductSaleView?storeId={0}&catalogId={1}&productId={2}&salesOrg={3}&&deptNo={4}&vendor={5}&cityId=9265&_={6}";
                     _stockUrl = String.Format(_stockUrl, reg.Groups[1].Value, reg.Groups[2].Value, reg.Groups[3].Value,
@@ -47,7 +48,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return 0;
             }
         }
@@ -61,14 +62,14 @@ namespace Shoy.Spiders.WebSite
                 using (var http = new HttpHelper(_stockUrl, "", SiteEncoding, "", ProLink, ""))
                 {
                     var html = http.GetHtml();
-                    var status = Utils.GetRegStr(html, "\"productStatus\":\\s*\"([^\"]+)\"");
-                    var offset = Utils.GetRegStr(html, "\"shipOffset\":\\s*\"([^\"]+)\"");
-                    return Utils.StrToInt(status, 0)*10 + Utils.StrToInt(offset, 0);
+                    var status = RegexHelper.Match(html, "\"productStatus\":\\s*\"([^\"]+)\"");
+                    var offset = RegexHelper.Match(html, "\"shipOffset\":\\s*\"([^\"]+)\"");
+                    return ConvertHelper.StrToInt(status, 0)*10 + ConvertHelper.StrToInt(offset, 0);
                 }
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return -1;
             }
         }
@@ -78,9 +79,9 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml();
-                var name = Utils.GetRegStr(DocHtml, "<h1[^>]*>[\\w\\W]*?<span>([^<]+)<");
+                var name = RegexHelper.Match(DocHtml, "<h1[^>]*>[\\w\\W]*?<span>([^<]+)<");
                 if (name.IsNullOrEmpty())
-                    name = Utils.GetRegStr(DocHtml, "<h3[^>]*class=[\"']title[\"'][^>]*>[\\w\\W]*?<span>([^<]+)<");
+                    name = RegexHelper.Match(DocHtml, "<h3[^>]*class=[\"']title[\"'][^>]*>[\\w\\W]*?<span>([^<]+)<");
                 return name;
             }
             catch(Exception)
@@ -94,13 +95,13 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml();
-                var picArea = Utils.GetRegStr(DocHtml,
+                var picArea = RegexHelper.Match(DocHtml,
                                               "(http://image\\d?.suning.cn/content/catentries/\\d+/\\d+/fullimage/\\d+_1f?.jpg)");
                 return picArea;
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return "";
             }
         }
@@ -112,17 +113,17 @@ namespace Shoy.Spiders.WebSite
                 using (var http = new HttpHelper(listUrl, SiteEncoding))
                 {
                     var html = http.GetHtml();
-                    html = Utils.ClearTrn(html);
+                    html = RegexHelper.ClearTrn(html);
                     var showList = HtmlCls.GetHtmlById(html, "proShow");
                     var linkReg = "<a[^>]*href=[\"']?(" + GetWebSiteInfo().BaseUrl +
                                   "/emall/prd_\\d+_\\d+_-\\d+_\\d+_.html)[\"']?[^>]*>";
-                    var list = Utils.GetRegHtmls(showList, linkReg).Distinct().ToList();
+                    var list = RegexHelper.Matches(showList, linkReg).Distinct().ToList();
                     return list;
                 }
             }
             catch(Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return new List<string>();
             }
         }
@@ -137,7 +138,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return new List<string>();
             }
         }

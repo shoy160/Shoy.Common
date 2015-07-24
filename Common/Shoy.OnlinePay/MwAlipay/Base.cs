@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using Shoy.OnlinePay.Common;
 using Shoy.Utility;
+using Shoy.Utility.Helper;
 
 namespace Shoy.OnlinePay.MwAlipay
 {

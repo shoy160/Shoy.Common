@@ -1,34 +1,9 @@
-//Colors
-@gray-darker: lighten(#000, 13.5%);
-// #222
-@gray-dark: lighten(#000, 20%);
-// #333
-@gray: lighten(#000, 33.5%);
-// #555
-@gray-light: lighten(#000, 60%);
-// #999
-@gray-lighter: lighten(#000, 93.5%);
-// #eee
-
-@brand-primary: #428bca;
-@brand-success: #5cb85c;
-@brand-info: #5bc0de;
-@brand-warning: #f0ad4e;
-@brand-danger: #d9534f;
+@import "variables";
 
 .brand-border(@color:#fff) {
   border: 1px solid darken(@color, 5%);
 }
 
-//颜色计算
-@color: @gray;
-@border-color: #ccc;
-@background-color: #ffffff;
-@color01: spin(@color, 180);
-@color02: darken(spin(@color, 180), 5%);
-@color03: lighten(@color, 15%);
-@color04: lighten(@color, 30%);
-@newline: `"\n"`;
 //透明度
 .opacity(@opacity) {
   opacity: @opacity;
@@ -55,10 +30,10 @@
 }
 
 //方块阴影
-.box-shadow(@s1,@s2){
-  @s:~"@{s1},@{s2}";
-  .box-shadow(@s);
-}
+//.box-shadow(@s1,@s2){
+//  @s:~"@{s1},@{s2}";
+//  .box-shadow(@s);
+//}
 .box-shadow(@shadow) {
   .prefix("box-shadow", @shadow);
 }
@@ -69,31 +44,31 @@
 
 //元素过滤效果
 .transition(@t1,@t2...) {
-  @t:~"@{t1},@{t2}";
-  .prefix("transition",@t);
+  @t: ~"@{t1},@{t2}";
+  .prefix("transition", @t);
 }
 
 .transition(@t) {
-  .prefix("transition",@t);
+  .prefix("transition", @t);
 }
 
 //转换/旋转
 .transform(@t) {
-  .prefix("transform",@t);
+  .prefix("transform", @t);
 }
 
 .animation(@a) {
-  .prefix("animation",@a);
+  .prefix("animation", @a);
 }
 
 //颜色渐变
 .gradient (@origin: left, @start: #ffffff, @stop: #000000) {
   background-color: @start;
-  background-image: -webkit-linear-gradient(@arguments);
-  background-image: -moz-linear-gradient(@arguments);
-  background-image: -o-linear-gradient(@arguments);
-  background-image: -ms-linear-gradient(@arguments);
-  background-image: linear-gradient(@arguments);
+  background-image: -webkit-linear-gradient(@origin,@start,@stop);
+  background-image: -moz-linear-gradient(@origin,@start,@stop);
+  background-image: -o-linear-gradient(@origin,@start,@stop);
+  background-image: -ms-linear-gradient(@origin,@start,@stop);
+  background-image: linear-gradient(@origin,@start,@stop);
 }
 
 //快速渐变
@@ -111,7 +86,7 @@
 }
 
 .user-select (@select:none) {
-  .prefix("user-select",@select);
+  .prefix("user-select", @select);
 }
 
 .tab-focus() {
@@ -160,5 +135,55 @@
     content: " / ";
     color: #ccc;
     padding: 0 3px;
+  }
+}
+
+.angle() {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+}
+
+//左三角
+.angle-left(@size,@color,@width:@size) {
+  .angle;
+  border-style: dashed solid none none;
+  border-width: @size @width @size 0;
+  border-color: transparent @color transparent;
+}
+
+//右三角
+.angle-right(@size,@color,@width:@size) {
+  .angle;
+  border-style: dashed dashed dashed solid;
+  border-width: @size 0 @size @width;
+  border-color: transparent transparent transparent @color;
+}
+
+.angle-top(@size,@color,@width:@size) {
+  .angle;
+  border-style: dashed dashed solid dashed;
+  border-width: 0 @size @width @size;
+  border-color: transparent transparent @color transparent;
+}
+
+.angle-bottom(@size,@color,@width:@size) {
+  .angle;
+  border-style: solid dashed dashed dashed;
+  border-width: @width @size 0 @size;
+  border-color: @color transparent transparent;
+}
+
+.linkColor(@color,@hoverColor:@color,@decoration:none) {
+  a:link,
+  a:active,
+  a:visited {
+    color: @color;
+    text-decoration: none;
+  }
+  a:hover {
+    color: @hoverColor;
+    text-decoration: @decoration;
   }
 }

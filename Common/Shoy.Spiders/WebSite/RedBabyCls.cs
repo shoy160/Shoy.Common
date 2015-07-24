@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Shoy.Utility;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -33,7 +34,7 @@ namespace Shoy.Spiders.WebSite
             string html = HtmlCls.GetHtmlByUrl(searchUrl, Encoding.UTF8);
             const string proReg =
                 "<div[^>]*class=\"globalProductName\"[^>]*>\\s*<a[^>]*href=['|\"]([^'\"]*)['|\"][^>]*>";
-            return Utils.GetAbsoluteUrl(RedBabyUrl, Utils.GetRegStr(html, proReg));
+            return Utils.GetAbsoluteUrl(RedBabyUrl, RegexHelper.Match(html, proReg));
         }
 
         /// <summary>
@@ -51,17 +52,17 @@ namespace Shoy.Spiders.WebSite
                 var docHtml = HtmlCls.GetHtmlByUrl(listUrl, Encoding.UTF8);
                 if (string.IsNullOrEmpty(listUrl))
                     return listArea;
-                docHtml = Utils.ClearTrn(docHtml);
+                docHtml = RegexHelper.ClearTrn(docHtml);
                 const string prolink =
                     "<div[^>]*class=\"globalProductName\">\\s*<a[^>]*href=['|\"]([^'\"]*)['|\"][^>]*>";
                 var page = 1;
-                listArea = Utils.GetRegHtmls(docHtml, prolink);
+                listArea = RegexHelper.Matches(docHtml, prolink);
 
                 //分页处理
                 int count = listArea.Count();
                 while (count < deepth)
                 {
-                    var pstr = Utils.GetRegStr(listUrl, @"p(\d+)?$");
+                    var pstr = RegexHelper.Match(listUrl, @"p(\d+)?$");
                     if (!string.IsNullOrEmpty(pstr))
                         page = Convert.ToInt32(pstr);
                     page++;
@@ -69,7 +70,7 @@ namespace Shoy.Spiders.WebSite
                     docHtml = HtmlCls.GetHtmlByUrl(listUrl, Encoding.UTF8);
                     if (string.IsNullOrEmpty(docHtml))
                         break;
-                    listArea.AddRange(Utils.GetRegHtmls(docHtml, prolink));
+                    listArea.AddRange(RegexHelper.Matches(docHtml, prolink));
                     count = listArea.Count();
                 }
 
@@ -77,7 +78,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(Err, ex);
+                FileHelper.WriteException(Err, ex);
             }
             return listArea;
         }
@@ -141,7 +142,7 @@ namespace Shoy.Spiders.WebSite
         /// <returns></returns>
         public static string GetProNameFromHtml(string docHtml)
         {
-            string name = Utils.GetRegStr(docHtml, "<div[^>]*id=\"pName\"[^>]*>\\s*<h1>([^<]*)");
+            string name = RegexHelper.Match(docHtml, "<div[^>]*id=\"pName\"[^>]*>\\s*<h1>([^<]*)");
             name = Regex.Replace(name, @"红孩子母婴商城|红孩子", "本商场");
             return name;
         }
@@ -153,8 +154,8 @@ namespace Shoy.Spiders.WebSite
         /// <returns></returns>
         public static int GetWeightFromHtml(string docHtml)
         {
-            string weiStr = Utils.GetRegStr(docHtml, "<span>规格：</span>(\\d*)G");
-            return Utils.StrToInt(weiStr, 0);
+            string weiStr = RegexHelper.Match(docHtml, "<span>规格：</span>(\\d*)G");
+            return ConvertHelper.StrToInt(weiStr, 0);
         }
 
         /// <summary>
@@ -164,7 +165,7 @@ namespace Shoy.Spiders.WebSite
         /// <returns></returns>
         public static string GetBigPicFromHtml(string docHtml)
         {
-            return Utils.GetRegStr(docHtml, "<div[^>]*id=\"jqzoomDiv\"[^>]*>\\s*<img[^>]*src=['\"]([^'\"]*)['\"][^>]*>");
+            return RegexHelper.Match(docHtml, "<div[^>]*id=\"jqzoomDiv\"[^>]*>\\s*<img[^>]*src=['\"]([^'\"]*)['\"][^>]*>");
         }
 
         /// <summary>
@@ -189,13 +190,13 @@ namespace Shoy.Spiders.WebSite
 
         public static string GetStarsFromHtml(string docHtml)
         {
-            string star = Utils.GetRegStr(docHtml, "<span[^>]*class=['\"]scoreText font_yellow['\"][^>]*>([^<]*)</span>");
+            string star = RegexHelper.Match(docHtml, "<span[^>]*class=['\"]scoreText font_yellow['\"][^>]*>([^<]*)</span>");
             return star;
         }
 
         public static string GetPlFromHtml(string docHtml)
         {
-            string pl = Utils.GetRegStr(docHtml, "已有(\\d+)人评价");
+            string pl = RegexHelper.Match(docHtml, "已有(\\d+)人评价");
             return pl;
         }
     }

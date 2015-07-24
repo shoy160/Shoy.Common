@@ -1,6 +1,6 @@
-﻿using System.Configuration;
+﻿using Shoy.AjaxHelper.Model;
+using Shoy.Utility;
 using System.Text.RegularExpressions;
-using Shoy.AjaxHelper.Model;
 
 namespace Shoy.AjaxHelper.Core
 {
@@ -12,7 +12,8 @@ namespace Shoy.AjaxHelper.Core
 
         static UrlHelper()
         {
-            string assembly = ConfigurationManager.AppSettings["AjaxNamespace"];
+            var assembly = Utils.GetAppSetting<string>(null, supressKey: "AjaxNamespace");
+
             if (string.IsNullOrEmpty(assembly))
             {
                 throw new AjaxException("assembly is null");

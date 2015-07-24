@@ -3,6 +3,7 @@ using System.Configuration;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using System.Text;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Solr
 {

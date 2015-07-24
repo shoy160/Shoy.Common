@@ -1,10 +1,11 @@
 /*
-shoyLazy v1.0.0
-需引用jQuery
-*/
+ shoyLazy v1.0.0
+ 需引用jQuery
+ */
 (function (S) {
+    'use strict';
     var def = {
-        lazySrc: 'hsrc',
+        lazySrc: 'l-src',
         prePix: 100,
         auto: false,
         loadClass: ''
@@ -45,15 +46,16 @@ shoyLazy v1.0.0
                 unLazy();
                 return;
             }
+            var i;
             if (domHeight - opt.prePix < height) {
-                for (var i = 0; i < lazyDoms.length; i++) {
+                for (i = 0; i < lazyDoms.length; i++) {
                     lazyShow(lazyDoms[i]);
                 }
                 lazyDoms.splice(0);
                 unLazy();
                 return;
             }
-            for (var i = 0; i < lazyDoms.length; i++) {
+            for (i = 0; i < lazyDoms.length; i++) {
                 if (lazyDoms[i].lazyTop < height) {
                     lazyShow(lazyDoms[i]);
                     lazyDoms.splice(i--, 1);

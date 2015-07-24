@@ -5,6 +5,7 @@ using System.Text;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using System.Text.RegularExpressions;
+using Shoy.Utility.Helper;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -26,10 +27,10 @@ namespace Shoy.Spiders.WebSite
                     if (Regex.IsMatch(url, "^http://www.newegg.com.cn/Product/[0-9a-zA-Z\\-]+.htm$"))
                         return new List<string> {url};
                     if (!html.IsNullOrEmpty())
-                        html = Utils.ClearTrn(html);
+                        html = RegexHelper.ClearTrn(html);
                     var showList = HtmlCls.GetHtmlById(html, "itemGrid1");
                     var list =
-                        Utils.GetRegHtmls(showList, "(http://www.newegg.com.cn/Product/[0-9a-zA-Z\\-]+.htm)").Distinct()
+                        RegexHelper.Matches(showList, "(http://www.newegg.com.cn/Product/[0-9a-zA-Z\\-]+.htm)").Distinct()
                             .ToList();
                     return
                         list.Where(t => !t.IsNullOrEmpty()).Select(
@@ -55,7 +56,7 @@ namespace Shoy.Spiders.WebSite
             {
                 //pvalues
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "pvalues:([0-9\\.,]+)");
+                var str = RegexHelper.Match(DocHtml, "pvalues:([0-9\\.,]+)");
                 return Math.Round(Convert.ToDecimal(str.Replace(",", "")), 1);
                 //var cartUrl = GetWebSiteInfo().BaseUrl +
                 //              "/Shopping/ShoppingCart.aspx?action=Add&productno={0}&quantity=1&warrantyID=&FPA=5&CMSCT=0";
@@ -87,12 +88,12 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "<del[^>]*>￥\\s*([^<]+)</del>");
+                var str = RegexHelper.Match(DocHtml, "<del[^>]*>￥\\s*([^<]+)</del>");
                 return Convert.ToDecimal(str);
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return 0;
             }
         }
@@ -123,7 +124,7 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                return Utils.GetRegStr(DocHtml, "<h1[^>]*id=[\"']pro(\\d+)[\"'][^>]*>[^<]+</h1>");
+                return RegexHelper.Match(DocHtml, "<h1[^>]*id=[\"']pro(\\d+)[\"'][^>]*>[^<]+</h1>");
             }
             catch
             {
@@ -136,12 +137,12 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                var str = Utils.GetRegStr(DocHtml, "<h1[^>]*>([^<]+)</h1>");
+                var str = RegexHelper.Match(DocHtml, "<h1[^>]*>([^<]+)</h1>");
                 return str;
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return "";
             }
         }
@@ -157,7 +158,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
                 return "";
             }
         }

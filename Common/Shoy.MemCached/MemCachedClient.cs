@@ -65,7 +65,7 @@ namespace Shoy.MemCached
 
         public static MemcachedClient GetInstance()
         {
-            return new MemcachedClient("");
+            return new MemcachedClient(string.Empty);
         }
 
 		/// <summary>

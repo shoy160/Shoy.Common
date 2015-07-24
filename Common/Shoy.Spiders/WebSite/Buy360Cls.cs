@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Shoy.Utility;
+using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Shoy.Utility;
-using Shoy.Utility.Extend;
 
 namespace Shoy.Spiders.WebSite
 {
@@ -20,7 +21,7 @@ namespace Shoy.Spiders.WebSite
     /// 7、产品大图
     /// 8、产品描述
     /// </summary>
-    public class Buy360Cls:WebSiteFactory
+    public class Buy360Cls : WebSiteFactory
     {
         private static readonly Encoding SiteEncoding = Encoding.GetEncoding("gbk");
         private const string BaseUrl = "http://www.360buy.com";
@@ -73,7 +74,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
             }
             return urls;
         }
@@ -88,12 +89,12 @@ namespace Shoy.Spiders.WebSite
             int code = -1;
             try
             {
-                docHtml = Utils.ClearBr(docHtml);
-                string stockUrl = Utils.GetRegStr(docHtml,
+                docHtml = RegexHelper.ClearBr(docHtml);
+                string stockUrl = RegexHelper.Match(docHtml,
                                                   "(http://price.360buy.com/ows/stock/pshow-[a-zA-Z0-9]*.html)");
                 if (string.IsNullOrEmpty(stockUrl))
                 {
-                    string skUid = Utils.GetRegStr(docHtml, "wareinfo.*sid[^\"]*\"([0-9a-zA-Z]*)\"");
+                    string skUid = RegexHelper.Match(docHtml, "wareinfo.*sid[^\"]*\"([0-9a-zA-Z]*)\"");
 
                     //省级库存
                     string purl =
@@ -107,7 +108,7 @@ namespace Shoy.Spiders.WebSite
                     string stockHtml = HtmlCls.GetHtmlByUrl(purl, SiteEncoding);
                     if (!string.IsNullOrEmpty(stockHtml))
                     {
-                        string stockCode = Utils.GetRegStr(stockHtml, "\"StockState\":(\\w+),");
+                        string stockCode = RegexHelper.Match(stockHtml, "\"StockState\":(\\w+),");
                         code = (stockCode == "33" ? 1 : 0);
                     }
                 }
@@ -120,14 +121,14 @@ namespace Shoy.Spiders.WebSite
                     //var stockstatus = { 33: "现货", 34: "无货", 36: "预定", 39: "在途", 0: "统计中" };
                     if (!string.IsNullOrEmpty(stockHtml))
                     {
-                        string stockCode = Utils.GetRegStr(stockHtml, "\"Rid\":4,\"Stock\":([^,]+),"); //仅仅对成都仓库
+                        string stockCode = RegexHelper.Match(stockHtml, "\"Rid\":4,\"Stock\":([^,]+),"); //仅仅对成都仓库
                         code = (stockCode == "33" ? 1 : 0);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
             }
             return code;
         }
@@ -154,7 +155,7 @@ namespace Shoy.Spiders.WebSite
                         http.GetCookie();
                         http.SetUrl(String.Format(cart, Utils.GetJsonTime()));
                         var html = http.GetHtml();
-                        string sprice = Utils.GetRegStr(html, "\"finalPrice\":\"([^\"]+)\"");
+                        string sprice = RegexHelper.Match(html, "\"finalPrice\":\"([^\"]+)\"");
                         price = Convert.ToDecimal(sprice.Replace(",", ""));
                     }
                 }
@@ -177,7 +178,7 @@ namespace Shoy.Spiders.WebSite
             //                                          "cart-main=\"{&spg&:{&ps&:[{&i&:" + jdNum +
             //                                          "$&n&:1$&at&:0$&ct&:1}]}$&y&:{}$&by&:false$&rs&:[" + jdNum +
             //                                          "]$&tm&:&" + Utils.GetTimeNow() +"&$&st&:&g&}\"", Encoding.UTF8, _useProxy);
-            //        string sprice = Utils.GetRegStr(doc, "\"finalPrice\":\"([^\"]+)\"");
+            //        string sprice = RegexHelper.Match(doc, "\"finalPrice\":\"([^\"]+)\"");
             //        price = Convert.ToDecimal(sprice.Replace(",", ""));
             //    }
             //    catch (Exception)
@@ -197,11 +198,11 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 string str = HtmlCls.GetHtmlById(docHtml, "summary");
-                str = Utils.GetRegStr(str, "<del>￥([^<]+)</del>");
-                if(string.IsNullOrEmpty(str))
+                str = RegexHelper.Match(str, "<del>￥([^<]+)</del>");
+                if (string.IsNullOrEmpty(str))
                 {
                     str = HtmlCls.GetHtmlById(docHtml, "book-price");
-                    str = Utils.GetRegStr(str, "<del>￥([^<]+)</del>");
+                    str = RegexHelper.Match(str, "<del>￥([^<]+)</del>");
                 }
                 mprice = decimal.Parse(str.Replace(",", ""));
             }
@@ -219,18 +220,18 @@ namespace Shoy.Spiders.WebSite
         /// <returns></returns>
         public static string GetProNumFromUrl(string url)
         {
-            return Utils.GetRegStr(url, "^(http://)?(book|www).360buy.com/(product/)?(\\d+).html$", 4);
+            return RegexHelper.Match(url, "^(http://)?(book|www).360buy.com/(product/)?(\\d+).html$", 4);
         }
 
         public static int GetProWeight(string docHtml)
         {
-            var dws = Utils.GetRegStr(docHtml, @"<li>商品毛重：([^<]+)</li>");
-            float weigth = Utils.StrToFloat(Regex.Replace(dws, @"k?g", "", RegexOptions.IgnoreCase), 0);
-            if (dws.IndexOf("kg") >= 0)
+            var dws = RegexHelper.Match(docHtml, @"<li>商品毛重：([^<]+)</li>");
+            float weigth = ConvertHelper.StrToFloat(Regex.Replace(dws, @"k?g", "", RegexOptions.IgnoreCase), 0);
+            if (dws.IndexOf("kg", StringComparison.Ordinal) >= 0)
             {
-                weigth = weigth*1000;
+                weigth = weigth * 1000;
             }
-            return (int) Math.Round(weigth, 0);
+            return (int)Math.Round(weigth, 0);
         }
 
         /// <summary>
@@ -241,14 +242,14 @@ namespace Shoy.Spiders.WebSite
         public static string GetProName(string docHtml)
         {
             string area = HtmlCls.GetHtmlById(docHtml, "name");
-            return Utils.GetRegStr(area, "<h1>([^<]*)<");
+            return RegexHelper.Match(area, "<h1>([^<]*)<");
         }
 
         public static string GetBrandName(string docHtml)
         {
             string area = HtmlCls.GetHtmlById(docHtml, "i-detail");
             if (!string.IsNullOrEmpty(area))
-                return Utils.GetRegStr(area, "<li[^>]*>生产厂家：<a[^>]*brand[^>]*>([^<]+)</a>").Trim();
+                return RegexHelper.Match(area, "<li[^>]*>生产厂家：<a[^>]*brand[^>]*>([^<]+)</a>").Trim();
             return "";
         }
 
@@ -256,7 +257,7 @@ namespace Shoy.Spiders.WebSite
         {
             string area = HtmlCls.GetHtmlById(docHtml, "bzqd");
             if (!string.IsNullOrEmpty(area))
-                return Utils.GetRegStr(area, "<[^>]*>([^<]+)<[^>]*>").Trim();
+                return RegexHelper.Match(area, "<[^>]*>([^<]+)<[^>]*>").Trim();
             return "";
         }
 
@@ -267,7 +268,7 @@ namespace Shoy.Spiders.WebSite
             {
                 var list = HtmlCls.GetHtmlByCss(area, "mc tabcon hide").ToList();
                 if (list.Count() >= 3)
-                    return Utils.GetRegStr(list[2], "<[^>]*>([^<]+)<[^>]*>").Trim();
+                    return RegexHelper.Match(list[2], "<[^>]*>([^<]+)<[^>]*>").Trim();
                 return "";
             }
             return "";
@@ -294,7 +295,7 @@ namespace Shoy.Spiders.WebSite
         public static string GetBigPic(string docHtml)
         {
             string area = HtmlCls.GetHtmlById(docHtml, "spec-n1");
-            string src = Utils.GetRegStr(area, "<img[^>]*src=['\"]([^'\"]*)['\"][^>]*>");
+            string src = RegexHelper.Match(area, "<img[^>]*src=['\"]([^'\"]*)['\"][^>]*>");
             return src;
         }
 
@@ -308,13 +309,13 @@ namespace Shoy.Spiders.WebSite
             string picArea = "";
             try
             {
-                const string bigUrl = BaseUrl+ "/bigimage.aspx?id={0}";
+                const string bigUrl = BaseUrl + "/bigimage.aspx?id={0}";
                 string url = String.Format(bigUrl, jdNum);
                 string picHtml = HtmlCls.GetHtmlByUrl(url);
                 if (!string.IsNullOrEmpty(picHtml))
                 {
                     string biger = HtmlCls.GetHtmlByCss(picHtml, "right").FirstOrDefault();
-                    var bigList = Utils.GetRegHtmls(biger, "http://img10.360buyimg.com/n5([^'\"]*)");
+                    var bigList = RegexHelper.Matches(biger, "http://img10.360buyimg.com/n5([^'\"]*)");
                     if (bigList.Count() > 0)
                     {
                         picArea =
@@ -330,7 +331,7 @@ namespace Shoy.Spiders.WebSite
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
             }
             return picArea;
         }
@@ -346,13 +347,13 @@ namespace Shoy.Spiders.WebSite
             string area = "";
             try
             {
-                docHtml = Utils.ClearTrn(docHtml);
+                docHtml = RegexHelper.ClearTrn(docHtml);
 
                 if (version == 0)
                 {
                     //增加 规格描述 -2012-02-29 shy
                     string pt = HtmlCls.GetHtmlByCss(docHtml, "Ptable").FirstOrDefault();
-                    if(!string.IsNullOrEmpty(pt))
+                    if (!string.IsNullOrEmpty(pt))
                     {
                         area += pt;
                     }
@@ -373,7 +374,7 @@ namespace Shoy.Spiders.WebSite
                     if (!string.IsNullOrEmpty(listH))
                         area = area.Replace(listH, "");
                     string sum = HtmlCls.GetHtmlById(docHtml, "summary"); //加入图书信息
-                    var sumList = Utils.GetRegHtmls(sum, "<li[^>]*>(.*?)</li>").Take(9);
+                    var sumList = RegexHelper.Matches(sum, "<li[^>]*>(.*?)</li>").Take(9);
                     sum = sumList.Aggregate("", (current, s) => current + "<div>" + s + "</div>");
                     sum = Regex.Replace(sum, "<a[^>]*href=[\"']([^'\"]+?)[\"'][^>]*>(.*?)</a>", "$2"); //排除a标签
 
@@ -391,9 +392,9 @@ namespace Shoy.Spiders.WebSite
                 area = Regex.Replace(area, "src\\d=", "src="); //显示src
                 area = Regex.Replace(area, "京东商城|京东", "本商城");//排除京东字样
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
             }
             return area;
         }
@@ -410,7 +411,7 @@ namespace Shoy.Spiders.WebSite
                 "/products/\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-\\d+-)(\\d+)(.*\\.html)$";
             if (ver == 2)
                 urlFormat = "^(" + BaseUrl + "/booktop-\\d+-\\d+-)(\\d+)(.html)$";
-            int currPage = Utils.StrToInt(Utils.GetRegStr(url, urlFormat, 2), 1);
+            int currPage = ConvertHelper.StrToInt(RegexHelper.Match(url, urlFormat, 2), 1);
             currPage++;
             return Regex.Replace(url, urlFormat, "$1 " + currPage + "$3").Replace(" ", "");
         }
@@ -423,7 +424,7 @@ namespace Shoy.Spiders.WebSite
             string docHtml = HtmlCls.GetHtmlByUrl(url, SiteEncoding); //HtmlCls.GetHtmlByUrl(url, _useProxy);)
             if (!string.IsNullOrEmpty(docHtml))
             {
-                docHtml = Utils.ClearTrn(docHtml);
+                docHtml = RegexHelper.ClearTrn(docHtml);
                 var cssName = "p-img";
                 var listHtml = HtmlCls.GetHtmlById(docHtml, "plist");
                 if (listHtml.IsNullOrEmpty())
@@ -433,7 +434,7 @@ namespace Shoy.Spiders.WebSite
                 }
                 var list =
                     HtmlCls.GetHtmlByCss(listHtml, cssName).Select(
-                        t => Utils.GetRegStr(t, "<a[^>]*href=[\"']?([^\"'>#]+)(#[^\"'>]*)?[\"']?[^>]*>")).Distinct().
+                        t => RegexHelper.Match(t, "<a[^>]*href=[\"']?([^\"'>#]+)(#[^\"'>]*)?[\"']?[^>]*>")).Distinct().
                         ToList();
                 return list;
             }
@@ -448,7 +449,7 @@ namespace Shoy.Spiders.WebSite
         private static int GetListUrlVersion(string url)
         {
             int version = 0; //html版本号
-            string tag = Utils.GetRegStr(url, "^" + BaseUrl + "/([^.]*).html$");
+            string tag = RegexHelper.Match(url, "^" + BaseUrl + "/([^.]*).html$");
             if (tag.StartsWith("products/1713"))
             {
                 //图书列表
@@ -489,11 +490,11 @@ namespace Shoy.Spiders.WebSite
             {
                 GetHtml(SiteEncoding);
                 string str = HtmlCls.GetHtmlById(DocHtml, "summary");
-                str = Utils.GetRegStr(str, "<del>￥([^<]+)</del>");
+                str = RegexHelper.Match(str, "<del>￥([^<]+)</del>");
                 if (string.IsNullOrEmpty(str))
                 {
                     str = HtmlCls.GetHtmlById(DocHtml, "book-price");
-                    str = Utils.GetRegStr(str, "<del>￥([^<]+)</del>");
+                    str = RegexHelper.Match(str, "<del>￥([^<]+)</del>");
                 }
                 mprice = decimal.Parse(str.Replace(",", ""));
             }
@@ -510,12 +511,12 @@ namespace Shoy.Spiders.WebSite
             try
             {
                 GetHtml(SiteEncoding);
-                string stockUrl = Utils.GetRegStr(DocHtml,
+                string stockUrl = RegexHelper.Match(DocHtml,
                                                   "(http://price.360buy.com/ows/stock/pshow-[a-zA-Z0-9]*.html)");
                 if (string.IsNullOrEmpty(stockUrl))
                 {
-                    string skUid = Utils.GetRegStr(DocHtml, "[\"']?((skuidkey)|(sid))[\"']?:\\s*[\"']([0-9a-zA-Z]+)[\"']", 4);
-                    var type = Utils.GetRegStr(DocHtml, "type:\\s*(\\d+)");
+                    string skUid = RegexHelper.Match(DocHtml, "[\"']?((skuidkey)|(sid))[\"']?:\\s*[\"']([0-9a-zA-Z]+)[\"']", 4);
+                    var type = RegexHelper.Match(DocHtml, "type:\\s*(\\d+)");
                     var sUrl = "";
                     if (type == "1")
                     {
@@ -534,35 +535,35 @@ namespace Shoy.Spiders.WebSite
                         //    skUid + "&provinceid=22";
                     }
 
-                    string stockHtml = HtmlCls.GetHtmlByUrl(sUrl,SiteEncoding);
+                    string stockHtml = HtmlCls.GetHtmlByUrl(sUrl, SiteEncoding);
                     if (!string.IsNullOrEmpty(stockHtml))
                     {
-                        var stockStr = Utils.GetRegStr(stockHtml, "\"StockStateName\":\"([^\"]+)\"", 1);
+                        var stockStr = RegexHelper.Match(stockHtml, "\"StockStateName\":\"([^\"]+)\"", 1);
                         if (stockStr == "有货")
                             return 1;
                         var scode =
-                            (Utils.GetRegStr(stockHtml,
+                            (RegexHelper.Match(stockHtml,
                                              type == "1" ? "\"S\":\"1-(\\d+)-1-0-0\"" : "\"StockState\":(\\w+),"));
                         code = (scode == "33" ? 1 : 0);
                     }
                 }
                 else
                 {
-                    string stockHtml = HtmlCls.GetHtmlByUrl(stockUrl,SiteEncoding);
+                    string stockHtml = HtmlCls.GetHtmlByUrl(stockUrl, SiteEncoding);
                     //源代码中有库存连接<script type="text/javascript" src="http://price.360buy.com/ows/stock/pshow-0F5D9F92C79383CED35C7903D3927987.html"></script>
                     //内容如下:var stockdata = [{"Wid":183192,"Rid":6,"Stock":34,"Days":0,"Purchase":0,"IsPop":false},{"Wid":183192,"Rid":3,"Stock":33,"Days":0,"Purchase":0,"IsPop":false},{"Wid":183192,"Rid":10,"Stock":34,"Days":0,"Purchase":0,"IsPop":false},{"Wid":183192,"Rid":4,"Stock":33,"Days":0,"Purchase":0,"IsPop":false}];
                     //js主要代码如下:var orgname = { 6: "北京仓", 3: "上海仓", 10: "广州仓", 4: "成都仓", 5: "武汉仓", 7: "南京仓", 8: "济南仓", 9: "沈阳仓" };
                     //var stockstatus = { 33: "现货", 34: "无货", 36: "预定", 39: "在途", 0: "统计中" };
                     if (!string.IsNullOrEmpty(stockHtml))
                     {
-                        string stockCode = Utils.GetRegStr(stockHtml, "\"Rid\":4,\"Stock\":([^,]+),"); //仅仅对成都仓库
+                        string stockCode = RegexHelper.Match(stockHtml, "\"Rid\":4,\"Stock\":([^,]+),"); //仅仅对成都仓库
                         code = (stockCode == "33" ? 1 : 0);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Utils.WriteException(ex);
+                FileHelper.WriteException(ex);
             }
             return code;
         }
@@ -571,14 +572,14 @@ namespace Shoy.Spiders.WebSite
         {
             GetHtml(SiteEncoding);
             string area = HtmlCls.GetHtmlById(DocHtml, "name");
-            return Utils.GetRegStr(area, "<h1>([^<]*)<");
+            return RegexHelper.Match(area, "<h1>([^<]*)<");
         }
 
         public override string GetProPic()
         {
             GetHtml(SiteEncoding);
             string area = HtmlCls.GetHtmlById(DocHtml, "spec-n1");
-            string src = Utils.GetRegStr(area, "<img[^>]*src=['\"]([^'\"]*)['\"][^>]*>");
+            string src = RegexHelper.Match(area, "<img[^>]*src=['\"]([^'\"]*)['\"][^>]*>");
             return src;
         }
 

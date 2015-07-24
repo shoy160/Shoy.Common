@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shoy.MvcPlugin</RootNamespace>
     <AssemblyName>Shoy.MvcPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -39,18 +42,19 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePlugin.cs" />
+    <Compile Include="AssemblyManager.cs" />
     <Compile Include="IPlugin.cs" />
-    <Compile Include="IPluginFinder.cs" />
-    <Compile Include="PluginDescriptor.cs" />
-    <Compile Include="PluginExtensions.cs" />
-    <Compile Include="PluginFileParser.cs" />
-    <Compile Include="PluginFinder.cs" />
-    <Compile Include="PluginHelper.cs" />
     <Compile Include="PluginManager.cs" />
-    <Compile Include="PluginVersion.cs" />
+    <Compile Include="PluginManagerBase.cs" />
+    <Compile Include="PluginAssembly.cs" />
+    <Compile Include="PluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WriteLockDisposable.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shoy.Utility\Shoy.Utility.csproj">
+      <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>
+      <Name>Shoy.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

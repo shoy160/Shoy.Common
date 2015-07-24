@@ -1,0 +1,72 @@
+//Colors
+@gray-base: #000;
+// #222
+@gray-darker: lighten(@gray-base, 13.5%);
+// #333
+@gray-dark: lighten(@gray-base, 20%);
+// #555
+@gray: lighten(@gray-base, 33.5%);
+// #777
+@gray-light: lighten(@gray-base, 46.7%);
+// #eee
+@gray-lighter: lighten(@gray-base, 93.5%);
+
+// #337ab7
+@brand-primary: darken(#428bca, 6.5%);
+@brand-success: #5cb85c;
+@brand-info: #5bc0de;
+@brand-warning: #f0ad4e;
+@brand-danger: #d9534f;
+
+@body-bg: #fff;
+@text-color: @gray-dark;
+@link-color: @brand-primary;
+@link-hover-color: darken(@link-color, 15%);
+
+//** Link hover decoration.
+@link-hover-decoration: underline;
+
+//Colors
+@color-default: #fff;
+@color-default-border: #ccc;
+@color-primary: @brand-primary;
+@color-primary-border: darken(@brand-primary, 5%);
+@color-success: @brand-success;
+@color-success-border: darken(@brand-success, 5%);
+@color-info: @brand-info;
+@color-info-border: darken(@brand-info, 5%);
+@color-warning: @brand-warning;
+@color-warning-border: darken(@brand-warning, 5%);
+@color-danger: @brand-danger;
+@color-danger-border: darken(@brand-danger, 5%);
+@color-link: @brand-primary;
+
+//颜色计算
+@color: @gray;
+@border-color: #ccc;
+@background-color: #ffffff;
+@color01: spin(@color, 180);
+@color02: darken(spin(@color, 180), 5%);
+@color03: lighten(@color, 15%);
+@color04: lighten(@color, 30%);
+
+@word-color: #444;
+@word-color-light: #888;
+
+@color-wrong: #db4437;
+@color-active: #cddc39;
+@color-tabs-bg: #f5f5f5;
+
+// size
+@screen-sm-min: 768px;
+@screen-md-min: 980px;
+@screen-lg-min: 1200px;
+
+@font-size-base: 14px;
+
+// 20/14
+@line-height-base: 1.428571429;
+// ~20px
+@line-height-computed: floor((@font-size-base * @line-height-base));
+
+@newline: `"\n"`;
