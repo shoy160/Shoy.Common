@@ -23,6 +23,8 @@ namespace Shoy.Backgrounder
         {
         }
 
+        /// <summary> 获取下一个运行任务 </summary>
+        /// <returns></returns>
         public Schedule Next()
         {
             var schedules = _schedules.OrderBy(s => s.NextRunTime);

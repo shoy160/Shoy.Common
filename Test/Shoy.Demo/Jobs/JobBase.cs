@@ -1,8 +1,8 @@
-﻿using Shoy.Backgrounder;
+﻿using System;
+using System.IO;
+using Shoy.Backgrounder;
 using Shoy.Utility;
 using Shoy.Utility.Helper;
-using System;
-using System.IO;
 
 namespace Shoy.Demo.Jobs
 {
@@ -26,7 +26,8 @@ namespace Shoy.Demo.Jobs
                 string.Format("Time:{0}{1}Message:{2}{1}", Utils.GetTimeNow(), Environment.NewLine, msg));
         }
 
-        protected JobBase(string name, TimeSpan interval, TimeSpan timeout, DateTime? start = null, DateTime? expire = null)
+        protected JobBase(string name, TimeSpan interval, TimeSpan timeout, DateTime? start = null,
+            DateTime? expire = null)
             : base(name, interval, timeout, start, expire)
         {
         }

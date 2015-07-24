@@ -20,13 +20,14 @@ namespace Shoy.Backgrounder
             return workItem != null && workItem.Completed == null;
         }
 
-        public static bool IsTimedOut(this IWorkItem workItem, IJob job)
+        public static bool IsTimedOut(this IWorkItem workItem, IJob job, Func<DateTime> nowThunk)
         {
             if (job == null)
             {
                 throw new ArgumentNullException("job");
             }
-            return workItem != null && job.TimeOut != TimeSpan.MaxValue && workItem.Started.Add(job.TimeOut) < DateTime.UtcNow;
+            return workItem != null && job.TimeOut != TimeSpan.MaxValue &&
+                   workItem.Started.Add(job.TimeOut) < nowThunk();
         }
 
         public static TimeSpan FromMonths(this DateTime dateTime, int months)

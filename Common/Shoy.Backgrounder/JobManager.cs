@@ -29,7 +29,8 @@ namespace Shoy.Backgrounder
         public JobManager(IEnumerable<IJob> jobs, IJobCoordinator coordinator)
             : this(jobs, new JobHost(), coordinator) { }
 
-        public JobManager(IEnumerable<IJob> jobs, IJobHost host, IJobCoordinator coordinator, Action<string> logAction = null)
+        public JobManager(IEnumerable<IJob> jobs, IJobHost host, IJobCoordinator coordinator,
+            Action<string> logAction = null)
         {
             if (jobs == null)
             {

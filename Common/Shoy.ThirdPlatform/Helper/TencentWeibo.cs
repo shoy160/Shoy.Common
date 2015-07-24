@@ -9,7 +9,7 @@ namespace Shoy.ThirdPlatform.Helper
     /// <summary> 腾讯微博登录 </summary>
     internal class TencentWeibo : HelperBase
     {
-        private static string GetAccessToken(string code, string callBackUrl)
+        private string GetAccessToken(string code, string callBackUrl)
         {
             string url = Config.TokenUrl.FormatWith(Config.Partner, Config.Key, callBackUrl, code);
             return url.As<IHtml>().GetHtml(Encoding.UTF8); //返回的不是单一accesstoken 带实体类。

@@ -20,13 +20,16 @@ namespace Shoy.Backgrounder
             }
             Job = job;
             _nowThunk = nowThunk;
-            _lastRunTime = (Job.StartTime.HasValue ? Job.StartTime.Value : nowThunk());
+            _lastRunTime = Job.StartTime ?? nowThunk();
         }
 
+        /// <summary> 后台任务 </summary>
         public IJob Job { get; private set; }
 
+        /// <summary> 最后一次运行时间 </summary>
         private DateTime _lastRunTime;
 
+        /// <summary> 下一次运行时间 </summary>
         public DateTime NextRunTime
         {
             get
@@ -38,6 +41,8 @@ namespace Shoy.Backgrounder
             }
         }
 
+        /// <summary> 获取距离下一次运行的时间 </summary>
+        /// <returns></returns>
         public TimeSpan GetIntervalToNextRun()
         {
             var now = _nowThunk();
@@ -48,6 +53,7 @@ namespace Shoy.Backgrounder
             return NextRunTime - now;
         }
 
+        /// <summary> 任务运行完成 </summary>
         private void SetRunComplete()
         {
             _lastRunTime = _nowThunk();

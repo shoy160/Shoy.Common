@@ -29,15 +29,21 @@ namespace Shoy.Backgrounder
         {
         }
 
+        /// <summary> 名称 </summary>
         public string Name { get; private set; }
 
+        /// <summary> 异步任务 </summary>
+        /// <returns></returns>
         public abstract Task Execute();
-
+        /// <summary> 开始时间 </summary>
         public DateTime? StartTime { get; private set; }
+        /// <summary> 截至时间 </summary>
         public DateTime? ExpireTime { get; private set; }
 
+        /// <summary> 时间间隔 </summary>
         public TimeSpan Interval { get; private set; }
 
+        /// <summary> 超时时间 </summary>
         public TimeSpan TimeOut { get; private set; }
     }
 }

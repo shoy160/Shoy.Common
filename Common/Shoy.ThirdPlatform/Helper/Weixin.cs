@@ -10,7 +10,7 @@ namespace Shoy.ThirdPlatform.Helper
     /// <summary> 微信登录 </summary>
     internal class Weixin : HelperBase
     {
-        private static NameValueCollection AccessToken(string code)
+        private NameValueCollection AccessToken(string code)
         {
             var url = Config.TokenUrl.FormatWith(Config.Partner, Config.Key, code);
             string content = url.As<IHtml>().GetHtml(Encoding.UTF8);

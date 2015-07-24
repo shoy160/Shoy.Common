@@ -10,8 +10,8 @@ namespace Shoy.ThirdPlatform.Helper
 {
     public abstract class HelperBase
     {
-        protected static string Callback { get; set; }
-        protected static Platform Config { get; private set; }
+        protected string Callback { get; set; }
+        protected Platform Config { get; private set; }
 
         internal static HelperBase GetInstance(string type)
         {

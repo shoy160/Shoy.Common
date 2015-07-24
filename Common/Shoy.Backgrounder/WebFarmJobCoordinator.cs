@@ -32,7 +32,7 @@ namespace Shoy.Backgrounder
                 return null;
             }
 
-            Task task = null;
+            Task task;
             try
             {
                 task = job.Execute();
@@ -67,7 +67,7 @@ namespace Shoy.Backgrounder
             // (typically on a dev box, hopefully not in production). A database can't be created inside 
             // a transaction scope so we run this query here first.
             var lastWorkItem = _workItemRepository.GetLastWorkItem(job);
-            if (lastWorkItem.IsActive() && !lastWorkItem.IsTimedOut(job))
+            if (lastWorkItem.IsActive() && !lastWorkItem.IsTimedOut(job, () => DateTime.UtcNow))
             {
                 return null;
             }
@@ -76,7 +76,7 @@ namespace Shoy.Backgrounder
             {
                 lastWorkItem = _workItemRepository.GetLastWorkItem(job);
 
-                if (lastWorkItem.IsTimedOut(job))
+                if (lastWorkItem.IsTimedOut(job, () => DateTime.UtcNow))
                 {
                     lastWorkItem.Completed = DateTime.UtcNow;
                     _workItemRepository.SetWorkItemFailed(lastWorkItem.Id,

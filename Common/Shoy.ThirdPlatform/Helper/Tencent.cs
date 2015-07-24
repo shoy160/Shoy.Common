@@ -11,7 +11,7 @@ namespace Shoy.ThirdPlatform.Helper
     /// <summary> 腾讯QQ登录 </summary>
     internal class Tencent : HelperBase
     {
-        private static string GetAccessToken(string code, string callBackUrl)
+        private string GetAccessToken(string code, string callBackUrl)
         {
             var url = Config.TokenUrl.FormatWith(Config.Partner, Config.Key, code, callBackUrl);
             string content = url.As<IHtml>().GetHtml(Encoding.UTF8);
@@ -20,14 +20,14 @@ namespace Shoy.ThirdPlatform.Helper
                 return val["access_token"];
             return string.Empty;
         }
-        private static string GetOpenId(string accessToken)
+        private string GetOpenId(string accessToken)
         {
             string url = Config.OpenIdUrl.FormatWith(accessToken);
             string content = url.As<IHtml>().GetHtml(Encoding.UTF8);
             return RegexHelper.Match(content, "\"openid\":\"(?<t>.*)?\"}", 1, "t");
         }
 
-        private static string GetUserInfoString(string accessToken, string openId)
+        private string GetUserInfoString(string accessToken, string openId)
         {
             string url = Config.UserUrl.FormatWith(accessToken, Config.Partner, openId);
             return url.As<IHtml>().GetHtml(Encoding.UTF8);

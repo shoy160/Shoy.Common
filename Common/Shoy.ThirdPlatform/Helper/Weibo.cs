@@ -9,7 +9,7 @@ namespace Shoy.ThirdPlatform.Helper
     /// <summary> 微博登录 </summary>
     internal class Weibo : HelperBase
     {
-        private static string AccessToken(string code, string callBackUrl)
+        private string AccessToken(string code, string callBackUrl)
         {
             var url = Config.TokenUrl.FormatWith(Config.Partner, Config.Key, callBackUrl, code);
             string content = url.As<IHtml>().GetHtml(Encoding.UTF8, "POST");

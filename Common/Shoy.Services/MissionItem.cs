@@ -12,9 +12,7 @@ namespace Shoy.Services
         private readonly Thread _th;
         //private readonly Logger _logger = Logger.L<MissionItem>();
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
+        /// <summary> 构造函数 </summary>
         /// <param name="mc"></param>
         public MissionItem(Mission mc)
         {
@@ -33,12 +31,12 @@ namespace Shoy.Services
                 return;
             }
             _mission = (IMission) obj;
-            _mission.Error += mission_Error;
+            _mission.Error += Mission_Error;
             var ths = new ThreadStart(Run);
             _th = new Thread(ths);
         }
 
-        private void mission_Error(object sender, ErrorEventArg arg)
+        private void Mission_Error(object sender, ErrorEventArg arg)
         {
             //_logger.E(arg.Message);
             arg.Cancel = false;

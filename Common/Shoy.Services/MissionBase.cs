@@ -1,8 +1,6 @@
 ﻿namespace Shoy.Services
 {
-    /// <summary>
-    /// 任务基类
-    /// </summary>
+    /// <summary> 任务基类 </summary>
     public abstract class MissionBase : IMission
     {
         protected bool IsAbort;
