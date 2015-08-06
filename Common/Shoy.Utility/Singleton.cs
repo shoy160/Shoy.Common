@@ -3,9 +3,7 @@ using System.Collections.Generic;
 
 namespace Shoy.Utility
 {
-    /// <summary>
-    /// 单例辅助
-    /// </summary>
+    /// <summary> 单例辅助 </summary>
     public class Singleton
     {
         static Singleton()
@@ -24,9 +22,7 @@ namespace Shoy.Utility
         }
     }
 
-    /// <summary>
-    /// 单例泛型辅助
-    /// </summary>
+    /// <summary> 单例泛型辅助 </summary>
     /// <typeparam name="T"></typeparam>
     public class Singleton<T> : Singleton
     {

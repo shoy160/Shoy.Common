@@ -51,7 +51,7 @@ namespace Shoy.Utility.Helper
                 //插补模式,双三次插值法
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                g.Clear(Color.Transparent);
+//                g.Clear(Color.White);
 
                 g.DrawImage(source, new Rectangle(0, 0, width, height), new Rectangle(0, 0, ow, oh),
                     GraphicsUnit.Pixel);
