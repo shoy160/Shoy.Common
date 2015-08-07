@@ -1,10 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
-using Shoy.FileSystem.Domain;
 using Shoy.Utility.Helper;
 using MongoCredential = MongoDB.Driver.MongoCredential;
 using MongoServer = MongoDB.Driver.MongoServer;
@@ -46,14 +44,14 @@ namespace Shoy.FileSystem
         {
             var db = Server();
             var name = IdHelper.Instance.Guid32;
-            var col = db.GetCollection<FileDocument>("picture");
-            var file = new FileDocument
-            {
-                Id = name,
-                File = BsonValue.Create(fileStream)
-            };
-            
-            col.Save(file);
+//            var col = db.GetCollection<FileDocument>("picture");
+//            var file = new FileDocument
+//            {
+//                Id = name,
+//                File = BsonValue.Create(fileStream)
+//            };
+//            
+//            col.Save(file);
             db.GridFS.Upload(fileStream, name);
             return name;
         }
