@@ -131,7 +131,10 @@ namespace Shoy.Test
         [TestMethod]
         public void SpeekerTest()
         {
-            SpeekHelper.Speek("杨本国");
+//            SpeekHelper.Speek("杨本国");
+            Console.WriteLine(CombHelper.Guid16());
+            Console.WriteLine(CombHelper.Guid16());
+            Console.WriteLine(CombHelper.Guid16());
         }
 
         [TestMethod]

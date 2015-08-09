@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Backgrounder", "Common
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.ThirdPlatform", "Common\Shoy.ThirdPlatform\Shoy.ThirdPlatform.csproj", "{905AE039-4EB4-4703-AC79-5541CB4641B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.FileSystem", "WebUI\Shoy.FileSystem\Shoy.FileSystem.csproj", "{6318C088-E07F-4525-8A95-6F35F7FF28F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -299,6 +301,16 @@ Global
 		{905AE039-4EB4-4703-AC79-5541CB4641B4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{905AE039-4EB4-4703-AC79-5541CB4641B4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{905AE039-4EB4-4703-AC79-5541CB4641B4}.Release|x86.ActiveCfg = Release|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -328,5 +340,6 @@ Global
 		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8} = {D0D88D78-BA15-4A1A-9832-B19987A6C6FF}
 		{2A4BC558-9218-4B72-ADE3-6A7FA237AAEC} = {1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}
 		{905AE039-4EB4-4703-AC79-5541CB4641B4} = {1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}
+		{6318C088-E07F-4525-8A95-6F35F7FF28F2} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
 	EndGlobalSection
 EndGlobal

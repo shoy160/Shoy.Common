@@ -36,6 +36,26 @@ namespace Shoy.Utility
         {
             return new DResult(false, message);
         }
+
+        public static DResult<T> Succ<T>(T data)
+        {
+            return new DResult<T>(true, data);
+        }
+
+        public static DResult<T> Error<T>(string message)
+        {
+            return new DResult<T>(message);
+        }
+
+        public static DResults<T> Succ<T>(IEnumerable<T> data, int count = -1)
+        {
+            return count < 0 ? new DResults<T>(data) : new DResults<T>(data, count);
+        }
+
+        public static DResults<T> Errors<T>(string message)
+        {
+            return new DResults<T>(message);
+        }
     }
 
     [Serializable]
