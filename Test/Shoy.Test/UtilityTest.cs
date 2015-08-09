@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shoy.Laboratory;
 using Shoy.ThirdPlatform;
 using Shoy.ThirdPlatform.Entity.Config;
@@ -13,6 +7,12 @@ using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
 using Shoy.Utility.Logging;
 using Shoy.Utility.UseTest;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Shoy.Test
 {
@@ -223,6 +223,18 @@ namespace Shoy.Test
             //            ConfigUtils<PlatformConfig>.Instance().Set(config);
             var url = PlatformFactory.GetInstance(PlatformType.Tencent).LoginUrl();
             Console.WriteLine(url);
+        }
+
+        [TestMethod]
+        public void ConvertTest()
+        {
+            //var ran = RandomHelper.Random();
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    var num = ran.Next(1000, 1000 * 1000 * 100);
+            //    Console.WriteLine("{0}:{1}", num, ConvertHelper.ToBigNumber(num));
+            //}
+            Console.WriteLine("{0}:{1}", 120102000, ConvertHelper.ToBigNumber(120102000));
         }
     }
 }

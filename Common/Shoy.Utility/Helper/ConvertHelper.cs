@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Shoy.Utility.Extend;
+using System;
 using System.Globalization;
 using System.Reflection;
-using Shoy.Utility.Extend;
 
 namespace Shoy.Utility.Helper
 {
@@ -154,7 +154,7 @@ namespace Shoy.Utility.Helper
             for (var i = 0; i < str.Length; i++)
             {
                 var n = (StrToInt(str[i], 0));
-                if (n > 0 || ((i - 4) % 4 == 0))
+                if (n > 0 || (i > 0 && (i - 4) % 4 == 0))
                 {
                     if ((i - 1) % 4 == 0)
                         desc = dw[0] + desc;
@@ -167,13 +167,12 @@ namespace Shoy.Utility.Helper
                     else if (i > 7 && i % 8 == 0)
                         desc = dw[4] + desc;
                 }
-                if (i != 0 || n != 0)
-                {
-                    if (!desc.StartsWith(word[0]) && (n != 0 || ((i - 4) % 4 != 0)))
-                        desc = word[n] + desc;
-                }
+                if ((i == 0 && n == 0) || (n == 0 && (desc.StartsWith(dw[3]) || desc.StartsWith(dw[4]))))
+                    continue;
+                if (!desc.StartsWith(word[0]) && (n != 0 || ((i - 4) % 4 != 0)))
+                    desc = word[n] + desc;
             }
-            return desc;
+            return desc.TrimEnd(word[0].ToCharArray());
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Shoy.Utility.Extend;
+using Shoy.Utility.Logging;
+using System;
 using System.Collections;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
-using Shoy.Utility.Extend;
-using Shoy.Utility.Logging;
 
 namespace Shoy.Utility.Helper
 {
@@ -71,7 +71,7 @@ namespace Shoy.Utility.Helper
             {
                 return obj.CastTo<T>();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error(ex.Message, ex);
                 return default(T);
