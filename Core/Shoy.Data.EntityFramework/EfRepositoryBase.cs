@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Shoy.Core.Domain.Entities;
 using Shoy.Core.Domain.Repositories;
 
-namespace Shoy.EntityFramework
+namespace Shoy.Data.EntityFramework
 {
     /// <summary>
     /// EntityFramework的仓储实现
@@ -15,7 +15,7 @@ namespace Shoy.EntityFramework
     /// <typeparam name="TDbContext"></typeparam>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">主键类型</typeparam>
-    public class EfRepositoryBase<TDbContext, TEntity, TKey> : ShoyRepositoryBase<TEntity, TKey>
+    public class EfRepositoryBase<TDbContext, TEntity, TKey> : BRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
         where TDbContext : DbContext
     {
@@ -27,7 +27,7 @@ namespace Shoy.EntityFramework
         /// <summary>
         /// Gets DbSet for given entity.
         /// </summary>
-        protected virtual DbSet<TEntity> Table { get { return Context.Set<TEntity>(); } }
+        protected virtual DbSet<TEntity> DbSet { get { return Context.Set<TEntity>(); } }
 
         private readonly IDbContextProvider<TDbContext> _dbContextProvider;
 
@@ -40,44 +40,44 @@ namespace Shoy.EntityFramework
             _dbContextProvider = dbContextProvider;
         }
 
-        public override IQueryable<TEntity> GetAll()
+        public override IQueryable<TEntity> Tabel()
         {
-            return Table;
+            return DbSet;
         }
 
-        public override async Task<List<TEntity>> GetAllListAsync()
+        public override async Task<List<TEntity>> TabelListAsync()
         {
-            return await GetAll().ToListAsync();
+            return await Tabel().ToListAsync();
         }
 
-        public override async Task<List<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate)
+        public override async Task<IQueryable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await GetAll().Where(predicate).ToListAsync();
+            return await Task.FromResult(Tabel().Where(predicate));
         }
 
         public override async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await GetAll().SingleAsync(predicate);
+            return await Tabel().SingleAsync(predicate);
         }
 
         public override async Task<TEntity> FirstOrDefaultAsync(TKey id)
         {
-            return await GetAll().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
+            return await Tabel().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
         }
 
         public override async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await GetAll().FirstOrDefaultAsync(predicate);
+            return await Tabel().FirstOrDefaultAsync(predicate);
         }
 
         public override TEntity Insert(TEntity entity)
         {
-            return Table.Add(entity);
+            return DbSet.Add(entity);
         }
 
         public override Task<TEntity> InsertAsync(TEntity entity)
         {
-            return Task.FromResult(Table.Add(entity));
+            return Task.FromResult(DbSet.Add(entity));
         }
 
         public override TKey InsertAndGetId(TEntity entity)
@@ -152,13 +152,13 @@ namespace Shoy.EntityFramework
             }
             else
             {
-                Table.Remove(entity);
+                DbSet.Remove(entity);
             }
         }
 
         public override void Delete(TKey id)
         {
-            var entity = Table.Local.FirstOrDefault(ent => EqualityComparer<TKey>.Default.Equals(ent.Id, id));
+            var entity = DbSet.Local.FirstOrDefault(ent => EqualityComparer<TKey>.Default.Equals(ent.Id, id));
             if (entity == null)
             {
                 entity = FirstOrDefault(id);
@@ -173,29 +173,44 @@ namespace Shoy.EntityFramework
 
         public override async Task<int> CountAsync()
         {
-            return await GetAll().CountAsync();
+            return await Tabel().CountAsync();
         }
 
         public override async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await GetAll().Where(predicate).CountAsync();
+            return await Tabel().Where(predicate).CountAsync();
         }
 
         public override async Task<long> LongCountAsync()
         {
-            return await GetAll().LongCountAsync();
+            return await Tabel().LongCountAsync();
         }
 
         public override async Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await GetAll().Where(predicate).LongCountAsync();
+            return await Tabel().Where(predicate).LongCountAsync();
+        }
+
+        public override List<TEntity> SqlQuery(string sql, params object[] parameters)
+        {
+            return DbSet.SqlQuery(sql, parameters).ToList();
+        }
+
+        public override int SqlExecute(string sql, params object[] parameters)
+        {
+            return Context.Database.ExecuteSqlCommand(sql, parameters);
+        }
+
+        public override Task<int> SqlExecuteAsync(string sql, params object[] parameters)
+        {
+            return Context.Database.ExecuteSqlCommandAsync(sql, parameters);
         }
 
         protected virtual void AttachIfNot(TEntity entity)
         {
-            if (!Table.Local.Contains(entity))
+            if (!DbSet.Local.Contains(entity))
             {
-                Table.Attach(entity);
+                DbSet.Attach(entity);
             }
         }
     }

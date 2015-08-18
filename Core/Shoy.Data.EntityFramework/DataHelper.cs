@@ -1,4 +1,4 @@
-﻿namespace Shoy.EntityFramework
+﻿namespace Shoy.Data.EntityFramework
 {
     /// <summary>
     /// 数据辅助操作类

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace Shoy.EntityFramework
+namespace Shoy.Data.EntityFramework
 {
     public interface IDbContextProvider<out TDbContext>
         where TDbContext : DbContext

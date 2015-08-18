@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration.Configuration;
 using Shoy.Core.Data;
 using Shoy.Core.Domain.Entities;
 
-namespace Shoy.EntityFramework
+namespace Shoy.Data.EntityFramework
 {
     /// <summary>
     /// 数据实体映射配置基类

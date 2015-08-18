@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
-namespace Shoy.EntityFramework
+namespace Shoy.Data.EntityFramework
 {
     public sealed class SimpleDbContextProvider<TDbContext> : IDbContextProvider<TDbContext>
         where TDbContext : DbContext

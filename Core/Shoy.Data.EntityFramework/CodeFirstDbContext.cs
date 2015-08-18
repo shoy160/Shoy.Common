@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Shoy.Core;
 using Shoy.Core.Data;
 using Shoy.Core.Logging;
-using Shoy.EntityFramework.Extensions;
+using Shoy.Data.EntityFramework.Extensions;
 using Shoy.Utility;
 using Shoy.Utility.Logging;
 
-namespace Shoy.EntityFramework
+namespace Shoy.Data.EntityFramework
 {
     /// <summary>
     /// EntityFramework-CodeFirst数据上下文
@@ -85,7 +85,7 @@ namespace Shoy.EntityFramework
                 {
                     var sqlEx = e.InnerException.InnerException as SqlException;
                     string msg = DataHelper.GetSqlExceptionMessage(sqlEx.Number);
-                    throw new ShoyException("提交数据更新时发生异常：" + msg, sqlEx);
+                    throw new BException("提交数据更新时发生异常：" + msg, sqlEx);
                 }
                 throw;
             }
@@ -138,7 +138,7 @@ namespace Shoy.EntityFramework
                 {
                     var sqlEx = e.InnerException.InnerException as SqlException;
                     string msg = DataHelper.GetSqlExceptionMessage(sqlEx.Number);
-                    throw new ShoyException("提交数据更新时发生异常：" + msg, sqlEx);
+                    throw new BException("提交数据更新时发生异常：" + msg, sqlEx);
                 }
                 throw;
             }

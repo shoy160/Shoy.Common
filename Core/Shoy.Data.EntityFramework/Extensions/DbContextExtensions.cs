@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Shoy.Core.Domain.Entities;
 using Shoy.Core.Logging;
 
-namespace Shoy.EntityFramework.Extensions
+namespace Shoy.Data.EntityFramework.Extensions
 {
     public static class DbContextExtensions
     {

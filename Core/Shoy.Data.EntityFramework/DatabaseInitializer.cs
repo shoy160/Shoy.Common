@@ -7,8 +7,8 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
-using Shoy.EntityFramework;
-using Shoy.EntityFramework.Migrations;
+using Shoy.Data.EntityFramework;
+using Shoy.Data.EntityFramework.Migrations;
 
 namespace Shoy.Core.Data
 {

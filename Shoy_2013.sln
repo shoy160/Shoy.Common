@@ -51,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B7A9E2B8-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Core", "Core\Shoy.Core\Shoy.Core.csproj", "{05E11FA9-FC25-4AE1-96CF-DBCBB8BA24BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.EntityFramework", "Core\Shoy.Core.Data\Shoy.EntityFramework.csproj", "{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Data.EntityFramework", "Core\Shoy.Core.Data\Shoy.Data.EntityFramework.csproj", "{DE6F6AAC-8373-40BA-9AF7-6F885AFB61F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.CoreTest", "Test\Shoy.CoreTest\Shoy.CoreTest.csproj", "{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}"
 EndProject

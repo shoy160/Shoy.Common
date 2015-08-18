@@ -1,5 +1,5 @@
 ﻿
-namespace Shoy.EntityFramework.Migrations
+namespace Shoy.Data.EntityFramework.Migrations
 {
     public interface IDataInitialize
     {
