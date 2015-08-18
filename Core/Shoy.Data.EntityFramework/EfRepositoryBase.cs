@@ -40,34 +40,34 @@ namespace Shoy.Data.EntityFramework
             _dbContextProvider = dbContextProvider;
         }
 
-        public override IQueryable<TEntity> Tabel()
+        public override IQueryable<TEntity> Table()
         {
             return DbSet;
         }
 
-        public override async Task<List<TEntity>> TabelListAsync()
+        public override async Task<List<TEntity>> TableListAsync()
         {
-            return await Tabel().ToListAsync();
+            return await Table().ToListAsync();
         }
 
         public override async Task<IQueryable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Task.FromResult(Tabel().Where(predicate));
+            return await Task.FromResult(Table().Where(predicate));
         }
 
         public override async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Tabel().SingleAsync(predicate);
+            return await Table().SingleAsync(predicate);
         }
 
         public override async Task<TEntity> FirstOrDefaultAsync(TKey id)
         {
-            return await Tabel().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
+            return await Table().FirstOrDefaultAsync(CreateEqualityExpressionForId(id));
         }
 
         public override async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Tabel().FirstOrDefaultAsync(predicate);
+            return await Table().FirstOrDefaultAsync(predicate);
         }
 
         public override TEntity Insert(TEntity entity)
@@ -173,22 +173,22 @@ namespace Shoy.Data.EntityFramework
 
         public override async Task<int> CountAsync()
         {
-            return await Tabel().CountAsync();
+            return await Table().CountAsync();
         }
 
         public override async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Tabel().Where(predicate).CountAsync();
+            return await Table().Where(predicate).CountAsync();
         }
 
         public override async Task<long> LongCountAsync()
         {
-            return await Tabel().LongCountAsync();
+            return await Table().LongCountAsync();
         }
 
         public override async Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Tabel().Where(predicate).LongCountAsync();
+            return await Table().Where(predicate).LongCountAsync();
         }
 
         public override List<TEntity> SqlQuery(string sql, params object[] parameters)

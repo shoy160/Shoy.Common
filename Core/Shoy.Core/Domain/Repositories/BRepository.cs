@@ -16,21 +16,21 @@ namespace Shoy.Core.Domain.Repositories
         : IRepository<TEntity, TKey>
         where TEntity : class,IEntity<TKey>
     {
-        public abstract IQueryable<TEntity> Tabel();
+        public abstract IQueryable<TEntity> Table();
 
-        public virtual List<TEntity> TabelList()
+        public virtual List<TEntity> TableList()
         {
-            return Tabel().ToList();
+            return Table().ToList();
         }
 
-        public virtual Task<List<TEntity>> TabelListAsync()
+        public virtual Task<List<TEntity>> TableListAsync()
         {
-            return Task.FromResult(TabelList());
+            return Task.FromResult(TableList());
         }
 
         public virtual IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate)
         {
-            return Tabel().Where(predicate);
+            return Table().Where(predicate);
         }
 
         public virtual Task<IQueryable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> predicate)
@@ -40,7 +40,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual T Get<T>(Func<IQueryable<TEntity>, T> queryMethod)
         {
-            return queryMethod(Tabel());
+            return queryMethod(Table());
         }
 
         public virtual TEntity Get(TKey id)
@@ -57,7 +57,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
-            return Tabel().Single(predicate);
+            return Table().Single(predicate);
         }
 
         public virtual Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
@@ -67,7 +67,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual TEntity FirstOrDefault(TKey id)
         {
-            return Tabel().FirstOrDefault(CreateEqualityExpressionForId(id));
+            return Table().FirstOrDefault(CreateEqualityExpressionForId(id));
         }
 
         public virtual Task<TEntity> FirstOrDefaultAsync(TKey id)
@@ -77,7 +77,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return Tabel().FirstOrDefault(predicate);
+            return Table().FirstOrDefault(predicate);
         }
 
         public virtual Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
@@ -168,7 +168,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            foreach (var entity in Tabel().Where(predicate).ToList())
+            foreach (var entity in Table().Where(predicate).ToList())
             {
                 Delete(entity);
             }
@@ -181,7 +181,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual int Count()
         {
-            return Tabel().Count();
+            return Table().Count();
         }
 
         public virtual Task<int> CountAsync()
@@ -191,7 +191,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual int Count(Expression<Func<TEntity, bool>> predicate)
         {
-            return Tabel().Where(predicate).Count();
+            return Table().Where(predicate).Count();
         }
 
         public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
@@ -201,7 +201,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual long LongCount()
         {
-            return Tabel().LongCount();
+            return Table().LongCount();
         }
 
         public virtual Task<long> LongCountAsync()
@@ -211,7 +211,7 @@ namespace Shoy.Core.Domain.Repositories
 
         public virtual long LongCount(Expression<Func<TEntity, bool>> predicate)
         {
-            return Tabel().Where(predicate).LongCount();
+            return Table().Where(predicate).LongCount();
         }
 
         public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)

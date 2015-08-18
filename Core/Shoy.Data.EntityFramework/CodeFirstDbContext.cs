@@ -21,6 +21,7 @@ namespace Shoy.Data.EntityFramework
     {
         private static readonly Logger Logger = LogManager.Logger(typeof(CodeFirstDbContext));
 
+        #region Contractor
         /// <summary>
         /// 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例
         /// </summary>
@@ -34,7 +35,8 @@ namespace Shoy.Data.EntityFramework
         public CodeFirstDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         { }
-
+        #endregion
+        
         /// <summary>
         /// 获取或设置 是否开启事务提交
         /// </summary>

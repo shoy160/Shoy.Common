@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shoy.Core.Domain.Entities;
-using Shoy.EntityFramework;
+using Shoy.Data.EntityFramework;
 
 namespace Shoy.CoreTest
 {

@@ -18,10 +18,10 @@ namespace Shoy.Core.Domain.Repositories
     public interface IRepository<TEntity, TKey> : IDependency where TEntity : class ,IEntity<TKey>
     {
         #region Select/Get/Query
-        IQueryable<TEntity> Tabel();
+        IQueryable<TEntity> Table();
 
-        List<TEntity> TabelList();
-        Task<List<TEntity>> TabelListAsync();
+        List<TEntity> TableList();
+        Task<List<TEntity>> TableListAsync();
 
         IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate);
 
