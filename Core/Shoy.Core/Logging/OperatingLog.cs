@@ -19,7 +19,7 @@ namespace Shoy.Core.Logging
         public OperatingLog()
         {
             Id = CombHelper.NewComb();
-            Operator = ShoyContext.Current.Operator;
+            Operator = BContext.Current.Operator;
             OperateDate = DateTime.Now;
             LogItems = new List<OperatingLogItem>();
         }

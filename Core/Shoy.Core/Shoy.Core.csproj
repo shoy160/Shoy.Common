@@ -14,6 +14,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Operator.cs" />
-    <Compile Include="Context\ShoyContext.cs" />
+    <Compile Include="Context\BContext.cs" />
     <Compile Include="Domain\CollectionExtensions.cs" />
     <Compile Include="Domain\Entities\Entity.cs" />
     <Compile Include="Domain\Entities\EntityExtensions.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="Domain\Repositories\IRepository.cs" />
     <Compile Include="Domain\OperateResult.cs" />
     <Compile Include="Domain\QueryablePropertySorter.cs" />
-    <Compile Include="Domain\Repositories\ShoyRepositoryBase.cs" />
+    <Compile Include="Domain\Repositories\BRepository.cs" />
     <Compile Include="Domain\SortCondition.cs" />
     <Compile Include="IDependency.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Logging\OperatingLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBase.cs" />
-    <Compile Include="ShoyException.cs" />
+    <Compile Include="BException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">

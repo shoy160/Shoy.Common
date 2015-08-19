@@ -26,12 +26,12 @@ namespace Shoy.Core.Domain.Entities
             return EqualityComparer<TKey>.Default.Equals(Id, default(TKey));
         }
 
-        /// <summary>
-        /// 版本控制标识，用于处理并发
-        /// </summary>
-        [ConcurrencyCheck]
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
+//        /// <summary>
+//        /// 版本控制标识，用于处理并发
+//        /// </summary>
+//        [ConcurrencyCheck]
+//        [Timestamp]
+//        public byte[] Timestamp { get; set; }
 
         /// <summary>
         /// 判断两个实体是否是同一数据记录的实体

@@ -1,0 +1,16 @@
+﻿@model List<Shoy.MvcDemo.Models.ClassDto>
+
+@using StackExchange.Profiling
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+<div>
+    @foreach (var cls in Model)
+    {
+        <div>@cls.Id,@cls.ClassName,@cls.ClassCode,@cls.Manager,@cls.AgencyName</div>
+    }
+</div>
+
+@MiniProfiler.RenderIncludes()
