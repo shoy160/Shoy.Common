@@ -21,7 +21,7 @@ namespace Shoy.FileSystem
 
         public static FileServerConfig Config
         {
-            get { return ConfigUtils<FileServerConfig>.Instance().Get(); }
+            get { return ConfigUtils<FileServerConfig>.Instance.Get(); }
         }
 
         public static int MaxFileCount

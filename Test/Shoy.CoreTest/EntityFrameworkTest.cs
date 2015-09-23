@@ -1,35 +1,25 @@
 ﻿using System;
+using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Shoy.Core.Domain.Entities;
-using Shoy.Data.EntityFramework;
+using Shoy.Core.Domain.Repositories;
+using Shoy.CoreTest.Context;
+using Shoy.CoreTest.Context.Models;
+using Shoy.Utility.Extend;
 
 namespace Shoy.CoreTest
 {
     [TestClass]
-    public class EntityFrameworkTest
+    public class EntityFrameworkTest : TestBase
     {
-        public EntityFrameworkTest()
-        {
-        }
-
-        public class User : Entity<long>, ISoftDelete, IAudited<long?>
-        {
-            public virtual string Account { get; set; }
-            public virtual string Name { get; set; }
-            public virtual bool IsDeleted { get; set; }
-            public virtual DateTime CreationTime { get; set; }
-            public virtual long? CreatorId { get; set; }
-            public virtual string CreationIp { get; set; }
-            public virtual DateTime? LastModificationTime { get; set; }
-            public virtual long? LastModifierUserId { get; set; }
-        }
-
+        [TestMethod]
         public void UserTest()
         {
-            var context = new CodeFirstDbContext("");
-            var provider = new SimpleDbContextProvider<CodeFirstDbContext>(context);
-            var user = new EfRepositoryBase<CodeFirstDbContext, User, long>(provider);
-            user.Insert(new User());
+            using (var scope = Container.BeginLifetimeScope())
+            {
+                var repository = scope.Resolve<IRepository<TestDbContext, User, long>>();
+                var user = repository.Load(1);
+                Console.WriteLine(user.ToJson());
+            }
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Shoy.Core.Logging;
-using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
-using Shoy.Utility.Logging;
-using System;
 
 namespace Shoy.CoreTest
 {
@@ -21,8 +18,6 @@ namespace Shoy.CoreTest
 
         static UnitTest1()
         {
-            var adapter = new Log4NetAdapter();
-            LogManager.AddAdapter(adapter);
         }
 
         [TestMethod]

@@ -8,20 +8,20 @@ namespace Shoy.Utility.Extend
     ///<summary>
     /// 扩展接口类
     ///</summary>
-    ///<typeparam name="TV"></typeparam>
-    public interface IExtension<TV>
+    ///<typeparam name="TValue"></typeparam>
+    public interface IExtension<out TValue>
     {
         ///<summary>
         /// 获取值
         ///</summary>
         ///<returns></returns>
-        TV GetValue();
+        TValue GetValue();
     }
 
     ///<summary>
     /// 字符扩展组
     ///</summary>
-    public static class StringExtensionGroup
+    public static class ExtensionGroup
     {
         private static readonly IDictionary<Type, Type> Cache = new Dictionary<Type, Type>();
         private static readonly object LockObj = new object();
@@ -32,7 +32,7 @@ namespace Shoy.Utility.Extend
         /// <typeparam name="T"></typeparam>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static T As<T>(this string s) where T:IExtension<string>
+        public static T As<T>(this string s) where T : IExtension<string>
         {
             return As<T, string>(s);
         }
@@ -47,67 +47,64 @@ namespace Shoy.Utility.Extend
         public static T As<T, TV>(this TV v) where T : IExtension<TV>
         {
             Type t;
-            Type valueType = typeof (T);
-            if (Cache.ContainsKey(valueType))
+            var valueType = typeof(T);
+            lock (LockObj)
             {
-                t = Cache[valueType];
-            }
-            else
-            {
-                lock (LockObj)
+                if (Cache.ContainsKey(valueType))
                 {
-                    if (!Cache.ContainsKey(valueType))
-                    {
-                        t = CreateType<T, TV>();
-                        Cache.Add(valueType, t);
-                    }
-                    else
-                    {
-                        t = Cache[valueType];
-                    }
+                    t = Cache[valueType];
+                }
+                else
+                {
+                    t = CreateType<T, TV>();
+                    Cache.Add(valueType, t);
                 }
             }
-            object result = Activator.CreateInstance(t, v);
-            return (T) result;
+            var result = Activator.CreateInstance(t, v);
+            return (T)result;
         }
 
         private static Type CreateType<T, TV>() where T : IExtension<TV>
         {
-            Type targetInterfaceType = typeof (T);
-            string generatedClassName = targetInterfaceType.Name.Remove(0, 1);
+            var targetInterfaceType = typeof(T);
+            var generatedClassName = targetInterfaceType.Name.Remove(0, 1);
             //
             var aName = new AssemblyName("ExtensionDynamicAssembly");
-            AssemblyBuilder ab =
+            var ab =
                 AppDomain.CurrentDomain.DefineDynamicAssembly(aName, AssemblyBuilderAccess.Run);
-            ModuleBuilder mb = ab.DefineDynamicModule(aName.Name);
-            TypeBuilder tb = mb.DefineType(generatedClassName, TypeAttributes.Public);
+            var mb = ab.DefineDynamicModule(aName.Name);
+            var tb = mb.DefineType(generatedClassName, TypeAttributes.Public);
             //实现接口
-            tb.AddInterfaceImplementation(typeof (T));
+            tb.AddInterfaceImplementation(typeof(T));
             //value字段
-            FieldBuilder valueFiled = tb.DefineField("value", typeof (TV), FieldAttributes.Private);
+            var valueFiled = tb.DefineField("value", typeof(TV), FieldAttributes.Private);
             //构造函数
-            ConstructorBuilder ctor = tb.DefineConstructor(MethodAttributes.Public,
-                                                           CallingConventions.Standard, new Type[] {typeof (TV)});
-            ILGenerator ctor1Il = ctor.GetILGenerator();
+            var ctor =
+                tb.DefineConstructor(MethodAttributes.Public,
+                    CallingConventions.Standard, new[] { typeof(TV) });
+            var ctor1Il = ctor.GetILGenerator();
             ctor1Il.Emit(OpCodes.Ldarg_0);
-            ctor1Il.Emit(OpCodes.Call, typeof (object).GetConstructor(Type.EmptyTypes));
+            var emptyConstructor = typeof(object).GetConstructor(Type.EmptyTypes);
+            if (emptyConstructor != null)
+                ctor1Il.Emit(OpCodes.Call, emptyConstructor);
             ctor1Il.Emit(OpCodes.Ldarg_0);
             ctor1Il.Emit(OpCodes.Ldarg_1);
             ctor1Il.Emit(OpCodes.Stfld, valueFiled);
             ctor1Il.Emit(OpCodes.Ret);
             //GetValue方法
-            MethodBuilder getValueMethod = tb.DefineMethod("GetValue",
-                                                           MethodAttributes.Public | MethodAttributes.Virtual,
-                                                           typeof (TV), Type.EmptyTypes);
-            ILGenerator numberGetIl = getValueMethod.GetILGenerator();
+            var getValueMethod =
+                tb.DefineMethod("GetValue",
+                    MethodAttributes.Public | MethodAttributes.Virtual,
+                    typeof(TV), Type.EmptyTypes);
+            var numberGetIl = getValueMethod.GetILGenerator();
             numberGetIl.Emit(OpCodes.Ldarg_0);
             numberGetIl.Emit(OpCodes.Ldfld, valueFiled);
             numberGetIl.Emit(OpCodes.Ret);
             //接口实现
-            MethodInfo getValueInfo = targetInterfaceType.GetInterfaces()[0].GetMethod("GetValue");
+            var getValueInfo = targetInterfaceType.GetInterfaces()[0].GetMethod("GetValue");
             tb.DefineMethodOverride(getValueMethod, getValueInfo);
             //
-            Type t = tb.CreateType();
+            var t = tb.CreateType();
             return t;
         }
     }

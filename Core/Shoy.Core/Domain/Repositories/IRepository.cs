@@ -2,129 +2,97 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Shoy.Core.Domain.Entities;
+using Shoy.Utility;
 
 namespace Shoy.Core.Domain.Repositories
 {
-    public interface IRepository<TEntity> : IRepository<TEntity, int> where TEntity : class, IEntity<int>
-    { }
-
-    /// <summary>
-    /// 实体仓储模型的数据标准操作
-    /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    /// <typeparam name="TKey">主键类型</typeparam>
-    public interface IRepository<TEntity, TKey> : IDependency where TEntity : class ,IEntity<TKey>
+    public interface IRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
+        where TEntity : DEntity<TKey>
+        where TDbContext : IUnitOfWork
     {
-        #region Select/Get/Query
-        IQueryable<TEntity> Table();
+    }
 
-        List<TEntity> TableList();
-        Task<List<TEntity>> TableListAsync();
+    /// <summary> 数据基础仓储接口 </summary>
+    public interface IRepository<TEntity, TKey> : IDependency
+        where TEntity : DEntity<TKey>
+    {
+        /// <summary> 数据操作单元 </summary>
+        IUnitOfWork UnitOfWork { get; }
 
-        IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> Table { get; }
 
-        Task<IQueryable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> predicate);
+        TKey Insert(TEntity entity);
 
-        T Get<T>(Func<IQueryable<TEntity>, T> queryMethod);
+        int Insert(IEnumerable<TEntity> entities);
 
-        TEntity Get(TKey id);
+        int Delete(TEntity entity);
 
-        Task<TEntity> GetAsync(TKey id);
+        int Delete(TKey key);
 
-        TEntity Single(Expression<Func<TEntity, bool>> predicate);
+        int Delete(Expression<Func<TEntity, bool>> expression);
 
-        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+        int Update(TEntity entity);
 
-        TEntity FirstOrDefault(TKey id);
+        int Update(TEntity entity, Expression<Func<TEntity, bool>> expression);
 
-        Task<TEntity> FirstOrDefaultAsync(TKey id);
+        bool Exists(Expression<Func<TEntity, bool>> expression);
 
-        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
+        TEntity Load(TKey key);
 
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        TEntity First(Expression<Func<TEntity, bool>> expression);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression);
+        TEntity Single(Expression<Func<TEntity, bool>> expression);
+        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression);
 
-        TEntity Load(TKey id);
+        IQueryable<TEntity> List(IEnumerable<TKey> keys);
+        IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> expression);
 
-        #endregion
-
-        #region Insert
-
-        TEntity Insert(TEntity entity);
-
-        Task<TEntity> InsertAsync(TEntity entity);
-
-        TKey InsertAndGetId(TEntity entity);
-
-        Task<TKey> InsertAndGetIdAsync(TEntity entity);
-
-        TEntity InsertOrUpdate(TEntity entity);
-
-        Task<TEntity> InsertOrUpdateAsync(TEntity entity);
-
-        TKey InsertOrUpdateAndGetId(TEntity entity);
-
-        Task<TKey> InsertOrUpdateAndGetIdAsync(TEntity entity);
-
-        #endregion
-
-        #region Update
-
-        TEntity Update(TEntity entity);
-
-        Task<TEntity> UpdateAsync(TEntity entity);
-
-        TEntity Update(TKey id, Action<TEntity> updateAction);
-
-        Task<TEntity> UpdateAsync(TKey id, Func<TEntity, Task> updateAction);
-
-        #endregion
-
-        #region Delete
-
-        void Delete(TEntity entity);
-
-        Task DeleteAsync(TEntity entity);
-
-        void Delete(TKey id);
-
-        Task DeleteAsync(TKey id);
-
-        void Delete(Expression<Func<TEntity, bool>> predicate);
-
-        Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
-
-        #endregion
-
-        #region Aggregates
+        DResults<TEntity> PageList(IOrderedQueryable<TEntity> ordered, DPage page);
 
         int Count();
 
-        Task<int> CountAsync();
-
         int Count(Expression<Func<TEntity, bool>> predicate);
-
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
 
         long LongCount();
 
-        Task<long> LongCountAsync();
-
         long LongCount(Expression<Func<TEntity, bool>> predicate);
 
+#if NET45
+        Task<TKey> InsertAsync(TEntity entity);
+
+        Task<int> InsertAsync(IEnumerable<TEntity> entities);
+
+        Task<int> DeleteAsync(TEntity entity);
+
+        Task<int> DeleteAsync(TKey key);
+
+        Task<int> DeleteAsync(Expression<Func<TEntity, bool>> expression);
+
+        Task<int> UpdateAsync(TEntity entity);
+
+        Task<int> UpdateAsync(TEntity entity, Expression<Func<TEntity, bool>> expression);
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression);
+
+        Task<TEntity> LoadAsync(TKey key);
+
+        Task<IQueryable<TEntity>> ListAsync(IEnumerable<TKey> keys);
+
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression);
+
+        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression);
+
+        Task<IQueryable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression);
+
+        Task<DPage<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression, DPage page);
+        
+        Task<int> CountAsync();
+
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
+
+        Task<long> LongCountAsync();
+
         Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
-
-        #endregion
-
-        #region sql
-        List<TEntity> SqlQuery(string sql, params object[] parameters);
-
-        Task<List<TEntity>> SqlQueryAsync(string sql, params object[] parameters);
-
-        int SqlExecute(string sql, params object[] parameters);
-        Task<int> SqlExecuteAsync(string sql, params object[] parameters);
-
-        #endregion
+#endif
     }
 }

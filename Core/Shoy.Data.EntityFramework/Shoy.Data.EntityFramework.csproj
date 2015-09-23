@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shoy.Data.EntityFramework</RootNamespace>
     <AssemblyName>Shoy.Data.EntityFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -60,19 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeFirstDbContext.cs" />
-    <Compile Include="DatabaseInitializer.cs" />
-    <Compile Include="DataHelper.cs" />
-    <Compile Include="EntityConfigurationBase.cs" />
-    <Compile Include="Extensions\DbContextExtensions.cs" />
-    <Compile Include="IDbContextProvider.cs" />
-    <Compile Include="IEntityMapper.cs" />
-    <Compile Include="Migrations\CreateDatabaseIfNotExistsWithSeed.cs" />
-    <Compile Include="Migrations\IDataInitialize.cs" />
-    <Compile Include="Migrations\ISeedAction.cs" />
-    <Compile Include="Migrations\MigrationsConfiguration.cs" />
-    <Compile Include="EfRepositoryBase.cs" />
+    <Compile Include="EfRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleDbContextProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">
@@ -85,7 +74,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

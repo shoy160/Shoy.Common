@@ -104,6 +104,10 @@
     <Compile Include="Helper\SecurityHelper.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Helper\StackHelper.cs" />
+    <Compile Include="Timing\Clock.cs" />
+    <Compile Include="Timing\IClockProvider.cs" />
+    <Compile Include="Timing\LocalClockProvider.cs" />
+    <Compile Include="Timing\UtcClockProvider.cs" />
     <Compile Include="UseTest\CodeTimer.cs" />
     <Compile Include="UseTest\CodeTimerResult.cs" />
     <Compile Include="Utils.cs" />

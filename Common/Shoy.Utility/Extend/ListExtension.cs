@@ -11,6 +11,15 @@ namespace Shoy.Utility.Extend
 {
     public static class ListExtension
     {
+        /// <summary> 判断列表为空 </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty<T>(this ICollection<T> source)
+        {
+            return source == null || source.Count <= 0;
+        }
+
         /// <summary>
         /// 遍历当前对象，并且调用方法进行处理
         /// </summary>
@@ -186,6 +195,50 @@ namespace Shoy.Utility.Extend
         public static bool In<T>(this T t, params T[] c)
         {
             return c.Any(i => i.Equals(t));
+        }
+
+        /// <summary> 根据依赖项排序 </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="getDependencies"></param>
+        /// <returns></returns>
+        public static IList<T> SortByDependencies<T>(this IEnumerable<T> source,
+            Func<T, IEnumerable<T>> getDependencies)
+        {
+            var sorted = new List<T>();
+            var visitDict = new Dictionary<T, bool>();
+            foreach (var item in source)
+            {
+                SortByDependenciesVisited(item, getDependencies, sorted, visitDict);
+            }
+            return sorted;
+        }
+
+        private static void SortByDependenciesVisited<T>(T item, Func<T, IEnumerable<T>> getDependencies,
+            ICollection<T> sorted, IDictionary<T, bool> visitDict)
+        {
+            bool visited;
+            if (visitDict.TryGetValue(item, out visited))
+            {
+                if (visited)
+                {
+
+                }
+            }
+            else
+            {
+                visitDict[item] = true;
+                var dependencies = getDependencies(item);
+                if (dependencies != null)
+                {
+                    foreach (var dependency in dependencies)
+                    {
+                        SortByDependenciesVisited(dependency, getDependencies, sorted, visitDict);
+                    }
+                }
+                visitDict[item] = false;
+                sorted.Add(item);
+            }
         }
     }
 }
