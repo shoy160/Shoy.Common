@@ -1,0 +1,27 @@
+﻿@using Shoy.Wiki.Models.Dtos;
+@model List<GroupDto>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Wiki - 技术百科，记录成才笔记！</title>
+</head>
+<body>
+    <div>
+        @foreach (var m in Model)
+        {
+            <div>
+                <h3>
+                    @m.Name <small>@m.Code</small>
+                </h3>
+                <div>
+                    @foreach (var wiki in m.Wikis)
+                    {
+                        <a href="/wiki/@wiki">@wiki</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

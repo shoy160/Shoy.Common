@@ -63,10 +63,13 @@ namespace Shoy.Utility.Helper
             return date;
         }
 
-        public static string Guid16()
+        public static string Guid16
         {
-            var i = Guid.NewGuid().ToByteArray().Aggregate<byte, long>(1, (current, b) => current * ((int)b + 1));
-            return string.Format("{0:x}", i - DateTimeOffset.Now.Ticks);
+            get
+            {
+                var i = Guid.NewGuid().ToByteArray().Aggregate<byte, long>(1, (current, b) => current*((int) b + 1));
+                return string.Format("{0:x}", i - DateTimeOffset.Now.Ticks);
+            }
         }
     }
 }

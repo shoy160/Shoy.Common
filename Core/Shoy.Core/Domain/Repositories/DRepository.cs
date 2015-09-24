@@ -89,7 +89,7 @@ namespace Shoy.Core.Domain.Repositories
         {
             if (ordered == null)
                 return DResult.Errors<TEntity>("数据查询异常！");
-            var result = ordered.Skip(page.Page*page.Size).Take(page.Size);
+            var result = ordered.Skip(page.Page * page.Size).Take(page.Size);
             var total = ordered.Count();
             return DResult.Succ(result, total);
         }
@@ -112,6 +112,62 @@ namespace Shoy.Core.Domain.Repositories
         public long LongCount(Expression<Func<TEntity, bool>> predicate)
         {
             return Table.LongCount(predicate);
+        }
+
+        public TValue Max<TValue>(Func<TEntity, TValue> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return default(TValue);
+            return data.Max(perdicate);
+        }
+
+        public TValue Min<TValue>(Func<TEntity, TValue> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return default(TValue);
+            return data.Min(perdicate);
+        }
+
+        public double Average(Func<TEntity, int> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return 0;
+            return data.Average(perdicate);
+        }
+
+        public double Average(Func<TEntity, long> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return 0;
+            return data.Average(perdicate);
+        }
+
+        public double Average(Func<TEntity, double> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return 0;
+            return data.Average(perdicate);
+        }
+
+        public decimal Average(Func<TEntity, decimal> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return 0;
+            return data.Average(perdicate);
+        }
+
+        public float Average(Func<TEntity, float> perdicate, Expression<Func<TEntity, bool>> condition = null)
+        {
+            var data = condition == null ? Table : Table.Where(condition);
+            if (data == null || !data.Any())
+                return 0;
+            return data.Average(perdicate);
         }
 
 #if NET45

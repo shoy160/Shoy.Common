@@ -18,7 +18,7 @@ namespace Shoy.Utility.Observer
 
         protected PublisherBase()
         {
-            PublisherKey = CombHelper.Guid16();
+            PublisherKey = CombHelper.Guid16;
         }
 
         /// <summary> 订阅 消息通知 </summary>

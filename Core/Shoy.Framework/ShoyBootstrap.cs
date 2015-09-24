@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Autofac;
 using Shoy.Core;
@@ -63,11 +61,12 @@ namespace Shoy.Framework
             Builder.RegisterGeneric(typeof(EfRepository<,,>)).As(typeof(IRepository<,,>));
 
             var baseType = typeof(IDependency);
-            var path = AppDomain.CurrentDomain.RelativeSearchPath;
-            if (!Directory.Exists(path))
-                path = AppDomain.CurrentDomain.BaseDirectory;
-            var assemblies = Directory.GetFiles(path, "Shoy.*.dll").Select(Assembly.LoadFrom)
-                .Union(new[] { executingAssembly }).ToArray();
+            //            var path = AppDomain.CurrentDomain.RelativeSearchPath;
+            //            if (!Directory.Exists(path))
+            //                path = AppDomain.CurrentDomain.BaseDirectory;
+            //            var assemblies = Directory.GetFiles(path, "Shoy.*.dll").Select(Assembly.LoadFrom)
+            //                .Union(new[] { executingAssembly }).ToArray();
+            var assemblies = ShoyAssemblyFinder.Instance.FindAll().Union(new[] { executingAssembly }).ToArray();
             Builder.RegisterAssemblyTypes(assemblies)
                 .Where(type => baseType.IsAssignableFrom(type) && !type.IsAbstract)
                 .AsSelf() //自身服务，用于没有接口的类

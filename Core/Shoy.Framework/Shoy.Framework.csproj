@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ShoyAssemblyFinder.cs" />
     <Compile Include="ShoyBootstrap.cs" />
     <Compile Include="IocManager.cs" />
     <Compile Include="Logging\DLogLayout.cs" />

@@ -3,27 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Shoy.Utility;
 
 namespace Shoy.Core.Reflection
 {
-    public class DefaultAssemblyFinder : IAssemblyFinder
+    public abstract class DefaultAssemblyFinder : IAssemblyFinder
     {
-        private const string PrefixName = "dayeasy";
-        public static DefaultAssemblyFinder Instance
+        private readonly Func<Assembly, bool> _defaultPredicate;
+
+        protected DefaultAssemblyFinder(Func<Assembly, bool> defaultPredicate = null)
         {
-            get
-            {
-                return Singleton<DefaultAssemblyFinder>.Instance ??
-                       (Singleton<DefaultAssemblyFinder>.Instance = new DefaultAssemblyFinder());
-            }
+            _defaultPredicate = defaultPredicate;
         }
 
         public IEnumerable<Assembly> FindAll()
         {
-            return
-                AppDomain.CurrentDomain.GetAssemblies()
-                    .Where(t => t.FullName.StartsWith(PrefixName, StringComparison.CurrentCultureIgnoreCase));
+            var asses = AppDomain.CurrentDomain.GetAssemblies();
+            return _defaultPredicate != null ? asses.Where(_defaultPredicate) : asses;
         }
 
         public IEnumerable<Assembly> Find(Func<Assembly, bool> expression)

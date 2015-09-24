@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using Shoy.Core.Config;
 using Shoy.Utility.Config;
 
@@ -15,6 +16,9 @@ namespace Shoy.Core
 
         /// <summary> 登录错误次数 </summary>
         public const string LoginCountCookieName = "__dayeasy_err_c";
+
+        public static Func<Assembly, bool> AssemblyFinder =
+            t => t.FullName.StartsWith("shoy.", StringComparison.CurrentCultureIgnoreCase);
 
         public static DayEasyConfig Config
         {

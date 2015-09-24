@@ -58,6 +58,16 @@ namespace Shoy.Core.Domain.Repositories
 
         long LongCount(Expression<Func<TEntity, bool>> predicate);
 
+        TValue Max<TValue>(Func<TEntity, TValue> perdicate, Expression<Func<TEntity, bool>> condition = null);
+
+        TValue Min<TValue>(Func<TEntity, TValue> perdicate, Expression<Func<TEntity, bool>> condition = null);
+
+        float Average(Func<TEntity, float> perdicate, Expression<Func<TEntity, bool>> condition = null);
+        double Average(Func<TEntity, int> perdicate, Expression<Func<TEntity, bool>> condition = null);
+        double Average(Func<TEntity, long> perdicate, Expression<Func<TEntity, bool>> condition = null);
+        double Average(Func<TEntity, double> perdicate, Expression<Func<TEntity, bool>> condition = null);
+        decimal Average(Func<TEntity, decimal> perdicate, Expression<Func<TEntity, bool>> condition = null);
+
 #if NET45
         Task<TKey> InsertAsync(TEntity entity);
 

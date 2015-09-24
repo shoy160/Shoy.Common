@@ -1,0 +1,31 @@
+﻿@model Shoy.Wiki.Models.Dtos.WikiDto
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@Model.Name</title>
+</head>
+<body>
+    <div>
+        <h1>@Model.Name<small>@Model.Group.Name + @Model.Group.Code</small></h1>
+        <div>
+            @Model.Desc
+        </div>
+        <div>
+            @if (Model.Details != null)
+            {
+                foreach (var detail in Model.Details)
+                {
+                    <div>
+                        <h3>@detail.Sort  @detail.Title</h3>
+                        <div>
+                            @detail.Detail
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>

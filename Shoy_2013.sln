@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.AutoMapper", "Core\Sho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Web", "Core\Shoy.Web\Shoy.Web.csproj", "{0A09169B-651B-4773-B8CA-2C62BBAB0B93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Wiki", "WebUI\Shoy.Wiki\Shoy.Wiki.csproj", "{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -359,6 +361,16 @@ Global
 		{0A09169B-651B-4773-B8CA-2C62BBAB0B93}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0A09169B-651B-4773-B8CA-2C62BBAB0B93}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0A09169B-651B-4773-B8CA-2C62BBAB0B93}.Release|x86.ActiveCfg = Release|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,5 +405,6 @@ Global
 		{ADE04418-AF78-4C55-A406-BFB4A25F4219} = {B7A9E2B8-120F-42F5-AB83-4ABF529DEA73}
 		{0A51FA9B-6B42-4E32-8798-8EC36BEB9304} = {B7A9E2B8-120F-42F5-AB83-4ABF529DEA73}
 		{0A09169B-651B-4773-B8CA-2C62BBAB0B93} = {B7A9E2B8-120F-42F5-AB83-4ABF529DEA73}
+		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
 	EndGlobalSection
 EndGlobal
