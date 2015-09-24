@@ -5,7 +5,11 @@
 <div class="container">
     <div class="page-header">
         <h3>
-            @Model.Name<small>@Model.Group.Name</small>
+            @Model.Name
+            <small>
+                @Model.Group.Name
+                <span class="text-danger">热度：@Model.Hots</span>
+            </small>
         </h3>
         <div class="wiki-back">
             <a class="btn btn-link btn-lg" href="/">返回</a>
@@ -42,6 +46,9 @@
             top: 0;
         }
          h3 small {
+             margin-left: 15px;
+         }
+         h3 span {
              margin-left: 15px;
          }
         blockquote {

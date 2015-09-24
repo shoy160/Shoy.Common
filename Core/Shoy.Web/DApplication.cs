@@ -41,7 +41,8 @@ namespace Shoy.Web
         protected virtual void Application_End(object sender, EventArgs e)
         {
             _logger.Info("Application_End...");
-//            Bootstrap.Dispose();
+            Bootstrap.ModulesInstaller();
+            //            Bootstrap.Dispose();
         }
 
         protected virtual void Session_Start(object sender, EventArgs e)

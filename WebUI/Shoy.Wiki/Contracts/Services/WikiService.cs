@@ -133,6 +133,8 @@ namespace Shoy.Wiki.Contracts.Services
             var item = Wikis.SingleOrDefault(t => t.Name == wiki && t.Status == 0);
             if (item == null)
                 return null;
+            item.Hots++;
+            Wikis.Update(item);
             var result = item.MapTo<WikiDto>();
             var group = Groups.SingleOrDefault(t => t.Id == item.GroupId);
             result.Group = group.MapTo<GroupDto>();
