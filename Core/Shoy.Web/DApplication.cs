@@ -4,12 +4,14 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac.Integration.Mvc;
 using Shoy.Framework;
+using Shoy.Utility.Logging;
 using Shoy.Web.Filters;
 
 namespace Shoy.Web
 {
     public abstract class DApplication : HttpApplication
     {
+        private readonly ILogger _logger = LogManager.Logger<DApplication>();
         protected ShoyBootstrap Bootstrap { get; private set; }
 
         private readonly Assembly _executingAssembly;
@@ -22,6 +24,7 @@ namespace Shoy.Web
 
         protected virtual void Application_Start(object sender, EventArgs e)
         {
+            _logger.Info("Application_Start...");
             //MVC依赖注入
             Bootstrap.BuilderHandler += b =>
             {
@@ -37,7 +40,8 @@ namespace Shoy.Web
 
         protected virtual void Application_End(object sender, EventArgs e)
         {
-            Bootstrap.Dispose();
+            _logger.Info("Application_End...");
+//            Bootstrap.Dispose();
         }
 
         protected virtual void Session_Start(object sender, EventArgs e)
@@ -63,7 +67,7 @@ namespace Shoy.Web
 
         protected virtual void Application_Error(object sender, EventArgs e)
         {
-
+            _logger.Info("Application_Error...");
         }
     }
 }

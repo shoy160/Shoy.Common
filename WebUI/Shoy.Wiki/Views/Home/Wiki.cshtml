@@ -1,31 +1,52 @@
 ﻿@model Shoy.Wiki.Models.Dtos.WikiDto
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>@Model.Name</title>
-</head>
-<body>
-    <div>
-        <h1>@Model.Name<small>@Model.Group.Name + @Model.Group.Code</small></h1>
-        <div>
-            @Model.Desc
-        </div>
-        <div>
-            @if (Model.Details != null)
-            {
-                foreach (var detail in Model.Details)
-                {
-                    <div>
-                        <h3>@detail.Sort  @detail.Title</h3>
-                        <div>
-                            @detail.Detail
-                        </div>
-                    </div>
-                }
-            }
+@{
+    ViewBag.Title = Model.Name;
+}
+<div class="container">
+    <div class="page-header">
+        <h3>
+            @Model.Name<small>@Model.Group.Name</small>
+        </h3>
+        <div class="wiki-back">
+            <a class="btn btn-link btn-lg" href="/">返回</a>
         </div>
     </div>
-</body>
-</html>
+    <div>
+        <blockquote>
+            @Model.Desc
+        </blockquote>
+    </div>
+    <div>
+        @if (Model.Details != null)
+        {
+            foreach (var detail in Model.Details)
+            {
+                <div>
+                    <h3>@detail.Sort @detail.Title</h3>
+                    <div>
+                        @detail.Detail
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+@section css{
+    <style>
+        .page-header {
+            position: relative
+        }
+        .wiki-back {
+            position: absolute;
+            right: 15px;
+            top: 0;
+        }
+         h3 small {
+             margin-left: 15px;
+         }
+        blockquote {
+            font-size: 15px;
+            color: #787878;
+        }
+    </style>
+}
