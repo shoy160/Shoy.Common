@@ -2,12 +2,14 @@
 using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Shoy.Utility.Logging;
 using Shoy.Web;
 
 namespace Shoy.Wiki
 {
     public class MvcApplication : DApplication
     {
+        private readonly ILogger _logger = LogManager.Logger<MvcApplication>();
         public MvcApplication()
             : base(Assembly.GetExecutingAssembly())
         {

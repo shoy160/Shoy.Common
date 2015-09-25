@@ -24,7 +24,6 @@ namespace Shoy.Web
 
         protected virtual void Application_Start(object sender, EventArgs e)
         {
-            _logger.Info("Application_Start...");
             //MVC依赖注入
             Bootstrap.BuilderHandler += b =>
             {
@@ -33,6 +32,7 @@ namespace Shoy.Web
                 b.RegisterFilterProvider();
             };
             Bootstrap.Initialize(_executingAssembly);
+            _logger.Info("Application_Start...");
             DependencyResolver.SetResolver(new AutofacDependencyResolver(Bootstrap.Container));
             //异常处理
             GlobalFilters.Filters.Add(DExceptionAttribute.Instance);
@@ -41,34 +41,38 @@ namespace Shoy.Web
         protected virtual void Application_End(object sender, EventArgs e)
         {
             _logger.Info("Application_End...");
-            Bootstrap.ModulesInstaller();
-            //            Bootstrap.Dispose();
+            Bootstrap.Dispose();
         }
 
         protected virtual void Session_Start(object sender, EventArgs e)
         {
-
+            _logger.Info("Session_Start...");
         }
 
         protected virtual void Session_End(object sender, EventArgs e)
         {
-
+            _logger.Info("Session_End...");
         }
         protected virtual void Application_BeginRequest(object sender, EventArgs e)
         {
+            _logger.Info("Application_BeginRequest...");
         }
 
         protected virtual void Application_EndRequest(object sender, EventArgs e)
         {
+            _logger.Info("Application_EndRequest...");
         }
 
         protected virtual void Application_AuthenticateRequest(object sender, EventArgs e)
         {
+            _logger.Info("Application_AuthenticateRequest...");
         }
 
         protected virtual void Application_Error(object sender, EventArgs e)
         {
             _logger.Info("Application_Error...");
+            var ex = Server.GetLastError().GetBaseException();
+            _logger.Error(ex.Message, ex);
         }
     }
 }

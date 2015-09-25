@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -17,7 +18,10 @@ namespace Shoy.Core.Reflection
 
         public IEnumerable<Assembly> FindAll()
         {
-            var asses = AppDomain.CurrentDomain.GetAssemblies();
+            var path = AppDomain.CurrentDomain.RelativeSearchPath;
+            if (!Directory.Exists(path))
+                path = AppDomain.CurrentDomain.BaseDirectory;
+            var asses = Directory.GetFiles(path, "*.dll").Select(Assembly.LoadFrom).ToArray();
             return _defaultPredicate != null ? asses.Where(_defaultPredicate) : asses;
         }
 

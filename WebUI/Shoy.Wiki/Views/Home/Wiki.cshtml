@@ -34,26 +34,79 @@
             }
         }
     </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-header">一、常用命令</h4>
+        </div>
+        <div class="panel-body">
+            <p>
+                <h5>1.安装服务</h5>
+                <code>&gt;mongod --install --config mongo.conf --serviceName MongoDB</code>
+            </p>
+
+            <p>
+                <h5> 2.创建用户</h5>
+                <code>&gt;use admin<br />&gt;db.createUser({user:"admin",pwd:"",roles:[{role:"dbAdminAnyDatabase",db:"admin"}]})</code>
+            </p>
+
+            <p>
+                <h5>3.修改密码</h5>
+                <code>&gt;use admin<br />&gt;db.changeUserPassword('user','pwd');</code>
+            </p>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-header">二、数据库权限</h4>
+        </div>
+        <div class="panel-body">
+            <p>1. 数据库用户角色：read、readWrite;</p>
+            <p>2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；</p>
+            <p>3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；</p>
+            <p>4. 备份恢复角色：backup、restore；</p>
+            <p>5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase</p>
+            <p>6. 超级用户角色：root</p>
+            <p class="wiki-mark">
+                // 这里还有几个角色间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）
+            </p>
+            <p>
+                7. 内部角色：__system
+            </p>
+        </div>
+    </div>
 </div>
 @section css{
     <style>
         .page-header {
-            position: relative
+            position: relative;
         }
+
         .wiki-back {
             position: absolute;
             right: 15px;
             top: 0;
         }
-         h3 small {
-             margin-left: 15px;
-         }
-         h3 span {
-             margin-left: 15px;
-         }
+        .wiki-mark {
+            color: #888;
+        }
+
+        h3 small {
+            margin-left: 15px;
+        }
+
+        h3 span {
+            margin-left: 15px;
+        }
+
         blockquote {
             font-size: 15px;
             color: #787878;
+        }
+
+        code {
+            background-color: #565656;
+            color: #eee;
+            display: block;
         }
     </style>
 }
