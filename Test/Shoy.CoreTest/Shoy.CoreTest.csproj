@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shoy.CoreTest</RootNamespace>
     <AssemblyName>Shoy.CoreTest</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -41,6 +41,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
@@ -54,6 +57,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <Choose>
@@ -69,6 +73,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Context\Models\User.cs" />
+    <Compile Include="Context\TestBase.cs" />
+    <Compile Include="Context\TestDbContext.cs" />
     <Compile Include="EntityFrameworkTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,11 +93,16 @@
       <Project>{de6f6aac-8373-40ba-9af7-6f885afb61f6}</Project>
       <Name>Shoy.Data.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Shoy.Framework\Shoy.Framework.csproj">
+      <Project>{ADE04418-AF78-4C55-A406-BFB4A25F4219}</Project>
+      <Name>Shoy.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -147,7 +147,7 @@ namespace Shoy.FileSystem
             if (string.IsNullOrWhiteSpace(ext))
                 return DResult.Error("文件无扩展名！");
             FileTypeLimit limit;
-            var config = ConfigUtils<FileServerConfig>.Instance().Get();
+            var config = ConfigUtils<FileServerConfig>.Instance.Get();
             switch (fileType)
             {
                 case FileType.Image:
@@ -323,7 +323,7 @@ namespace Shoy.FileSystem
                     }
                 }
             };
-            ConfigUtils<FileServerConfig>.Instance().Set(config);
+            ConfigUtils<FileServerConfig>.Instance.Set(config);
         }
 
         public static ImageCodecInfo GetEncoderInfo(string mimeType)

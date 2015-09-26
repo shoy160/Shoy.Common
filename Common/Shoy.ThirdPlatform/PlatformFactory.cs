@@ -16,7 +16,7 @@ namespace Shoy.ThirdPlatform
             //添加监听
             ConfigManager.Change += file =>
             {
-                if (file == ConfigUtils<PlatformConfig>.Instance().FileName)
+                if (file == ConfigUtils<PlatformConfig>.Instance.FileName)
                 {
                     HelperCache.Clear();
                 }

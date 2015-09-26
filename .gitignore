@@ -106,6 +106,7 @@ Generated_Code #added for RIA/Silverlight projects
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
+*.pubxml
 /sys$command
 /Hange.sln
 /Hange.Old/myws168/myws168.web/App_Data/Logs

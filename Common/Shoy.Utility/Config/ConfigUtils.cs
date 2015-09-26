@@ -12,9 +12,9 @@ namespace Shoy.Utility.Config
         private string _fileName;
         private ConfigUtils() { }
 
-        public static ConfigUtils<T> Instance()
+        public static ConfigUtils<T> Instance
         {
-            return _instance ?? (_instance = new ConfigUtils<T>());
+            get { return _instance ?? (_instance = new ConfigUtils<T>()); }
         }
 
         [XmlIgnore]

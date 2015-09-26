@@ -22,7 +22,7 @@ namespace Shoy.Utility.Helper
         /// <returns></returns>
         public static string GetNewName(string ext)
         {
-            return CombHelper.Guid16() + ext;
+            return CombHelper.Guid16 + ext;
         }
 
         /// <summary>

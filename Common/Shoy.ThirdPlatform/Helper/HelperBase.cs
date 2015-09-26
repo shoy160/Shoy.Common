@@ -39,7 +39,7 @@ namespace Shoy.ThirdPlatform.Helper
         {
             if (Config != null)
                 return;
-            var config = ConfigUtils<PlatformConfig>.Instance().Get();
+            var config = ConfigUtils<PlatformConfig>.Instance.Get();
             if (config != null)
             {
                 Callback = config.Callback;

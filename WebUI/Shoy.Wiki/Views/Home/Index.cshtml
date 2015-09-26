@@ -1,0 +1,63 @@
+﻿@using Shoy.Wiki.Models.Dtos;
+@model List<GroupDto>
+@{
+    ViewBag.Title = "Wiki - 技术百科，记录技术成才点滴！";
+}
+<div class="container">
+    @foreach (var m in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-header">
+                    @m.Name
+                    <small>@m.Code</small>
+                </h3>
+            </div>
+            <div class="panel-body">
+                @if (m.Wikis == null || !m.Wikis.Any())
+                {
+                    <div class="wiki-empty">
+                        <i class="glyphicon glyphicon-cloud"></i>暂时没有相关词条！
+                    </div>
+                }
+                else
+                {
+                    <ul class="wiki-list">
+                        @foreach (var wiki in m.Wikis)
+                        {
+                            <li>
+                                <a href="/wiki/@wiki">@wiki</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    }
+</div>
+@section css{
+    <style>
+        h3 {
+            margin: 5px 0 8px 0;
+        }
+
+        .wiki-empty {
+            text-align: center;
+            color: #aaa;
+        }
+
+            .wiki-empty i {
+                margin-right: 6px;
+            }
+
+        .wiki-list {
+        }
+
+            .wiki-list li {
+                float: left;
+                margin: 0 30px 12px 0;
+                color: #888;
+                list-style-type: square;
+            }
+    </style>
+}
