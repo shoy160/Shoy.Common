@@ -132,9 +132,9 @@ namespace Shoy.Test
         public void SpeekerTest()
         {
 //            SpeekHelper.Speek("杨本国");
-            Console.WriteLine(CombHelper.Guid16());
-            Console.WriteLine(CombHelper.Guid16());
-            Console.WriteLine(CombHelper.Guid16());
+            Console.WriteLine(CombHelper.Guid16);
+            Console.WriteLine(CombHelper.Guid16);
+            Console.WriteLine(CombHelper.Guid16);
         }
 
         [TestMethod]
@@ -181,7 +181,7 @@ namespace Shoy.Test
             var list = new List<string>();
             for (int i = 0; i < 100 * 1000; i++)
             {
-                list.Add(CombHelper.Guid16());
+                list.Add(CombHelper.Guid16);
             }
             var result = list.GroupBy(t => t).Select(t => new { key = t.Key, c = t.Count() }).OrderByDescending(t => t.c);
             foreach (var item in result.Take(50))

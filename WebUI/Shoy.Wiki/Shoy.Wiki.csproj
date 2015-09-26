@@ -23,6 +23,7 @@
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>eb130770</NuGetPackageImportStamp>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -149,6 +150,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\wiki.pubxml" />
+    <Content Include="Views\Home\AddGroup.cshtml" />
+    <None Include="Properties\PublishProfiles\wiki.shoy.com.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -162,23 +165,23 @@
       <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>
       <Name>Shoy.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.AutoMapper\Shoy.AutoMapper.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.AutoMapper\Shoy.AutoMapper.csproj">
       <Project>{0A51FA9B-6B42-4E32-8798-8EC36BEB9304}</Project>
       <Name>Shoy.AutoMapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Core\Shoy.Core.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Core\Shoy.Core.csproj">
       <Project>{05e11fa9-fc25-4ae1-96cf-dbcbb8ba24be}</Project>
       <Name>Shoy.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Data.EntityFramework\Shoy.Data.EntityFramework.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Data.EntityFramework\Shoy.Data.EntityFramework.csproj">
       <Project>{de6f6aac-8373-40ba-9af7-6f885afb61f6}</Project>
       <Name>Shoy.Data.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Framework\Shoy.Framework.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Framework\Shoy.Framework.csproj">
       <Project>{ade04418-af78-4c55-a406-bfb4a25f4219}</Project>
       <Name>Shoy.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Web\Shoy.Web.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Web\Shoy.Web.csproj">
       <Project>{0a09169b-651b-4773-b8ca-2c62bbab0b93}</Project>
       <Name>Shoy.Web</Name>
     </ProjectReference>

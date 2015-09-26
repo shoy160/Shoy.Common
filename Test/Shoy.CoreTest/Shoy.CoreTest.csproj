@@ -85,15 +85,15 @@
       <Project>{DF571B38-A2DD-4653-A5EA-3F8E41AC5571}</Project>
       <Name>Shoy.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Core\Shoy.Core.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Core\Shoy.Core.csproj">
       <Project>{05e11fa9-fc25-4ae1-96cf-dbcbb8ba24be}</Project>
       <Name>Shoy.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Data.EntityFramework\Shoy.Data.EntityFramework.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Data.EntityFramework\Shoy.Data.EntityFramework.csproj">
       <Project>{de6f6aac-8373-40ba-9af7-6f885afb61f6}</Project>
       <Name>Shoy.Data.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Shoy.Framework\Shoy.Framework.csproj">
+    <ProjectReference Include="..\..\Framework\Shoy.Framework\Shoy.Framework.csproj">
       <Project>{ADE04418-AF78-4C55-A406-BFB4A25F4219}</Project>
       <Name>Shoy.Framework</Name>
     </ProjectReference>
