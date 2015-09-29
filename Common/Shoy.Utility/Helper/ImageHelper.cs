@@ -10,7 +10,7 @@ namespace Shoy.Utility.Helper
     /// <summary>
     /// 图片辅助方法
     /// </summary>
-    public class ImageHelper
+    public static class ImageHelper
     {
         private const int Threshold = 125;
 

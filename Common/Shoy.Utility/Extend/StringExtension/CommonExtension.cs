@@ -476,5 +476,54 @@ namespace Shoy.Utility.Extend
         {
             return XmlHelper.XmlDeserialize<T>(path);
         }
+
+        /// <summary> 小驼峰命名法 </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToCamelCase(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+
+            if (!char.IsUpper(s[0]))
+                return s;
+
+            var chars = s.ToCharArray();
+
+            for (var i = 0; i < chars.Length; i++)
+            {
+                var hasNext = (i + 1 < chars.Length);
+                if (i > 0 && hasNext && !char.IsUpper(chars[i + 1]))
+                    break;
+                chars[i] = char.ToLower(chars[i], CultureInfo.InvariantCulture);
+            }
+
+            return new string(chars);
+        }
+
+        /// <summary> url命名法 </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToUrlCase(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+            var chars = s.ToCharArray();
+            var str = new StringBuilder();
+            for (var i = 0; i < chars.Length; i++)
+            {
+                if (char.IsUpper(chars[i]))
+                {
+                    if (i > 0 && !char.IsUpper(chars[i - 1]))
+                        str.Append("_");
+                    str.Append(char.ToLower(chars[i], CultureInfo.InvariantCulture));
+                }
+                else
+                {
+                    str.Append(chars[i]);
+                }
+            }
+            return str.ToString();
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace Shoy.Utility.Helper
         }
 
         /// <summary>
-        /// 随机数字
+        /// 随机字母
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>

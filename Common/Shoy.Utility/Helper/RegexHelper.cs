@@ -9,7 +9,7 @@ namespace Shoy.Utility.Helper
     /// <summary>
     /// 正则辅助类
     /// </summary>
-    public class RegexHelper
+    public static class RegexHelper
     {
         private const string BrRegex = @"(\r|\n)";
         private const string TrnRegex = @"(\r|\n|\t)";

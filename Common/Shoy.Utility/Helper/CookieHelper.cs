@@ -8,7 +8,7 @@ namespace Shoy.Utility.Helper
     /// <summary>
     /// cookie操作类 Edit by shy 2012-12-19
     /// </summary>
-    public class CookieHelper
+    public static class CookieHelper
     {
         /// <summary> 
         /// 创建或修改COOKIE对象并赋Value值 

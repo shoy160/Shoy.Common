@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -92,6 +93,8 @@
     <Compile Include="Reflection\DefaultTypeFinder.cs" />
     <Compile Include="Reflection\IAssemblyFinder.cs" />
     <Compile Include="Reflection\ITypeFinder.cs" />
+    <Compile Include="Wcf\IWcfService.cs" />
+    <Compile Include="Wcf\WcfHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">

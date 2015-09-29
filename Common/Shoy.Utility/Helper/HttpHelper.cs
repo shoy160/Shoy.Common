@@ -18,7 +18,7 @@ namespace Shoy.Utility.Helper
         private readonly string _method = "GET";
         private string _referer;
         private readonly string _paras;
-        private readonly Encoding _encoding = Encoding.Default;//编码
+        private readonly Encoding _encoding;//编码
         private string _cookie;
         private string _contentType;
         private Dictionary<string, Stream> _fileList;
@@ -104,7 +104,7 @@ namespace Shoy.Utility.Helper
 
             _req.Method = _method;
 
-            _req.Timeout = 15 * 1000;
+            _req.Timeout = 150 * 1000;
 
             _req.ServicePoint.ConnectionLimit = 1024;
             if (_fileList != null && _fileList.Any())
