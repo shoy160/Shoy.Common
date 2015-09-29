@@ -58,6 +58,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <Choose>
@@ -77,6 +78,8 @@
     <Compile Include="Context\TestBase.cs" />
     <Compile Include="Context\TestDbContext.cs" />
     <Compile Include="EntityFrameworkTest.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

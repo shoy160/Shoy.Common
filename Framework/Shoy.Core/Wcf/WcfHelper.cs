@@ -23,7 +23,9 @@ namespace Shoy.Core.Wcf
 
         public void StartService()
         {
-            var types = TypeFinder.Find(t => t.IsInterface && t.IsDefined(typeof(IWcfService), false));
+            var types =
+                TypeFinder.Find(
+                    t => t.IsInterface && t != typeof (IWcfService) && typeof (IWcfService).IsAssignableFrom(t));
             foreach (var type in types)
             {
                 var resolve = IocManager.Resolve(type);
@@ -33,7 +35,7 @@ namespace Shoy.Core.Wcf
 
         private void OpenService(Type interfaceType, Type classType)
         {
-            var uri = new Uri(new Uri(WcfHost), interfaceType.Name);
+            var uri = new Uri(WcfHost + "/" + interfaceType.Name);
             using (var host = new ServiceHost(classType))
             {
                 host.AddServiceEndpoint(interfaceType, new WSHttpBinding(), uri);

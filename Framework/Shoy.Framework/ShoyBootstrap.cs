@@ -4,6 +4,8 @@ using Autofac;
 using Shoy.Core;
 using Shoy.Core.Dependency;
 using Shoy.Core.Domain.Repositories;
+using Shoy.Core.Reflection;
+using Shoy.Core.Wcf;
 using Shoy.Data.EntityFramework;
 using Shoy.Framework.Logging;
 using Shoy.Utility;
@@ -51,6 +53,13 @@ namespace Shoy.Framework
             ModulesInstaller();
             CacheInit();
             DatabaseInit();
+
+            var wcfHelper = new WcfHelper
+            {
+                IocManager = IocManager,
+                TypeFinder = IocManager.Resolve<ITypeFinder>()
+            };
+            wcfHelper.StartService();
         }
 
         /// <summary> 注册依赖 </summary>

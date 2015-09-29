@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shoy.CoreTest.Context;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
 
 namespace Shoy.CoreTest
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest1 : TestBase
     {
         public class User
         {
