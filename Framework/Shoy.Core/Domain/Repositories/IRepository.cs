@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Shoy.Core.Domain.Entities;
 using Shoy.Utility;
 
@@ -94,7 +95,7 @@ namespace Shoy.Core.Domain.Repositories
 
         Task<IQueryable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression);
 
-        Task<DPage<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression, DPage page);
+        Task<DResults<TEntity>> PageListAsync(IOrderedQueryable<TEntity> ordered, DPage page);
         
         Task<int> CountAsync();
 

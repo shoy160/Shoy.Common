@@ -17,6 +17,11 @@ namespace Shoy.Utility.Config
             get { return _instance ?? (_instance = new ConfigUtils<T>()); }
         }
 
+        public static T Config
+        {
+            get { return Instance.Get(); }
+        }
+
         [XmlIgnore]
         public string FileName
         {

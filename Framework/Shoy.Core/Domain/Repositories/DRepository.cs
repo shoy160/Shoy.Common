@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Shoy.Core.Domain.Entities;
 using Shoy.Utility;
 
@@ -237,9 +238,29 @@ namespace Shoy.Core.Domain.Repositories
             return Task.FromResult(Where(expression));
         }
 
-        public Task<DPage<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression, DPage page)
+        public Task<DResults<TEntity>> PageListAsync(IOrderedQueryable<TEntity> ordered, DPage page)
         {
-            return Task.FromResult(Where(expression, page));
+            return Task.FromResult(PageList(ordered, page));
+        }
+
+        public Task<int> CountAsync()
+        {
+            return Task.FromResult(Count());
+        }
+
+        public Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Task.FromResult(Count(predicate));
+        }
+
+        public Task<long> LongCountAsync()
+        {
+            return Task.FromResult(LongCount());
+        }
+
+        public Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Task.FromResult(LongCount(predicate));
         }
 
 #endif

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Utility", "..\Common\Shoy.Utility\Shoy.Utility.csproj", "{DF571B38-A2DD-4653-A5EA-3F8E41AC5571}"
 EndProject
@@ -20,6 +20,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Wiki", "..\WebUI\Shoy.Wiki\Shoy.Wiki.csproj", "{4FB41DBC-99E8-42DC-915A-0C3159C7F82D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.CoreTest", "..\Test\Shoy.CoreTest\Shoy.CoreTest.csproj", "{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.MemoryDb", "Shoy.MemoryDb\Shoy.MemoryDb.csproj", "{BF848025-B726-42D7-9296-0139B414AC46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.MongoDb", "Shoy.MongoDb\Shoy.MongoDb.csproj", "{FD5C3F52-7DAB-4C46-98FC-B82D0FA83ED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Assistant", "Shoy.Assistant\Shoy.Assistant.csproj", "{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +65,18 @@ Global
 		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF848025-B726-42D7-9296-0139B414AC46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF848025-B726-42D7-9296-0139B414AC46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF848025-B726-42D7-9296-0139B414AC46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF848025-B726-42D7-9296-0139B414AC46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD5C3F52-7DAB-4C46-98FC-B82D0FA83ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD5C3F52-7DAB-4C46-98FC-B82D0FA83ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5C3F52-7DAB-4C46-98FC-B82D0FA83ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD5C3F52-7DAB-4C46-98FC-B82D0FA83ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
