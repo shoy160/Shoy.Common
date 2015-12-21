@@ -1,7 +1,7 @@
 ﻿
 namespace Shoy.Core.Events
 {
-    public interface IEntityChangedEventHelper : IDependency
+    public interface IEntityChangedEventHelper : ILifetimeDependency
     {
         /// <summary> 执行创建事件 </summary>
         /// <param name="entity"></param>

@@ -3,6 +3,7 @@ using System.Linq;
 using Shoy.AutoMapper;
 using Shoy.Core;
 using Shoy.Core.Domain.Repositories;
+using Shoy.Data.EntityFramework;
 using Shoy.Utility;
 using Shoy.Utility.Helper;
 using Shoy.Utility.Timing;
@@ -13,14 +14,14 @@ namespace Shoy.Wiki.Contracts.Services
 {
     public class WikiService : DService, IWikiContract
     {
-        public WikiService(WikiDbContext unitOfWork)
-            : base(unitOfWork)
+        public WikiService(IDbContextProvider<WikiDbContext> unitOfWork)
+            : base(unitOfWork.DbContext)
         {
         }
 
-        public IRepository<WikiDbContext, WikiGroup, string> Groups { private get; set; }
-        public IRepository<WikiDbContext, Models.Wiki, string> Wikis { private get; set; }
-        public IRepository<WikiDbContext, WikiDetail, string> Details { private get; set; }
+        public IWikiRepository<WikiGroup, string> Groups { private get; set; }
+        public IWikiRepository<Models.Wiki, string> Wikis { private get; set; }
+        public IWikiRepository<WikiDetail, string> Details { private get; set; }
 
         public IRepository<WikiGroup, string> GroupRepository
         {

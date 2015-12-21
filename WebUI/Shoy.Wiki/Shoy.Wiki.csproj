@@ -125,6 +125,7 @@
     <Compile Include="Contracts\IUserContract.cs" />
     <Compile Include="Contracts\IWikiContract.cs" />
     <Compile Include="Contracts\Services\UserService.cs" />
+    <Compile Include="Contracts\Services\WikiRepository.cs" />
     <Compile Include="Contracts\Services\WikiService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

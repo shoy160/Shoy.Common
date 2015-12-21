@@ -5,6 +5,7 @@ using Shoy.Core.Modules;
 
 namespace Shoy.Core
 {
+    /// <summary> 应用程序启动基类 </summary>
     public abstract class DBootstrap : IBootstrap
     {
         public abstract void Initialize(Assembly executingAssembly = null);

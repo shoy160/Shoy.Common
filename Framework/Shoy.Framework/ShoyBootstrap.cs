@@ -49,10 +49,11 @@ namespace Shoy.Framework
                 BuilderHandler(Builder);
             _container = Builder.Build();
             IocManager = _container.Resolve<IIocManager>();
-
             ModulesInstaller();
             CacheInit();
             DatabaseInit();
+
+            #region WCF
 
             var wcfHelper = new WcfHelper
             {
@@ -60,6 +61,8 @@ namespace Shoy.Framework
                 TypeFinder = IocManager.Resolve<ITypeFinder>()
             };
             wcfHelper.StartService();
+
+            #endregion
         }
 
         /// <summary> 注册依赖 </summary>
@@ -67,21 +70,26 @@ namespace Shoy.Framework
         public override void IocRegisters(Assembly executingAssembly)
         {
             Builder = new ContainerBuilder();
-            Builder.RegisterGeneric(typeof(EfRepository<,,>)).As(typeof(IRepository<,,>));
 
-            var baseType = typeof(IDependency);
-            //            var path = AppDomain.CurrentDomain.RelativeSearchPath;
-            //            if (!Directory.Exists(path))
-            //                path = AppDomain.CurrentDomain.BaseDirectory;
-            //            var assemblies = Directory.GetFiles(path, "Shoy.*.dll").Select(Assembly.LoadFrom)
-            //                .Union(new[] { executingAssembly }).ToArray();
+            Builder.RegisterGeneric(typeof(UnitOfWorkDbContextProvider<>))
+                .As(typeof(IDbContextProvider<>))
+                .InstancePerLifetimeScope();
+
+            Builder.RegisterGeneric(typeof(EfRepository<,,>)).As(typeof(IRepository<,>));
+
             var assemblies = ShoyAssemblyFinder.Instance.FindAll().Union(new[] { executingAssembly }).ToArray();
             Builder.RegisterAssemblyTypes(assemblies)
-                .Where(type => baseType.IsAssignableFrom(type) && !type.IsAbstract)
+                .Where(type => typeof(ILifetimeDependency).IsAssignableFrom(type) && !type.IsAbstract)
                 .AsSelf() //自身服务，用于没有接口的类
                 .AsImplementedInterfaces() //接口服务
                 .PropertiesAutowired() //属性注入
                 .InstancePerLifetimeScope(); //保证生命周期基于请求
+
+            Builder.RegisterAssemblyTypes(assemblies)
+                .Where(type => typeof(IDependency).IsAssignableFrom(type) && !type.IsAbstract)
+                .AsSelf() //自身服务，用于没有接口的类
+                .AsImplementedInterfaces() //接口服务
+                .PropertiesAutowired(); //属性注入
         }
 
         /// <summary> 初始化缓存 </summary>

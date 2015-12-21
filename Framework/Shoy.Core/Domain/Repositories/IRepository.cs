@@ -8,17 +8,13 @@ using Shoy.Utility;
 
 namespace Shoy.Core.Domain.Repositories
 {
-    public interface IRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
-        where TEntity : DEntity<TKey>
-        where TDbContext : IUnitOfWork
-    {
-    }
+    public interface IRepository<TEntity> : IRepository<TEntity, string>
+        where TEntity : class,IDEntity<string> { }
 
     /// <summary> 数据基础仓储接口 </summary>
-    public interface IRepository<TEntity, TKey> : IDependency
-        where TEntity : DEntity<TKey>
+    public interface IRepository<TEntity, TKey>
+        where TEntity : class,IDEntity<TKey>
     {
-        /// <summary> 数据操作单元 </summary>
         IUnitOfWork UnitOfWork { get; }
 
         IQueryable<TEntity> Table { get; }
@@ -35,7 +31,13 @@ namespace Shoy.Core.Domain.Repositories
 
         int Update(TEntity entity);
 
-        int Update(TEntity entity, Expression<Func<TEntity, bool>> expression);
+        int Update(TEntity entity, params string[] parms);
+
+        int Update(TEntity entity, Expression<Func<TEntity, bool>> expression, params string[] parms);
+
+        int Update(TEntity entity, IQueryable<TEntity> entities, params string[] parms);
+
+        int Update(Expression<Func<TEntity, dynamic>> propExpression, params TEntity[] entities);
 
         bool Exists(Expression<Func<TEntity, bool>> expression);
 
@@ -82,7 +84,12 @@ namespace Shoy.Core.Domain.Repositories
 
         Task<int> UpdateAsync(TEntity entity);
 
-        Task<int> UpdateAsync(TEntity entity, Expression<Func<TEntity, bool>> expression);
+        Task<int> UpdateAsync(TEntity entity, params string[] parms);
+
+        Task<int> UpdateAsync(TEntity entity, Expression<Func<TEntity, bool>> expression, params string[] parms);
+
+        Task<int> UpdateAsync(TEntity entity, IQueryable<TEntity> entities, params string[] parms);
+
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression);
 
         Task<TEntity> LoadAsync(TKey key);
@@ -96,7 +103,7 @@ namespace Shoy.Core.Domain.Repositories
         Task<IQueryable<TEntity>> WhereAsync(Expression<Func<TEntity, bool>> expression);
 
         Task<DResults<TEntity>> PageListAsync(IOrderedQueryable<TEntity> ordered, DPage page);
-        
+
         Task<int> CountAsync();
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);

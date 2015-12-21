@@ -3,7 +3,7 @@ using System;
 
 namespace Shoy.Core.Dependency
 {
-    public interface IIocManager : IDependency
+    public interface IIocManager : ILifetimeDependency
     {
         T Resolve<T>();
         object Resolve(Type type);

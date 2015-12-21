@@ -5,7 +5,7 @@ using Shoy.Core.Events.EventData;
 namespace Shoy.Core.Events
 {
     /// <summary> 数据库事件管理器接口 </summary>
-    public interface IEventsManager : IDependency
+    public interface IEventsManager : ILifetimeDependency
     {
         /// <summary> 注册事件 </summary>
         /// <typeparam name="TEnventData"></typeparam>

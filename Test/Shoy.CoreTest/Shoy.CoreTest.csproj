@@ -77,9 +77,11 @@
     <Compile Include="Context\Models\User.cs" />
     <Compile Include="Context\TestBase.cs" />
     <Compile Include="Context\TestDbContext.cs" />
+    <Compile Include="Context\TestDbRepository.cs" />
     <Compile Include="EntityFrameworkTest.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="TestModule.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -54,8 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeFirstDbContext.cs" />
+    <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="EfRepository.cs" />
+    <Compile Include="IDbContextProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWorkDbContextProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">

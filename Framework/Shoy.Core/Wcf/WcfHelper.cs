@@ -50,7 +50,7 @@ namespace Shoy.Core.Wcf
                 }
                 host.Opened += delegate
                 {
-                    _logger.Info("service:{0} 已启动！", uri);
+                    Console.WriteLine("service:{0} 已启动！", uri);
                 };
 
                 host.Open();

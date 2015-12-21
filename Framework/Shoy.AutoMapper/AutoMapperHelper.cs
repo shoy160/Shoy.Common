@@ -74,5 +74,9 @@ namespace Shoy.AutoMapper
                     break;
             }
         }
+        public static void CreateMapper<TTarget, TSource>()
+        {
+            Mapper.CreateMap<TTarget, TSource>();
+        }
     }
 }

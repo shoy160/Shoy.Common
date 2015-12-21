@@ -55,7 +55,9 @@
     <Compile Include="Config\DataBaseConfig.cs" />
     <Compile Include="Config\DayEasyConfig.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="CoreModule.cs" />
     <Compile Include="DBootstrap.cs" />
+    <Compile Include="Dependency\CurrentIocManager.cs" />
     <Compile Include="Dependency\IIocManager.cs" />
     <Compile Include="Domain\DPage.cs" />
     <Compile Include="Domain\DSort.cs" />

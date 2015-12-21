@@ -4,7 +4,7 @@ using Shoy.Core.Dependency;
 namespace Shoy.Core.Modules
 {
     /// <summary> 应用启动依赖模块基类 </summary>
-    public abstract class DModule : IDependency
+    public abstract class DModule : ILifetimeDependency
     {
         /// <summary> 依赖管理 </summary>
         protected internal IIocManager IocManager { get; internal set; }

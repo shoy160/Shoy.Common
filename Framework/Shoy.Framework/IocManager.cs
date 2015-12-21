@@ -14,18 +14,12 @@ namespace Shoy.Framework
         }
         public T Resolve<T>()
         {
-            using (var scope = _bootstrap.Container.BeginLifetimeScope())
-            {
-                return scope.Resolve<T>();
-            }
+            return _bootstrap.Container.Resolve<T>();
         }
 
         public object Resolve(Type type)
         {
-            using (var scope = _bootstrap.Container.BeginLifetimeScope())
-            {
-                return scope.Resolve(type);
-            }
+            return _bootstrap.Container.Resolve(type);
         }
     }
 }

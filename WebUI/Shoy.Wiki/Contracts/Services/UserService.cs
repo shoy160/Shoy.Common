@@ -1,6 +1,7 @@
 ﻿using System;
 using Shoy.Core;
 using Shoy.Core.Domain.Repositories;
+using Shoy.Data.EntityFramework;
 using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
@@ -10,12 +11,12 @@ namespace Shoy.Wiki.Contracts.Services
 {
     public class UserService : DService, IUserContract
     {
-        public UserService(WikiDbContext unitOfWork)
-            : base(unitOfWork)
+        public UserService(IDbContextProvider<WikiDbContext> unitOfWork)
+            : base(unitOfWork.DbContext)
         {
         }
 
-        public IRepository<WikiDbContext, User, string> UserRepository { private get; set; }
+        public IWikiRepository<User, string> UserRepository { private get; set; }
 
         public string CreateUser(string account, string pwd, string name, int role)
         {

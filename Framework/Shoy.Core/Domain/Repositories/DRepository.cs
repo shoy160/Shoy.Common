@@ -12,7 +12,7 @@ namespace Shoy.Core.Domain.Repositories
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public abstract class DRepository<TEntity, TKey> : IRepository<TEntity, TKey>
-        where TEntity : DEntity<TKey>
+        where TEntity : class,IDEntity<TKey>
     {
         private const string KeyField = "Id";
         private readonly IUnitOfWork _unitOfWork;
@@ -37,16 +37,19 @@ namespace Shoy.Core.Domain.Repositories
 
         public abstract int Delete(TKey key);
 
-        public virtual int Delete(Expression<Func<TEntity, bool>> expression)
-        {
-            return Table.Where(expression).ToList().Sum(entity => Delete(entity));
-        }
+        public abstract int Delete(Expression<Func<TEntity, bool>> expression);
 
         public abstract int Update(TEntity entity);
+        public abstract int Update(TEntity entity, params string[] parms);
+        public int Update(TEntity entity, Expression<Func<TEntity, bool>> expression, params string[] parms)
+        {
+            return Update(entity, Where(expression), parms);
+        }
 
-        public abstract int Update(TEntity entity, Expression<Func<TEntity, bool>> expression);
+        public abstract int Update(TEntity entity, IQueryable<TEntity> entities, params string[] parms);
+        public abstract int Update(Expression<Func<TEntity, dynamic>> propExpression, params TEntity[] entities);
 
-        public bool Exists(Expression<Func<TEntity, bool>> expression)
+        public virtual bool Exists(Expression<Func<TEntity, bool>> expression)
         {
             return Table.Any(expression);
         }
@@ -90,7 +93,7 @@ namespace Shoy.Core.Domain.Repositories
         {
             if (ordered == null)
                 return DResult.Errors<TEntity>("数据查询异常！");
-            var result = ordered.Skip(page.Page * page.Size).Take(page.Size);
+            var result = ordered.Skip(page.Page * page.Size).Take(page.Size).ToList();
             var total = ordered.Count();
             return DResult.Succ(result, total);
         }
@@ -203,9 +206,19 @@ namespace Shoy.Core.Domain.Repositories
             return Task.FromResult(Update(entity));
         }
 
-        public Task<int> UpdateAsync(TEntity entity, Expression<Func<TEntity, bool>> expression)
+        public Task<int> UpdateAsync(TEntity entity, params string[] parms)
         {
-            return Task.FromResult(Update(entity, expression));
+            return Task.FromResult(Update(entity, parms));
+        }
+
+        public Task<int> UpdateAsync(TEntity entity, Expression<Func<TEntity, bool>> expression, params string[] parms)
+        {
+            return Task.FromResult(Update(entity, expression, parms));
+        }
+
+        public Task<int> UpdateAsync(TEntity entity, IQueryable<TEntity> entities, params string[] parms)
+        {
+            return Task.FromResult(Update(entity, entities, parms));
         }
 
         public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression)
@@ -277,5 +290,6 @@ namespace Shoy.Core.Domain.Repositories
 
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
+
     }
 }

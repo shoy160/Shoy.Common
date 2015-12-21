@@ -7,7 +7,6 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
-using Shoy.Core;
 using Shoy.Core.Config;
 using Shoy.Core.Domain;
 using Shoy.Core.Events;
@@ -18,12 +17,22 @@ using TransactionalBehavior = Shoy.Core.Domain.TransactionalBehavior;
 
 namespace Shoy.Data.EntityFramework
 {
-    public class CodeFirstDbContext : DbContext, IUnitOfWork, IDependency
+    public class CodeFirstDbContext : DbContext, IUnitOfWork
     {
         private static readonly ILogger Logger = LogManager.Logger<CodeFirstDbContext>();
-
         public IEntityChangedEventHelper ChangedEventHelper { get; set; }
-        private readonly Dictionary<object, EntityState> _entityStates;
+
+        private Dictionary<object, EntityState> _entityStates;
+
+        #region 构造函数
+
+        private void InitConfiguration()
+        {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+            //            Database.Log += LogManager.Logger<CodeFirstDbContext>().Info;
+            _entityStates = new Dictionary<object, EntityState>();
+        }
 
         /// <summary>
         /// 初始化一个<see cref="CodeFirstDbContext"/>类型的新实例
@@ -39,20 +48,15 @@ namespace Shoy.Data.EntityFramework
         public CodeFirstDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-            Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
-            //            Database.Log += LogManager.Logger<CodeFirstDbContext>().Info;
-            _entityStates = new Dictionary<object, EntityState>();
+            InitConfiguration();
         }
 
         public CodeFirstDbContext(DbConnection connection, bool contextOwnsConnection)
             : base(connection, contextOwnsConnection)
         {
-            Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
-            //            Database.Log += LogManager.Logger<CodeFirstDbContext>().Info;
-            _entityStates = new Dictionary<object, EntityState>();
-        }
+            InitConfiguration();
+        } 
+        #endregion
 
         /// <summary> 获取 数据库连接串名称 (从 ConnectionStrings中获取) </summary>
         protected static string GetConnectionStringName(string key = "connectionName",
