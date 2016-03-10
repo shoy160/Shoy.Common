@@ -231,7 +231,7 @@ namespace Shoy.Utility.Helper
         /// <returns></returns>
         public static bool IsBlack(Bitmap bmap, int x, int y)
         {
-            Color c = bmap.GetPixel(x, y);
+            var c = bmap.GetPixel(x, y);
             return IsBlack(c);
         }
 

@@ -14,7 +14,7 @@ namespace Shoy.Backgrounder
         private readonly Scheduler _scheduler;
         private readonly IEnumerable<IJob> _jobs;
         private Action<Exception> _failHandler;
-        private Action<string> _logAction;
+        private readonly Action<string> _logAction;
 
         /// <summary> 任务失败后是否重新启动 </summary>
         public bool RestartSchedulerOnFailure { private get; set; }

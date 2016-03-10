@@ -7,6 +7,7 @@ using Shoy.Utility.Helper;
 
 namespace Shoy.Utility
 {
+
     /// <summary>
     /// 图片处理辅助类
     /// </summary>

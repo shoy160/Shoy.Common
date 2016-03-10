@@ -8,7 +8,7 @@ namespace Shoy.Data
 {
     public class SQL
     {
-        private readonly Command _cmd = new Command("");
+        private readonly Command _cmd = new Command(string.Empty);
 
         public Command Cmd
         {
