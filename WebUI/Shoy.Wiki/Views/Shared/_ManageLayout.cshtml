@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="dns-prefetch" href="//cdn.bootcss.com">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - 管理后台 - 技术百科 - by shoy</title>
+    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Content/css/common.css" rel="stylesheet">
+    <link href="/Content/css/site-base.css" rel="stylesheet">
+    @RenderSection("css", false)
+</head>
+<body class="fixed-top">
+    <script src="/Content/js/singer.min.js"></script>
+    <header class="header navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    技术百科
+                </a>
+                <ul class="navbar-nav pull-right">
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img alt="" src="" style="height:29px;" />
+                            <span class="username">Shay</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> 我的信息</a></li>
+                            <li><a href="#"><i class="fa fa-calendar"></i> 我的日历</a></li>
+                            <li><a href="#"><i class="fa fa-tasks"></i> 我的任务</a></li>
+                            <li class="divider"></li>
+                            <li><a href=""><i class="fa fa-sign-out"></i> 退出系统</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="page-container row-fluid">
+        @Html.Partial("_Menu")
+        <div class="page-content">
+            <div id="portlet-config" class="modal hide">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"></button>
+                    <h3>portlet Settings</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Here will be a configuration form</p>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12" id="navigation">
+                        @Html.Partial("_Theme")
+                        <h3 class="page-title">
+                            <span>标题</span>　<small>介绍</small>
+                        </h3>
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <span>首页</span>
+                            </li>
+                            <li>
+                                <span>菜单组</span>
+                            </li>
+                            <li><span>菜单</span></li>
+                        </ul>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <footer>
+        2016 &copy; Shay
+        <div class="pull-right">
+            <span class="go-top"><i class="fa fa-angle-up"></i></span>
+        </div>
+    </footer>
+    <script src="//cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/Content/js/base.js"></script>
+    @RenderSection("js", false)
+</body>
+</html>

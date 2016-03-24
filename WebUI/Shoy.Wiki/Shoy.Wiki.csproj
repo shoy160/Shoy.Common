@@ -117,11 +117,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\common.css" />
+    <Content Include="Content\css\site-base.css" />
+    <Content Include="Content\css\theme\black.css" />
+    <Content Include="Content\css\theme\default.css" />
+    <Content Include="Content\js\base.js" />
+    <Content Include="Content\js\singer.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contracts\IUserContract.cs" />
     <Compile Include="Contracts\IWikiContract.cs" />
     <Compile Include="Contracts\Services\UserService.cs" />
@@ -132,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Config\MenuConfig.cs" />
     <Compile Include="Models\Dtos\DetailDto.cs" />
     <Compile Include="Models\Dtos\GroupDto.cs" />
     <Compile Include="Models\Dtos\WikiDto.cs" />
@@ -148,14 +154,19 @@
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Wiki.cshtml" />
-    <Content Include="Views\Home\Group.cshtml" />
+    <Content Include="Views\Manage\Group.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="App_Data\config\menus.config" />
     <None Include="Properties\PublishProfiles\wiki.pubxml" />
-    <Content Include="Views\Home\AddGroup.cshtml" />
+    <Content Include="Views\Manage\AddGroup.cshtml" />
     <None Include="Properties\PublishProfiles\wiki.shoy.com.pubxml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\WikiList.cshtml" />
+    <Content Include="Views\Shared\_ManageLayout.cshtml" />
+    <Content Include="Views\Manage\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Shared\_Theme.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -163,7 +174,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\image\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Shoy.Utility\Shoy.Utility.csproj">
       <Project>{df571b38-a2dd-4653-a5ea-3f8e41ac5571}</Project>

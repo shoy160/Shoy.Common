@@ -1,0 +1,57 @@
+﻿@using Shoy.Utility.Config
+@using Shoy.Wiki.Models.Config
+@{
+    var adminMenuConfig = ConfigUtils<MenuConfig>.Config;
+//    var permissions = (long)(ViewData["AdminRole"] ?? 0);
+}
+<div class="page-sidebar navbar-collapse collapse">
+    <ul>
+        <li>
+            <div class="sidebar-toggler hidden-phone">
+                <h3>功能菜单</h3>
+                <i class="fa fa-align-justify"></i>
+            </div>
+        </li>
+        <li>
+            <form class="sidebar-search hide">
+                <div class="input-box">
+                    <a href="javascript:;" class="remove"></a>
+                    <input type="text" placeholder="Search..." />
+                    <input type="button" class="submit" value=" " />
+                </div>
+            </form>
+            <!-- END RESPONSIVE QUICK SEARCH FORM -->
+        </li>
+        @foreach (var group in adminMenuConfig.Groups)
+        {
+            var menus = group.Menus.ToList();
+            var hasSub = menus.Any();
+
+            if (!hasSub && string.IsNullOrEmpty(group.Url))
+            {
+                continue;
+            }
+
+            <li class="@(hasSub?"has-sub":string.Empty)">
+                <a href="@(hasSub ? "javascript:void(0);" : group.Url)" title="@group.Info">
+                    <i class="@group.Icon"></i>
+                    <span class="title">@group.Name</span>
+                    @if (hasSub)
+                    {
+                        <span class='arrow'></span>
+                    }
+                </a>
+                @if (hasSub)
+                {
+                    <ul class="sub">
+                        @foreach (var menu in menus)
+                        {
+                            <li><a href="@menu.Url" title="@menu.Info">@menu.Name</a></li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>

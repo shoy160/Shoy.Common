@@ -1,0 +1,69 @@
+﻿body {
+    background-color: #3d3d3d;
+}
+
+.page-content {
+    background-color: #fff;
+}
+
+.color-mode li:hover, .color-mode li.current {
+    border-color: #e02222;
+}
+
+.sidebar-toggler {
+    -ms-opacity: .8;
+    opacity: .8;
+}
+
+.sidebar-toggler i,
+.sidebar-toggler h3 {
+    color: #fff;
+}
+
+.sidebar-toggler i {
+    font-size: 23px;
+    position: absolute;
+    padding: 2px 5px 0;
+    top: 5px;
+    right: 1px;
+}
+
+.page-sidebar > ul > li > a {
+    border-top: 1px solid #595959 !important;
+}
+
+.page-sidebar .arrow {
+    color: #919191;
+}
+
+.page-sidebar .active .arrow {
+    color: #fff;
+}
+
+.page-sidebar > ul > li.open a {
+    background: #313131 none repeat scroll 0 0;
+}
+
+.page-sidebar > ul > li.active a {
+    background-color: #e02222;
+}
+
+.page-sidebar > ul > li > .sub > li > a:hover,
+.page-sidebar > ul > li > .sub > li.active > a {
+    background: #4b4b4b none repeat scroll 0 0 !important;
+    color: #fff !important;
+}
+
+.page-sidebar > ul > li.active .selected {
+    right: -1px;
+    top: 8px;
+}
+
+.page-sidebar > ul > li > a,
+.page-sidebar > ul > li > ul.sub > li > a {
+    color: #fff !important;
+}
+
+footer {
+    color: #fff;
+}

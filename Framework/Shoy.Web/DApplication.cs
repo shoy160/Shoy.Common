@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Autofac.Integration.Mvc;
 using Shoy.Framework;
 using Shoy.Utility.Logging;
@@ -21,9 +22,27 @@ namespace Shoy.Web
             Bootstrap = ShoyBootstrap.Instance;
             _executingAssembly = executing;
         }
+        private static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.LowercaseUrls = true;
+
+            routes.MapMvcAttributeRoutes();
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute("share_views", "share/{resourceName}",
+                new { controller = "Resource", action = "Index", resourcePath = "Views" });
+
+            routes.MapRoute("Default", "{controller}/{action}/{id}",
+                new { action = "Index", id = UrlParameter.Optional });
+        }
 
         protected virtual void Application_Start(object sender, EventArgs e)
         {
+            //路由注册
+            AreaRegistration.RegisterAllAreas();
+            RegisterRoutes(RouteTable.Routes);
+
             //MVC依赖注入
             Bootstrap.BuilderHandler += b =>
             {

@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Shoy.Web;
 using Shoy.Wiki.Contracts;
-using Shoy.Wiki.Models.Dtos;
 
 namespace Shoy.Wiki.Controllers
 {
@@ -19,13 +18,6 @@ namespace Shoy.Wiki.Controllers
             return View(groups);
         }
 
-        [Route("~/group/{code}")]
-        public ActionResult Group(string code)
-        {
-            var item = _wikiContract.GroupRepository.SingleOrDefault(g => g.Code == code);
-            return View(item);
-        }
-
         [Route("~/wiki/{name}")]
         public ActionResult Wiki(string name)
         {
@@ -33,12 +25,6 @@ namespace Shoy.Wiki.Controllers
             if (wiki == null)
                 return RedirectToAction("Index");
             return View(wiki);
-        }
-
-        [Route("~/group/add")]
-        public ActionResult AddGroup(GroupDto group)
-        {
-            return View();
         }
     }
 }
