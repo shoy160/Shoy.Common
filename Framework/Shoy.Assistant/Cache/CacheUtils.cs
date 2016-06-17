@@ -6,10 +6,7 @@ namespace Shoy.Assistant.Cache
     {
         public CacheUtils()
         {
-            var cache = CacheFactory.Build("", settings =>
-            {
-                settings.WithSystemRuntimeCacheHandle("");
-            });
+            var cache = CacheFactory.Build<string>(p => p.WithSystemRuntimeCacheHandle());
         }
     }
 }

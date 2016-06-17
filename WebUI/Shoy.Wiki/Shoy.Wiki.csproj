@@ -127,13 +127,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Manage\Controllers\ManageController.cs" />
     <Compile Include="Contracts\IUserContract.cs" />
     <Compile Include="Contracts\IWikiContract.cs" />
     <Compile Include="Contracts\Services\UserService.cs" />
     <Compile Include="Contracts\Services\WikiRepository.cs" />
     <Compile Include="Contracts\Services\WikiService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -154,19 +154,21 @@
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Wiki.cshtml" />
-    <Content Include="Views\Manage\Group.cshtml" />
+    <Content Include="Areas\Manage\Views\Manage\Group.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="App_Data\config\menus.config" />
+    <Content Include="Areas\Manage\Views\web.config" />
+    <Content Include="Areas\Manage\Views\Manage\GroupList.cshtml" />
     <None Include="Properties\PublishProfiles\wiki.pubxml" />
-    <Content Include="Views\Manage\AddGroup.cshtml" />
+    <Content Include="Areas\Manage\Views\Manage\AddGroup.cshtml" />
     <None Include="Properties\PublishProfiles\wiki.shoy.com.pubxml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\WikiList.cshtml" />
-    <Content Include="Views\Shared\_ManageLayout.cshtml" />
-    <Content Include="Views\Manage\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Views\Shared\_Theme.cshtml" />
+    <Content Include="Areas\Manage\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Manage\WikiList.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\_ManageLayout.cshtml" />
+    <Content Include="Areas\Manage\Views\Manage\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\_Theme.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -175,6 +177,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Manage\Models\" />
     <Folder Include="Content\image\" />
   </ItemGroup>
   <ItemGroup>

@@ -13,12 +13,10 @@ namespace Shoy.Wiki.Contracts
         IRepository<Models.Wiki, string> WikiRepository { get; }
 
         /// <summary> 添加词条分类 </summary>
-        /// <param name="name"></param>
-        /// <param name="code"></param>
+        /// <param name="dto"></param>
         /// <param name="creatorId"></param>
-        /// <param name="logo"></param>
         /// <returns></returns>
-        DResult AddGroup(string name, string code, string creatorId, string logo = null);
+        DResult AddGroup(GroupDto dto,string creatorId);
 
         /// <summary> 添加词条 </summary>
         /// <param name="name"></param>

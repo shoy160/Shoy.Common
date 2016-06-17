@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shoy.Core.Wcf;
 using Shoy.CoreTest.Context;
+using Shoy.CoreTest.Services;
+using Shoy.Utility;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
+using Shoy.Utility.Logging;
 
 namespace Shoy.CoreTest
 {
@@ -15,7 +19,7 @@ namespace Shoy.CoreTest
             public int Id { get; set; }
             public string Name { get; set; }
         }
-        //private readonly ILogger _logger = LogManager.GetLogger<UnitTest1>();
+        private readonly ILogger _logger = LogManager.Logger<UnitTest1>();
 
         static UnitTest1()
         {
@@ -39,6 +43,25 @@ namespace Shoy.CoreTest
             //_logger.Fatal("Log Fatal!");
             //_logger.Fatal("Log Fatal!", new Exception("Log Fatal!"));
 
+        }
+
+        [TestMethod]
+        public void ExecCommandTest()
+        {
+            Utils.ExecCommand(p =>
+            {
+                p(@"ping www.baidu.com");
+                // 这里连续写入的命令将依次在控制台窗口中得到体现
+                p("exit 0");
+            }, Console.WriteLine);
+
+            WcfHelper.Instance.Call<IUserService>(u =>
+            {
+                var word = u.Hello("shay");
+                Console.WriteLine(word);
+                var users = u.Users();
+                Console.WriteLine(JsonHelper.ToJson(users));
+            });
         }
     }
 }

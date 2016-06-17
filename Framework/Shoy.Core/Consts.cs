@@ -20,9 +20,9 @@ namespace Shoy.Core
         public static readonly Func<Assembly, bool> AssemblyFinder =
             t => t.FullName.StartsWith("shoy.", StringComparison.CurrentCultureIgnoreCase);
 
-        public static DayEasyConfig Config
+        public static SiteConfig Config
         {
-            get { return ConfigUtils<DayEasyConfig>.Instance.Get(); }
+            get { return ConfigUtils<SiteConfig>.Instance.Get(); }
         }
 
         /// <summary> 选项字母集 </summary>

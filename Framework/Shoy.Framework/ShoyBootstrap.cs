@@ -55,11 +55,9 @@ namespace Shoy.Framework
 
             #region WCF
 
-            var wcfHelper = new WcfHelper
-            {
-                IocManager = IocManager,
-                TypeFinder = IocManager.Resolve<ITypeFinder>()
-            };
+            var wcfHelper = WcfHelper.Instance;
+            wcfHelper.IocManager = IocManager;
+            wcfHelper.TypeFinder = IocManager.Resolve<ITypeFinder>();
             wcfHelper.StartService();
 
             #endregion

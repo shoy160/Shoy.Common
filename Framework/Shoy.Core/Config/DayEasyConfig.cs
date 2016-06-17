@@ -7,9 +7,9 @@ namespace Shoy.Core.Config
 {
     /// <summary> 得一平台全站基础配置 </summary>
     [Serializable]
-    [XmlRoot("dayeasy")]
-    [FileName("dayeasy.config")]
-    public class DayEasyConfig : ConfigBase
+    [XmlRoot("site")]
+    [FileName("site.config")]
+    public class SiteConfig : ConfigBase
     {
         [XmlAttribute("isOnline")]
         public bool IsOnline { get; set; }
@@ -23,47 +23,38 @@ namespace Shoy.Core.Config
         /// <summary>
         /// 静态资源站点
         /// </summary>
-        [XmlElement("staticUrl")]
-        public string StaticUrl { get; set; }
+        [XmlElement("staticSite")]
+        public string StaticSite { get; set; }
 
         /// <summary>
         /// 主站站点
         /// </summary>
-        [XmlElement("mainUrl")]
-        public string MainUrl { get; set; }
+        [XmlElement("mainSite")]
+        public string MainSite { get; set; }
 
         /// <summary>
         /// 登录站点
         /// </summary>
-        [XmlElement("loginUrl")]
-        public string LoginUrl { get; set; }
+        [XmlElement("loginSite")]
+        public string LoginSite { get; set; }
 
         /// <summary>
         /// 注册站点
         /// </summary>
-        [XmlElement("registerUrl")]
-        public string RegisterUrl { get; set; }
+        [XmlElement("registerSite")]
+        public string RegisterSite { get; set; }
 
         /// <summary>
         /// 后台管理站点
         /// </summary>
-        [XmlElement("adminUrl")]
-        public string AdminUrl { get; set; }
+        [XmlElement("adminSite")]
+        public string AdminSite { get; set; }
 
         /// <summary>
         /// 接口站点
         /// </summary>
-        [XmlElement("openUrl")]
-        public string OpenUrl { get; set; }
-
-        /// <summary>
-        /// 课堂站点
-        /// </summary>
-        [XmlElement("classroom")]
-        public string Classroom { get; set; }
-
-        [XmlElement("org")]
-        public string OrganizationSite { get; set; }
+        [XmlElement("openSite")]
+        public string OpenSite { get; set; }
 
         /// <summary>
         /// 文件站点

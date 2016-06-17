@@ -34,7 +34,7 @@
 
         if (locationHref.indexOf($(this).attr("href")) > 0) {
             $(this).parent().addClass("active open");
-            $(this).append("<span class='caret fa fa-caret-left'></span>");
+            $(this).append("<span class='m-caret fa fa-caret-left'></span>");
 
             $("#navigation .page-title span").html($(this).text());
             $("#navigation .page-title small").html($(this).attr("title") || "");
@@ -53,7 +53,7 @@
                         $(this).parent().addClass("active");
 
                         parent.parent().addClass("active open");
-                        $(".arrow", parent).addClass("open").before("<span class='caret fa fa-caret-left'></span>");
+                        $(".arrow", parent).addClass("open").before("<span class='m-caret fa fa-caret-left'></span>");
 
                         $("#navigation .page-title span").html($(this).text());
                         $("#navigation .page-title small").html($(this).attr("title") || "");

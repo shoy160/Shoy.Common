@@ -41,6 +41,7 @@ namespace Shoy.Web
         {
             //路由注册
             AreaRegistration.RegisterAllAreas();
+
             RegisterRoutes(RouteTable.Routes);
 
             //MVC依赖注入

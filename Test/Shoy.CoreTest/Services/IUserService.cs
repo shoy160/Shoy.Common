@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 using Shoy.Core.Wcf;
 
 namespace Shoy.CoreTest.Services
@@ -8,5 +9,8 @@ namespace Shoy.CoreTest.Services
     {
         [OperationContract]
         string Hello(string name);
+
+        [OperationContract]
+        Dictionary<string, string> Users();
     }
 }

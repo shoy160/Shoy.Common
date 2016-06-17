@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,9 +16,7 @@ using Shoy.Utility.Logging;
 
 namespace Shoy.Utility
 {
-    /// <summary>
-    /// 常用类 create by shoy
-    /// </summary>
+    /// <summary> 常用类 create by shoy </summary>
     public class Utils
     {
         private const string DefaultDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
@@ -509,6 +508,71 @@ namespace Shoy.Utility
             [CallerMemberName] string key = null, string supressKey = null)
         {
             return ConfigHelper.GetAppSetting(parseFunc, defaultValue, key, supressKey);
+        }
+
+        public static string RawUrl()
+        {
+            if (HttpContext.Current == null)
+                return string.Empty;
+            try
+            {
+                var request = HttpContext.Current.Request;
+                return string.Format("{0}://{1}{2}", request.Url.Scheme, request.ServerVariables["HTTP_HOST"],
+                    request.RawUrl);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary> 执行命令 </summary>
+        /// <param name="inputAction"></param>
+        /// <param name="outputAction"></param>
+        public static void ExecCommand(Action<Action<string>> inputAction, Action<string> outputAction = null)
+        {
+            Process pro = null;
+            StreamWriter sIn = null;
+
+            try
+            {
+                pro = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = "cmd.exe",
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    }
+                };
+                if (outputAction == null)
+                    outputAction = Console.WriteLine;
+
+                pro.OutputDataReceived += (sender, e) => outputAction(e.Data);
+                pro.ErrorDataReceived += (sender, e) => outputAction(e.Data);
+
+                pro.Start();
+                sIn = pro.StandardInput;
+                sIn.AutoFlush = true;
+
+                pro.BeginOutputReadLine();
+                inputAction(value => sIn.WriteLine(value));
+
+                pro.WaitForExit();
+            }
+            finally
+            {
+                if (pro != null && !pro.HasExited)
+                    pro.Kill();
+
+                if (sIn != null)
+                    sIn.Close();
+                if (pro != null)
+                    pro.Close();
+            }
         }
     }
 }

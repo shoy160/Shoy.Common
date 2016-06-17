@@ -33,21 +33,16 @@ namespace Shoy.Wiki.Contracts.Services
             get { return Wikis; }
         }
 
-        public DResult AddGroup(string name, string code, string creatorId, string logo = null)
+        public DResult AddGroup(GroupDto dto, string creatorId)
         {
-            if (Groups.Exists(g => g.Code == code || g.Group == name))
+            if (Groups.Exists(g => g.Code == dto.Code || g.Group == dto.Name))
                 return DResult.Error("词条分类已存在！");
-            var item = new WikiGroup
-            {
-                Id = CombHelper.Guid16,
-                Group = name,
-                Code = code,
-                Logo = logo,
-                CreateTime = Clock.Now,
-                WikiCount = 0,
-                CreatorId = creatorId,
-                Sort = Groups.Max(g => g.Sort) + 1
-            };
+            var item = dto.MapTo<WikiGroup>();
+            item.Id = CombHelper.Guid16;
+            item.CreateTime = Clock.Now;
+            item.WikiCount = 0;
+            item.CreatorId = creatorId;
+            item.Sort = Groups.Max(g => g.Sort) + 1;
             var result = Groups.Insert(item);
             return string.IsNullOrWhiteSpace(result)
                 ? DResult.Error("添加词条分类失败！")

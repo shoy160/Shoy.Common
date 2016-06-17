@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Moq;
 using Shoy.Framework;
 
 namespace Shoy.CoreTest.Context

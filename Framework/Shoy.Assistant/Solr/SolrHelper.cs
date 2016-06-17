@@ -37,7 +37,8 @@ namespace Shoy.Assistant.Solr
             else
             {
                 var config = ConfigUtils<SolrConfig>.Config;
-                if (config == null || !config.SolrList.Any()) return;
+                if (config == null || !config.SolrList.Any()) 
+                    return;
                 var attr = type.GetCustomAttributes(false).FirstOrDefault(t => t is SolrCore) as SolrCore;
                 string coreName = (attr != null ? attr.CoreName : type.Name);
                 var solr = config.SolrList.FirstOrDefault(t => t.Name == coreName);

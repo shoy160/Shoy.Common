@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.MongoDb", "Shoy.MongoD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Assistant", "Shoy.Assistant\Shoy.Assistant.csproj", "{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Open", "..\WebUI\Shoy.Open\Shoy.Open.csproj", "{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.WinService", "Shoy.WinService\Shoy.WinService.csproj", "{A7E95F1C-3CD4-49C2-8A33-FF15B8147650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,14 @@ Global
 		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29627C12-EAA6-4CDA-8A19-6645CD04FA8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E95F1C-3CD4-49C2-8A33-FF15B8147650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E95F1C-3CD4-49C2-8A33-FF15B8147650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E95F1C-3CD4-49C2-8A33-FF15B8147650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E95F1C-3CD4-49C2-8A33-FF15B8147650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,5 +96,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4FB41DBC-99E8-42DC-915A-0C3159C7F82D} = {EACFABA2-CC21-479F-8FD1-423557FCA5E4}
 		{70FAEAE5-7F0E-4B8B-B5DC-5CBB64CE20C8} = {EACFABA2-CC21-479F-8FD1-423557FCA5E4}
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34} = {EACFABA2-CC21-479F-8FD1-423557FCA5E4}
+		{A7E95F1C-3CD4-49C2-8A33-FF15B8147650} = {EACFABA2-CC21-479F-8FD1-423557FCA5E4}
 	EndGlobalSection
 EndGlobal

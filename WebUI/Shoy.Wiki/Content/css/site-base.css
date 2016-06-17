@@ -188,7 +188,7 @@ Page sidebar
             color: #fff !important;
         }
 
-        .page-sidebar > ul > li.active .caret {
+        .page-sidebar > ul > li.active .m-caret {
             font-size: 24px;
             position: absolute;
             right: -1px;

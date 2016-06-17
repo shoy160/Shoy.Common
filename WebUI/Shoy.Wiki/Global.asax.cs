@@ -5,6 +5,7 @@ using System.Web.Routing;
 using Autofac;
 using Shoy.Utility.Logging;
 using Shoy.Web;
+using Shoy.Wiki.Areas.Manage;
 using Shoy.Wiki.Contracts.Services;
 
 namespace Shoy.Wiki

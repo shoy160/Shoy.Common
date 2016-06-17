@@ -72,10 +72,10 @@ namespace Shoy.Web.Filters
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             base.HandleUnauthorizedRequest(filterContext);
-//            if (User != null) return;
+            //            if (User != null) return;
             var req = filterContext.HttpContext.Request;
             var rawUrl = req.RawUrl.TrimStart('/');
-            string url = Consts.Config.LoginUrl + "?return_url={0}";
+            string url = Consts.Config.LoginSite + "?return_url={0}";
             string returnUrl = string.Format("http://{0}/{1}", req.ServerVariables["HTTP_HOST"],
                 rawUrl);
             //异步请求
@@ -97,8 +97,8 @@ namespace Shoy.Web.Filters
                 filterContext.Result = result;
                 return;
             }
-            if (returnUrl.Contains(Consts.Config.MainUrl) && string.IsNullOrWhiteSpace(rawUrl))
-                url = Consts.Config.LoginUrl;
+            if (returnUrl.Contains(Consts.Config.MainSite) && string.IsNullOrWhiteSpace(rawUrl))
+                url = Consts.Config.LoginSite;
             else
                 url = string.Format(url,
                     filterContext.HttpContext.Server.UrlEncode(returnUrl));

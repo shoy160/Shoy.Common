@@ -36,7 +36,7 @@ namespace Shoy.Web.Filters
                 {
                     //转向
                     filterContext.ExceptionHandled = true;
-                    filterContext.Result = new RedirectResult(Consts.Config.MainUrl + "/500");
+                    filterContext.Result = new RedirectResult(Consts.Config.MainSite + "/500");
                 }
             }
             base.OnException(filterContext);

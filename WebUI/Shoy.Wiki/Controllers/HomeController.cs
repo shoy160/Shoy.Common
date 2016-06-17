@@ -11,7 +11,8 @@ namespace Shoy.Wiki.Controllers
         {
             _wikiContract = wikiContract;
         }
-        // GET: Home
+        
+        [Route("")]
         public ActionResult Index()
         {
             var groups = _wikiContract.GroupList();
