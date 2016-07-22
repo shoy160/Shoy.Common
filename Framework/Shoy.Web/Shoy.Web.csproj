@@ -78,9 +78,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\DJson.cs" />
+    <Compile Include="ActionResults\JsonpResult.cs" />
+    <Compile Include="ActionResults\ScriptResult.cs" />
     <Compile Include="DApplication.cs" />
     <Compile Include="DController.cs" />
-    <Compile Include="DJson.cs" />
     <Compile Include="Filters\DAuthorizeAttribute.cs" />
     <Compile Include="Filters\DExceptionAttribute.cs" />
     <Compile Include="Filters\NoAuthorizeAttribute.cs" />
