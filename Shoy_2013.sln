@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Common", "01-Common", "{1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}"
 EndProject
@@ -52,6 +52,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.ThirdPlatform", "Common\Shoy.ThirdPlatform\Shoy.ThirdPlatform.csproj", "{905AE039-4EB4-4703-AC79-5541CB4641B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.FileSystem", "WebUI\Shoy.FileSystem\Shoy.FileSystem.csproj", "{6318C088-E07F-4525-8A95-6F35F7FF28F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.DubboWeb", "Test\Shoy.DubboWeb\Shoy.DubboWeb.csproj", "{058BFC95-905A-41B6-BCEA-6820E7948FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -273,6 +275,16 @@ Global
 		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6318C088-E07F-4525-8A95-6F35F7FF28F2}.Release|x86.ActiveCfg = Release|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,5 +312,6 @@ Global
 		{2A4BC558-9218-4B72-ADE3-6A7FA237AAEC} = {1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}
 		{905AE039-4EB4-4703-AC79-5541CB4641B4} = {1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}
 		{6318C088-E07F-4525-8A95-6F35F7FF28F2} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
+		{058BFC95-905A-41B6-BCEA-6820E7948FBF} = {D0D88D78-BA15-4A1A-9832-B19987A6C6FF}
 	EndGlobalSection
 EndGlobal
