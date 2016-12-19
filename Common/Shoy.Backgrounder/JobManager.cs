@@ -15,6 +15,7 @@ namespace Shoy.Backgrounder
         private readonly IEnumerable<IJob> _jobs;
         private Action<Exception> _failHandler;
         private readonly Action<string> _logAction;
+        private bool _isCancel = false;
 
         /// <summary> 任务失败后是否重新启动 </summary>
         public bool RestartSchedulerOnFailure { private get; set; }
@@ -34,15 +35,15 @@ namespace Shoy.Backgrounder
         {
             if (jobs == null)
             {
-                throw new ArgumentNullException("jobs");
+                throw new ArgumentNullException(nameof(jobs));
             }
             if (host == null)
             {
-                throw new ArgumentNullException("host");
+                throw new ArgumentNullException(nameof(host));
             }
             if (coordinator == null)
             {
-                throw new ArgumentNullException("coordinator");
+                throw new ArgumentNullException(nameof(coordinator));
             }
 
             _jobs = jobs;
@@ -55,11 +56,13 @@ namespace Shoy.Backgrounder
 
         public void Start()
         {
+            _isCancel = false;
             _timer.Next(TimeSpan.FromMilliseconds(1));
         }
 
         public void Stop()
         {
+            _isCancel = true;
             _timer.Stop();
         }
 
@@ -69,7 +72,10 @@ namespace Shoy.Backgrounder
             {
                 _timer.Stop();
                 DoNextJob();
-                _timer.Next(_scheduler.Next().GetIntervalToNextRun()); // Start up again.
+                if (!_isCancel)
+                {
+                    _timer.Next(_scheduler.Next().GetIntervalToNextRun()); // Start up again.
+                }
             }
             catch (Exception e)
             {
