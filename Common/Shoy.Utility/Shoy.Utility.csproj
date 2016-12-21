@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -86,6 +87,7 @@
     <Compile Include="Helper\IdHelper.cs" />
     <Compile Include="Helper\JsonContractResolver.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
+    <Compile Include="Helper\OAuthHelper.cs" />
     <Compile Include="Helper\RegexHelper.cs" />
     <Compile Include="HTemplate.cs" />
     <Compile Include="Helper\HttpHelper.cs" />

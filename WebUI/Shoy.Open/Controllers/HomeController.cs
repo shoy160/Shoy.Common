@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Http;
 
 namespace Shoy.Open.Controllers
@@ -7,10 +9,20 @@ namespace Shoy.Open.Controllers
     {
         private static readonly List<User> Users = new List<User>
         {
-            new User {Id = 1, Name = "shoy", Address = "chengdu"}
+            //new User {Id = 1, Name = "shoy", Address = "chengdu"}
         };
 
         static int _idSeed;
+
+        [HttpGet]
+        [Route("code")]
+        public string Code(string code = null)
+        {
+            var list = HttpContext.Current.Request.Url.AbsoluteUri.Split('#');
+            if (list.Length == 2)
+                return list[1];
+            return code;
+        }
 
 
         /// <summary> 添加用户 </summary>
@@ -51,9 +63,18 @@ namespace Shoy.Open.Controllers
 
         /// <summary> 获取用户列表 </summary>
         /// <returns>FFF</returns>
+        [Authorize]
+        [Route("users")]
         public IEnumerable<User> GetAll()
         {
-            return Users;
+            var users = Users;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity == null) return new List<User>();
+            var name = identity.FindFirst(ClaimTypes.Name);
+            if (name == null) return new List<User>();
+            var id = users.Count + 1;
+            users.Add(new User { Id = id, Name = name.Value });
+            return users;
         }
 
         /// <summary> 获取指定用户 </summary>

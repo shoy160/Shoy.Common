@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpcServer", "Test\RpcServer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RcpClient", "Test\RcpClient\RcpClient.csproj", "{A5EF8199-E21C-4BF1-A161-D7209C3E19A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Open", "WebUI\Shoy.Open\Shoy.Open.csproj", "{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -329,6 +331,18 @@ Global
 		{A5EF8199-E21C-4BF1-A161-D7209C3E19A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A5EF8199-E21C-4BF1-A161-D7209C3E19A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{A5EF8199-E21C-4BF1-A161-D7209C3E19A6}.Release|x86.Build.0 = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Debug|x86.Build.0 = Debug|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|x86.ActiveCfg = Release|Any CPU
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -361,5 +375,6 @@ Global
 		{7C75917E-82AC-46A3-9B01-3F54DDA72C01} = {DEF1E255-7652-49EE-ABE3-E7328DF24532}
 		{A1E4E2BA-C9AB-4C17-93E6-2EA6DBD2C2DD} = {DEF1E255-7652-49EE-ABE3-E7328DF24532}
 		{A5EF8199-E21C-4BF1-A161-D7209C3E19A6} = {DEF1E255-7652-49EE-ABE3-E7328DF24532}
+		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
 	EndGlobalSection
 EndGlobal
