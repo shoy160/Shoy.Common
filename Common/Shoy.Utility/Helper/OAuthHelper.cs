@@ -41,13 +41,13 @@ namespace Shoy.Utility.Helper
 
         public string TokenPath { get; set; }
         public string AuthorizePath { get; set; }
-        public HttpClient Client { get; }
+        public HttpClient ClientHelper { get; }
 
         public OAuthHelper(string host, string clientId = null, string clientSecret = null)
         {
             TokenPath = "/token";
             AuthorizePath = "/authorize";
-            Client = new HttpClient { BaseAddress = new Uri(host) };
+            ClientHelper = new HttpClient { BaseAddress = new Uri(host) };
             _clientId = clientId;
             _clientSecret = clientSecret;
         }
@@ -58,14 +58,14 @@ namespace Shoy.Utility.Helper
             _clientSecret = secret;
         }
 
-        private async Task<TokenResult> GetToken(GrantType grantType, string refreshToken = null, string userName = null,
+        private async Task<TokenResult> AccessTokenAsync(GrantType grantType, string refreshToken = null, string userName = null,
             string password = null, string authorizationCode = null, string redirectUri = null)
         {
             var parameters = new Dictionary<string, string> { { "grant_type", grantType.GetText() } };
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {
-                parameters.Add("username", userName);
+                parameters.Add("mobile", userName);
                 parameters.Add("password", password);
             }
             if (!string.IsNullOrEmpty(authorizationCode))
@@ -78,11 +78,11 @@ namespace Shoy.Utility.Helper
                 parameters.Add("refresh_token", refreshToken);
             }
 
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            ClientHelper.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Basic",
                 Convert.ToBase64String(Encoding.ASCII.GetBytes(_clientId + ":" + _clientSecret)));
 
-            var response = await Client.PostAsync(TokenPath, new FormUrlEncodedContent(parameters));
+            var response = await ClientHelper.PostAsync(TokenPath, new FormUrlEncodedContent(parameters));
             var responseValue = await response.Content.ReadAsStringAsync();
             if (response.StatusCode == HttpStatusCode.OK)
                 return JsonHelper.Json<TokenResult>(responseValue, NamingType.UrlCase);
@@ -91,43 +91,43 @@ namespace Shoy.Utility.Helper
             return null;
         }
 
-        private async Task<string> GetAuthorizationCode(string redirectUri)
+        private async Task<string> AuthorizationCodeAsync(string redirectUri)
         {
             var response =
                 await
-                    Client.GetAsync(
+                    ClientHelper.GetAsync(
                         $"{AuthorizePath}?grant_type=authorization_code&response_type=code&client_id={_clientId}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}");
-            var authorizationCode = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync();
             if (response.StatusCode == HttpStatusCode.OK)
-                return authorizationCode.Trim('\"');
+                return content.Trim('\"');
             Console.WriteLine(response.StatusCode);
-            Console.WriteLine(authorizationCode);
+            Console.WriteLine(content);
             return null;
         }
 
-        public async Task<TokenResult> GetTokenUseClientCredentials()
+        public async Task<TokenResult> UseClientCredentials()
         {
-            return await GetToken(GrantType.ClientCredentials);
+            return await AccessTokenAsync(GrantType.ClientCredentials);
         }
 
-        public async Task<TokenResult> GetTokenUsePassword(string account, string password)
+        public async Task<TokenResult> UsePassword(string account, string password)
         {
-            return await GetToken(GrantType.Password, userName: account, password: password);
+            return await AccessTokenAsync(GrantType.Password, userName: account, password: password);
         }
 
-        public async Task<TokenResult> GetTokenUseCode(string redirectUri)
+        public async Task<TokenResult> UseCode(string redirectUri)
         {
-            var authorizationCode = GetAuthorizationCode(redirectUri).Result;
+            var authorizationCode = AuthorizationCodeAsync(redirectUri).Result;
             if (string.IsNullOrWhiteSpace(authorizationCode))
                 return null;
             return
                 await
-                    GetToken(GrantType.AuthorizationCode, authorizationCode: authorizationCode, redirectUri: redirectUri);
+                    AccessTokenAsync(GrantType.AuthorizationCode, authorizationCode: authorizationCode, redirectUri: redirectUri);
         }
 
-        public async Task<TokenResult> GetTokenUseRefreshToken(string refreshToken)
+        public async Task<TokenResult> RefreshToken(string refreshToken)
         {
-            return await GetToken(GrantType.RefreshToken, refreshToken);
+            return await AccessTokenAsync(GrantType.RefreshToken, refreshToken);
         }
     }
 }
