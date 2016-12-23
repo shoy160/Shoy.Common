@@ -1,10 +1,10 @@
-﻿using DayEasy.Utility.Config;
+﻿using Shoy.Utility.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace DayEasy.God.Services.OnlinePay
+namespace Shoy.OnlinePay.App
 {
     public enum PaidType
     {
@@ -30,6 +30,8 @@ namespace DayEasy.God.Services.OnlinePay
         public PaidType Type { get; set; }
         [XmlAttribute("appid")]
         public string AppId { get; set; }
+        [XmlAttribute("partnerId")]
+        public string PartnerId { get; set; }
         [XmlAttribute("format")]
         public string Format { get; set; }
         [XmlAttribute("charset")]
@@ -40,5 +42,7 @@ namespace DayEasy.God.Services.OnlinePay
         public string Notify { get; set; }
         [XmlElement("privateKey")]
         public string PrivateKey { get; set; }
+        [XmlElement("publicKey")]
+        public string PublicKey { get; set; }
     }
 }

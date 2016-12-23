@@ -50,6 +50,16 @@
     <Compile Include="Alipay\AlipayResult.cs" />
     <Compile Include="Alipay\Base.cs" />
     <Compile Include="Alipay\Configs.cs" />
+    <Compile Include="App\Domain\ReturnAlipayDto.cs" />
+    <Compile Include="App\Domain\ReturnWeixinDto.cs" />
+    <Compile Include="App\Domain\VerifyDto.cs" />
+    <Compile Include="App\Factory\Alipay.cs" />
+    <Compile Include="App\Factory\DPay.cs" />
+    <Compile Include="App\Factory\Weixin.cs" />
+    <Compile Include="App\OnlinePayConfig.cs" />
+    <Compile Include="App\OnlinePayHelper.cs" />
+    <Compile Include="App\Utils\AlipaySignature.cs" />
+    <Compile Include="App\Utils\RsaServiceProviderHelper.cs" />
     <Compile Include="BaseResult.cs" />
     <Compile Include="Common\Digest.cs" />
     <Compile Include="Common\Function.cs" />
@@ -78,6 +88,9 @@
       <Project>{DF571B38-A2DD-4653-A5EA-3F8E41AC5571}</Project>
       <Name>Shoy.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="online_pay.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

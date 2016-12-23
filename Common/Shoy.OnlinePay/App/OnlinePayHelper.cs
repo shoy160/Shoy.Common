@@ -1,15 +1,15 @@
-﻿using DayEasy.God.Services.OnlinePay.Factory;
-using DayEasy.Utility;
-using DayEasy.Utility.Extend;
-using DayEasy.Utility.Helper;
-using DayEasy.Utility.Timing;
-using ServiceStack.Text;
+﻿using Shoy.OnlinePay.App.Factory;
+using Shoy.Utility.Extend;
+using Shoy.Utility.Helper;
+using Shoy.Utility.Timing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Shoy.OnlinePay.App.Utils;
 
-namespace DayEasy.God.Services.OnlinePay
+namespace Shoy.OnlinePay.App
 {
     public static class OnlinePayHelper
     {
@@ -18,7 +18,7 @@ namespace DayEasy.God.Services.OnlinePay
             switch (type)
             {
                 case PaidType.Alipay:
-                    return new Alipay();
+                    return new Factory.Alipay();
                 case PaidType.Weixin:
                     return new Weixin();
                 default:
@@ -30,11 +30,11 @@ namespace DayEasy.God.Services.OnlinePay
         /// <param name="config"></param>
         /// <param name="method"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> BaseParams(this PlatConfig config, string method = null)
+        public static Dictionary<string, string> BaseParams(this PlatConfig config, string method = null)
         {
             if (config == null)
                 return null;
-            var dict = new Dictionary<string, object>();
+            var dict = new Dictionary<string, string>();
             switch (config.Type)
             {
                 case PaidType.Alipay:
@@ -49,11 +49,11 @@ namespace DayEasy.God.Services.OnlinePay
                     break;
                 case PaidType.Weixin:
                     dict.Add("appid", config.AppId);
-                    dict.Add("mch_id", "1230000109");
+                    dict.Add("mch_id", config.PartnerId);
                     dict.Add("nonce_str", IdHelper.Instance.Guid32);
                     dict.Add("notify_url", config.Notify);
                     dict.Add("trade_type", "APP");
-                    dict.Add("spbill_create_ip", Utils.GetRealIp());
+                    dict.Add("spbill_create_ip", Utility.Utils.GetRealIp());
                     break;
             }
             return dict;
@@ -61,25 +61,32 @@ namespace DayEasy.God.Services.OnlinePay
 
         /// <summary> 将字典转换为form-data </summary>
         /// <param name="dict"></param>
+        /// <param name="sorted"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string ParamsUrl(this IDictionary<string, object> dict, bool encoding = true)
+        public static string ParamsUrl(this IDictionary<string, string> dict, bool sorted = true, bool encoding = true)
         {
-            var paramList = new List<string>();
-            foreach (var item in dict)
+            if (sorted)
             {
-                var value = item.Value?.ToString() ?? string.Empty;
-
-                paramList.Add(encoding ? $"{item.Key}={StringExtensions.UrlEncode(value)}" : $"{item.Key}={value}");
+                dict = new SortedDictionary<string, string>(dict);
             }
+            var paramList = (from item in dict
+                             let value = item.Value ?? string.Empty
+                             select encoding ? $"{item.Key}={value.UrlEncode()}" : $"{item.Key}={value}").ToList();
             return string.Join("&", paramList);
         }
+
         /// <summary> 将字典转换为xml </summary>
         /// <param name="dict"></param>
+        /// <param name="sorted"></param>
         /// <returns></returns>
-        public static string ParamsXml(this IDictionary<string, object> dict)
+        public static string ParamsXml(this IDictionary<string, string> dict, bool sorted = true)
         {
             var sb = new StringBuilder();
+            if (sorted)
+            {
+                dict = new SortedDictionary<string, string>(dict);
+            }
             foreach (var item in dict)
             {
                 if (item.Key == "attach" || item.Key == "body" || item.Key == "sign")
@@ -129,10 +136,11 @@ namespace DayEasy.God.Services.OnlinePay
         /// <param name="key"></param>
         /// <param name="charset"></param>
         /// <returns></returns>
-        public static string RsaSign(this IDictionary<string, object> dict, string key, string charset)
+        public static string RsaSign(this IDictionary<string, string> dict, string key, string charset)
         {
-            var orderDict = dict.Where(t => t.Key != "sign").OrderBy(t => t.Key).ToDictionary(k => k.Key, v => v.Value);
-            var data = orderDict.ParamsUrl(false);
+            if (dict.ContainsKey("sign"))
+                dict.Remove("sign");
+            var data = dict.ParamsUrl(true, false);
             return AlipaySignature.RsaSign(data, key, charset);
         }
 
@@ -140,13 +148,42 @@ namespace DayEasy.God.Services.OnlinePay
         /// <param name="dict"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string Md5Sign(this IDictionary<string, object> dict, string key = null)
+        public static string Md5Sign(this IDictionary<string, string> dict, string key = null)
         {
-            var orderDict = dict.Where(t => t.Key != "sign").OrderBy(t => t.Key).ToDictionary(k => k.Key, v => v.Value);
+            dict.Remove("sign");
             if (!string.IsNullOrWhiteSpace(key))
-                orderDict.Add("key", key);
-            var data = orderDict.ParamsUrl(false);
+                dict.Add("key", key);
+            var data = dict.ParamsUrl(true, false);
+            dict.Remove("key");
             return data.Md5().ToUpper();
+        }
+
+        /// <summary> 获取所有请求参数 </summary>
+        /// <returns></returns>
+        public static IDictionary<string, string> GetParams()
+        {
+            var dict = new Dictionary<string, string>();
+            var context = System.Web.HttpContext.Current;
+            if (context == null)
+                return dict;
+            var values = context.Request.QueryString;
+            if (string.Equals(context.Request.HttpMethod, "post", StringComparison.CurrentCultureIgnoreCase))
+                values = context.Request.Form;
+            foreach (var key in values.AllKeys)
+            {
+                var value = values[key] ?? string.Empty;
+                if (!string.IsNullOrWhiteSpace(value))
+                    value = value.UrlDecode();
+                dict.Add(key, value);
+            }
+            return dict;
+        }
+
+        public static T GetValue<T>(this IDictionary<string, string> dict, string key, T def = default(T))
+        {
+            if (dict == null || !dict.ContainsKey(key))
+                return def;
+            return dict[key].CastTo(def);
         }
     }
 }

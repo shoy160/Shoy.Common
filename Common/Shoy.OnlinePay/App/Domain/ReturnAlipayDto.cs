@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DayEasy.God.Services.OnlinePay.Domain
+namespace Shoy.OnlinePay.App.Domain
 {
     /// <summary> 支付宝返回数据格式 </summary>
     [Serializable]

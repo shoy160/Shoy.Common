@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DayEasy.God.Services.OnlinePay
+namespace Shoy.OnlinePay.App.Utils
 {
     public class AlipaySignature
     {
@@ -13,7 +14,7 @@ namespace DayEasy.God.Services.OnlinePay
         public static string RsaSign(string data, string privateKey, string charset = DefaultCharset,
             string signType = "RSA")
         {
-            var rsaCsp = LoadCertificateFile(privateKey, signType);
+            var rsaCsp = LoadCertificate(privateKey, signType);
             var dataBytes = string.IsNullOrEmpty(charset)
                 ? Encoding.UTF8.GetBytes(data)
                 : Encoding.GetEncoding(charset).GetBytes(data);
@@ -39,7 +40,7 @@ namespace DayEasy.God.Services.OnlinePay
         {
             try
             {
-                var rsaCsp = LoadCertificateFile(privateKeyPem, signType);
+                var rsaCsp = LoadCertificate(privateKeyPem, signType);
                 if (string.IsNullOrEmpty(charset))
                 {
                     charset = DefaultCharset;
@@ -72,6 +73,50 @@ namespace DayEasy.God.Services.OnlinePay
             }
         }
 
+        /// <summary> 验证签名 </summary>
+        /// <param name="parameters">所有接收到的参数</param>
+        /// <param name="publicKey"></param>
+        /// <param name="charset"></param>
+        /// <returns></returns>
+        public static bool RsaCheck(IDictionary<string, string> parameters, string publicKey, string charset)
+        {
+            var sign = parameters["sign"];
+
+            parameters.Remove("sign");
+            parameters.Remove("sign_type");
+            var signContent = parameters.ParamsUrl(true, false);
+            return RsaCheckContent(signContent, sign, publicKey, charset);
+        }
+
+        private static bool RsaCheckContent(string signContent, string sign, string publicKey, string charset = null,
+            string signType = "RSA")
+        {
+
+            try
+            {
+                if (string.IsNullOrEmpty(charset))
+                {
+                    charset = DefaultCharset;
+                }
+
+                var rsa = new RSACryptoServiceProvider { PersistKeyInCsp = false };
+                RsaServiceProviderHelper.LoadPublicKeyPEM(rsa, publicKey);
+                var contentBytes = Encoding.GetEncoding(charset).GetBytes(signContent);
+
+                if ("RSA2".Equals(signType))
+                {
+                    return rsa.VerifyData(contentBytes, "SHA256", Convert.FromBase64String(sign));
+
+                }
+                var sha1 = new SHA1CryptoServiceProvider();
+                return rsa.VerifyData(contentBytes, sha1, Convert.FromBase64String(sign));
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private static byte[] GetPem(string type, string key)
         {
             string header = $"-----BEGIN {type}-----\\n";
@@ -82,7 +127,7 @@ namespace DayEasy.God.Services.OnlinePay
             return Convert.FromBase64String(base64);
         }
 
-        private static RSACryptoServiceProvider LoadCertificateFile(string privateKey, string signType)
+        private static RSACryptoServiceProvider LoadCertificate(string privateKey, string signType)
         {
             var res = GetPem("RSA PRIVATE KEY", privateKey);
             try
@@ -90,10 +135,11 @@ namespace DayEasy.God.Services.OnlinePay
                 var rsa = DecodeRsaPrivateKey(res, signType);
                 return rsa;
             }
-            catch (Exception ex)
+            catch
             {
+                return null;
             }
-            return null;
+
         }
 
         private static RSACryptoServiceProvider DecodeRsaPrivateKey(byte[] privkey, string signType)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace DayEasy.God.Services.OnlinePay.Domain
+namespace Shoy.OnlinePay.App.Domain
 {
     /// <summary> 微信支付返回接口 </summary>
     [Serializable]
