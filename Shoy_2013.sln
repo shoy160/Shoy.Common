@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RcpClient", "Test\RcpClient
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Open", "WebUI\Shoy.Open\Shoy.Open.csproj", "{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Common.Test", "Test\Shoy.Common.Test\Shoy.Common.Test.csproj", "{AE930F18-C069-4D22-B426-FDBCB78CE0FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -343,6 +345,18 @@ Global
 		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|x86.ActiveCfg = Release|Any CPU
 		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34}.Release|x86.Build.0 = Release|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -376,5 +390,6 @@ Global
 		{A1E4E2BA-C9AB-4C17-93E6-2EA6DBD2C2DD} = {DEF1E255-7652-49EE-ABE3-E7328DF24532}
 		{A5EF8199-E21C-4BF1-A161-D7209C3E19A6} = {DEF1E255-7652-49EE-ABE3-E7328DF24532}
 		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
+		{AE930F18-C069-4D22-B426-FDBCB78CE0FC} = {D0D88D78-BA15-4A1A-9832-B19987A6C6FF}
 	EndGlobalSection
 EndGlobal

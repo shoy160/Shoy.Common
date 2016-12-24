@@ -41,9 +41,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UPOPSDK">
-      <HintPath>..\packages\UPOPSDK.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alipay\AlipayParasInfo.cs" />
@@ -88,9 +85,6 @@
       <Project>{DF571B38-A2DD-4653-A5EA-3F8E41AC5571}</Project>
       <Name>Shoy.Utility</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="online_pay.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

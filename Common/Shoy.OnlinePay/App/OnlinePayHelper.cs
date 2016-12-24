@@ -1,4 +1,5 @@
 ﻿using Shoy.OnlinePay.App.Factory;
+using Shoy.OnlinePay.App.Utils;
 using Shoy.Utility.Extend;
 using Shoy.Utility.Helper;
 using Shoy.Utility.Timing;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Shoy.OnlinePay.App.Utils;
 
 namespace Shoy.OnlinePay.App
 {
@@ -172,7 +172,7 @@ namespace Shoy.OnlinePay.App
             foreach (var key in values.AllKeys)
             {
                 var value = values[key] ?? string.Empty;
-                if (!string.IsNullOrWhiteSpace(value))
+                if (!string.IsNullOrWhiteSpace(value) && key != "sign")
                     value = value.UrlDecode();
                 dict.Add(key, value);
             }

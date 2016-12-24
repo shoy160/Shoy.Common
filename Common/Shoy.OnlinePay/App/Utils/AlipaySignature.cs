@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shoy.Utility.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -80,8 +81,9 @@ namespace Shoy.OnlinePay.App.Utils
         /// <returns></returns>
         public static bool RsaCheck(IDictionary<string, string> parameters, string publicKey, string charset)
         {
+            if (!parameters.ContainsKey("sign"))
+                return false;
             var sign = parameters["sign"];
-
             parameters.Remove("sign");
             parameters.Remove("sign_type");
             var signContent = parameters.ParamsUrl(true, false);
@@ -102,17 +104,19 @@ namespace Shoy.OnlinePay.App.Utils
                 var rsa = new RSACryptoServiceProvider { PersistKeyInCsp = false };
                 RsaServiceProviderHelper.LoadPublicKeyPEM(rsa, publicKey);
                 var contentBytes = Encoding.GetEncoding(charset).GetBytes(signContent);
+                var signData = Convert.FromBase64String(sign);
 
                 if ("RSA2".Equals(signType))
                 {
-                    return rsa.VerifyData(contentBytes, "SHA256", Convert.FromBase64String(sign));
+                    return rsa.VerifyData(contentBytes, "SHA256", signData);
 
                 }
                 var sha1 = new SHA1CryptoServiceProvider();
-                return rsa.VerifyData(contentBytes, sha1, Convert.FromBase64String(sign));
+                return rsa.VerifyData(contentBytes, sha1, signData);
             }
-            catch
+            catch (Exception ex)
             {
+                LogManager.Logger("alipay").Error(ex.Message, ex);
                 return false;
             }
         }
