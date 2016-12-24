@@ -23,7 +23,11 @@ namespace Shoy.Open.OAuth
             {
                 context.TryGetFormCredentials(out clientId, out clientSecret);
             }
-
+            if (string.IsNullOrWhiteSpace(clientId))
+            {
+                context.Validated();
+                return;
+            }
             if (clientId != "shoy" || clientSecret != "123456")
             {
                 context.SetError("invalid_client", "client or clientSecret is not valid");

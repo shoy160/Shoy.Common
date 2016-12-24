@@ -5,8 +5,6 @@ using WebActivatorEx;
 using Shoy.Open;
 using Swashbuckle.Application;
 
-[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
-
 namespace Shoy.Open
 {
     public class SwaggerConfig

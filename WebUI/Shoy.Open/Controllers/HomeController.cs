@@ -9,7 +9,7 @@ namespace Shoy.Open.Controllers
     {
         private static readonly List<User> Users = new List<User>
         {
-            //new User {Id = 1, Name = "shoy", Address = "chengdu"}
+            new User {Id = 1, Name = "shoy", Address = "chengdu"}
         };
 
         static int _idSeed;
@@ -88,19 +88,13 @@ namespace Shoy.Open.Controllers
 
     public class User
     {
-        /// <summary>
-        /// 编号
-        /// </summary>
+        /// <summary> 编号 </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// 名称
-        /// </summary>
+        /// <summary> 名称 </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// 地址
-        /// </summary>
+        /// <summary> 地址 </summary>
         public string Address { get; set; }
     }
 }
