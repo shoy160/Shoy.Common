@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
@@ -52,6 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheLevel.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="Cache\BaseCache.cs" />
+    <Compile Include="Cache\ICacheProvider.cs" />
+    <Compile Include="Cache\InternalCacher.cs" />
+    <Compile Include="Cache\RuntimeMemoryCache.cs" />
+    <Compile Include="Cache\RuntimeMemoryCacheProvider.cs" />
     <Compile Include="Config\DataBaseConfig.cs" />
     <Compile Include="Config\DayEasyConfig.cs" />
     <Compile Include="Consts.cs" />
