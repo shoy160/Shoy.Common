@@ -120,3 +120,4 @@ UpgradeLog*.XML
 /Test/Shoy.Xzxd
 /WebUI/Shoy.Ued/node_modules
 .vs
+/.vs
