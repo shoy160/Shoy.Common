@@ -1,0 +1,31 @@
+﻿<Window x:Class="Deyi.Shutdown.MainWindow"
+        xmlns:d="clr-namespace:Deyi.Shutdown.Core" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Column="0" Grid.Row="0" Margin="15">
+            <DockPanel >
+                <CheckBox x:Name="CheckAll" Content="全选" Margin="10,0,0,5" DockPanel.Dock="Top" IsChecked="True" Cursor="Hand"
+              d:ToggleButtonProperty.SyncTarget="{Binding ElementName=ServerList}"/>
+                <ListBox x:Name="ServerList" Style="{StaticResource DataItemCheckListBoxStyle}"/>
+            </DockPanel>
+        </WrapPanel>
+        <WrapPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="20">
+            <Button x:Name="BtnRestart" Style="{DynamicResource Btn-Warning}" Margin="0,10,0,0" Content="重启" Click="BtnRestartClick"></Button>
+            <Button x:Name="BtnShutdown" Style="{DynamicResource Btn-Danger}" Margin="0,20,0,0" Content="关机" Click="BtnShutdownClick"></Button>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5">
+            <RichTextBox Padding="0,0,0,10" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" x:Name="OperateLog" Width="470" Height="150">
+            </RichTextBox>
+        </WrapPanel>
+    </Grid>
+</Window>
