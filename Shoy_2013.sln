@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Common", "01-Common", "{1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Common", "01.Common", "{1FE63FE2-BB97-4AE3-930B-FE31378EA5B4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Test", "03-Test", "{D0D88D78-BA15-4A1A-9832-B19987A6C6FF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Test", "04.Test", "{D0D88D78-BA15-4A1A-9832-B19987A6C6FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.AjaxHelper", "Common\Shoy.AjaxHelper\Shoy.AjaxHelper.csproj", "{9E88EA58-47B6-4871-8EFD-8F7E9D3CB7BC}"
 EndProject
@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemotingModels", "Test\Remo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemotingService", "Test\RemotingService\RemotingService.csproj", "{22618C82-722C-483E-B490-5EE59996AA2C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-WebUI", "02-WebUI", "{B34042D7-E53D-4443-9D86-0F8ADFFC769C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.WebUI", "02.WebUI", "{B34042D7-E53D-4443-9D86-0F8ADFFC769C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Ued", "WebUI\Shoy.Ued\Shoy.Ued.csproj", "{2C8B0F0B-898D-4168-9742-A4EF1FC469B7}"
 EndProject
@@ -68,6 +68,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Common.Test", "Test\Shoy.Common.Test\Shoy.Common.Test.csproj", "{AE930F18-C069-4D22-B426-FDBCB78CE0FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Nuget", "WebUI\Shoy.Nuget\Shoy.Nuget.csproj", "{543949F1-0035-4961-B572-CF3DB37A603E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Windows", "03.Windows", "{846CB178-2665-4E25-B02F-828E58FB4AAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoy.Wpf", "Shoy.Wpf\Shoy.Wpf.csproj", "{3822CD29-D648-421D-90DE-8CF84B309B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -371,6 +375,18 @@ Global
 		{543949F1-0035-4961-B572-CF3DB37A603E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{543949F1-0035-4961-B572-CF3DB37A603E}.Release|x86.ActiveCfg = Release|Any CPU
 		{543949F1-0035-4961-B572-CF3DB37A603E}.Release|x86.Build.0 = Release|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Debug|x86.Build.0 = Debug|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Release|x86.ActiveCfg = Release|Any CPU
+		{3822CD29-D648-421D-90DE-8CF84B309B62}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -406,5 +422,6 @@ Global
 		{B2936EAE-C5D1-4F90-88EA-FC19719F4F34} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
 		{AE930F18-C069-4D22-B426-FDBCB78CE0FC} = {D0D88D78-BA15-4A1A-9832-B19987A6C6FF}
 		{543949F1-0035-4961-B572-CF3DB37A603E} = {B34042D7-E53D-4443-9D86-0F8ADFFC769C}
+		{3822CD29-D648-421D-90DE-8CF84B309B62} = {846CB178-2665-4E25-B02F-828E58FB4AAE}
 	EndGlobalSection
 EndGlobal
