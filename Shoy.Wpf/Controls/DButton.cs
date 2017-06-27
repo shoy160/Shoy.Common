@@ -4,14 +4,11 @@ using System.Windows.Media;
 
 namespace Shoy.Wpf.Controls
 {
-    /// <summary>
-    /// BaseButton.xaml 的交互逻辑
-    /// </summary>
 
-    public class BaseButton : Button
+    public class DButton : Button
     {
         public static readonly DependencyProperty PressedBackgroundProperty =
-            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(BaseButton), new PropertyMetadata(Brushes.DarkBlue));
+            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(DButton), new PropertyMetadata(Brushes.DarkBlue));
         /// <summary>
         /// 鼠标按下背景样式
         /// </summary>
@@ -22,7 +19,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty PressedForegroundProperty =
-            DependencyProperty.Register("PressedForeground", typeof(Brush), typeof(BaseButton), new PropertyMetadata(Brushes.White));
+            DependencyProperty.Register("PressedForeground", typeof(Brush), typeof(DButton), new PropertyMetadata(Brushes.White));
         /// <summary>
         /// 鼠标按下前景样式（图标、文字）
         /// </summary>
@@ -33,7 +30,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty MouseOverBackgroundProperty =
-            DependencyProperty.Register("MouseOverBackground", typeof(Brush), typeof(BaseButton), new PropertyMetadata(Brushes.RoyalBlue));
+            DependencyProperty.Register("MouseOverBackground", typeof(Brush), typeof(DButton), new PropertyMetadata(Brushes.RoyalBlue));
         /// <summary>
         /// 鼠标进入背景样式
         /// </summary>
@@ -44,7 +41,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty MouseOverForegroundProperty =
-            DependencyProperty.Register("MouseOverForeground", typeof(Brush), typeof(BaseButton), new PropertyMetadata(Brushes.White));
+            DependencyProperty.Register("MouseOverForeground", typeof(Brush), typeof(DButton), new PropertyMetadata(Brushes.White));
         /// <summary>
         /// 鼠标进入前景样式
         /// </summary>
@@ -55,7 +52,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty FIconProperty =
-            DependencyProperty.Register("FIcon", typeof(string), typeof(BaseButton), new PropertyMetadata("\ue604"));
+            DependencyProperty.Register("FIcon", typeof(string), typeof(DButton), new PropertyMetadata("\ue604"));
         /// <summary>
         /// 按钮字体图标编码
         /// </summary>
@@ -66,7 +63,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty FIconSizeProperty =
-            DependencyProperty.Register("FIconSize", typeof(int), typeof(BaseButton), new PropertyMetadata(20));
+            DependencyProperty.Register("FIconSize", typeof(int), typeof(DButton), new PropertyMetadata(20));
         /// <summary>
         /// 按钮字体图标大小
         /// </summary>
@@ -77,7 +74,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty FIconMarginProperty = DependencyProperty.Register(
-            "FIconMargin", typeof(Thickness), typeof(BaseButton), new PropertyMetadata(new Thickness(0, 1, 3, 1)));
+            "FIconMargin", typeof(Thickness), typeof(DButton), new PropertyMetadata(new Thickness(0, 1, 3, 1)));
         /// <summary>
         /// 字体图标间距
         /// </summary>
@@ -88,7 +85,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty AllowsAnimationProperty = DependencyProperty.Register(
-            "AllowsAnimation", typeof(bool), typeof(BaseButton), new PropertyMetadata(true));
+            "AllowsAnimation", typeof(bool), typeof(DButton), new PropertyMetadata(true));
         /// <summary>
         /// 是否启用Ficon动画
         /// </summary>
@@ -99,7 +96,7 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(BaseButton), new PropertyMetadata(new CornerRadius(2)));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(DButton), new PropertyMetadata(new CornerRadius(2)));
         /// <summary>
         /// 按钮圆角大小,左上，右上，右下，左下
         /// </summary>
@@ -110,16 +107,16 @@ namespace Shoy.Wpf.Controls
         }
 
         public static readonly DependencyProperty ContentDecorationsProperty = DependencyProperty.Register(
-            "ContentDecorations", typeof(TextDecorationCollection), typeof(BaseButton), new PropertyMetadata(null));
+            "ContentDecorations", typeof(TextDecorationCollection), typeof(DButton), new PropertyMetadata(null));
         public TextDecorationCollection ContentDecorations
         {
             get { return (TextDecorationCollection)GetValue(ContentDecorationsProperty); }
             set { SetValue(ContentDecorationsProperty, value); }
         }
 
-        static BaseButton()
+        static DButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseButton), new FrameworkPropertyMetadata(typeof(BaseButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DButton), new FrameworkPropertyMetadata(typeof(DButton)));
         }
     }
 }

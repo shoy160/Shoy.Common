@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Shoy.Wpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="/Shoy.Wpf;component/Resource/Base.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Contents/Style/Base.xaml"></ResourceDictionary>
     </Application.Resources>
 </Application>

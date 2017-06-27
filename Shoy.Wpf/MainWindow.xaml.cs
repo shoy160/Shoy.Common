@@ -1,4 +1,7 @@
-﻿namespace Shoy.Wpf
+﻿using System.Windows.Controls;
+using System.Windows.Input;
+
+namespace Shoy.Wpf
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
