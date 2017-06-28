@@ -3,6 +3,40 @@
                     xmlns:t="clr-namespace:Shoy.Wpf.Controls">
     <SolidColorBrush x:Key="BackgroundBrush" Color="White"></SolidColorBrush>
     <SolidColorBrush x:Key="OnBackgroundBrush" Color="#FF0CC50C"></SolidColorBrush>
+
+    <Style TargetType="{x:Type t:DWindow}">
+        <Setter Property="WindowStyle" Value="None"></Setter>
+        <Setter Property="AllowsTransparency" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="OpacityMask" Value="White"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type t:DWindow}">
+                    <Border CornerRadius="{TemplateBinding t:AttachProperty.CornerRadius}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Margin="3">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="3" RenderingBias="Performance" ShadowDepth="0" Opacity="1" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <AdornerDecorator>
+                                    <ContentPresenter></ContentPresenter>
+                                </AdornerDecorator>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="FIcon" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="/Shoy.Wpf;component/Resource/#iconfont"></Setter>
         <Setter Property="Foreground" Value="#333"/>
@@ -50,8 +84,8 @@
     <Style TargetType="{x:Type t:BulletCheckBox}">
         <Setter Property="Background" Value="#FF999999"></Setter>
         <Setter Property="Foreground" Value="#FFDDE8E1"></Setter>
-        <Setter Property="OnForeground" Value="{StaticResource BackgroundBrush}"></Setter>
-        <Setter Property="OnBackground" Value="{StaticResource OnBackgroundBrush}"></Setter>
+        <Setter Property="CheckedForeground" Value="{StaticResource BackgroundBrush}"></Setter>
+        <Setter Property="CheckedBackground" Value="{StaticResource OnBackgroundBrush}"></Setter>
         <Setter Property="FontSize" Value="13"></Setter>
         <Setter Property="Cursor" Value="Hand"></Setter>
         <Setter Property="Width" Value="75"></Setter>
@@ -73,7 +107,7 @@
                                     </Border.RenderTransform>
                                 </Border>
                                 <!--文本框-->
-                                <TextBlock Width="40" Foreground="{TemplateBinding Foreground}" x:Name="PART_Text" Text="{TemplateBinding Off}" VerticalAlignment="Center" TextAlignment="Center">
+                                <TextBlock Width="40" Foreground="{TemplateBinding Foreground}" x:Name="PART_Text" Text="{TemplateBinding Text}" VerticalAlignment="Center" TextAlignment="Center">
                                     <TextBlock.RenderTransform>
                                         <TranslateTransform x:Name="PART_TransTxt" X="0"></TranslateTransform>
                                     </TextBlock.RenderTransform>
@@ -85,10 +119,10 @@
                     <!--触发器：设置选中状态符号-->
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=On}" TargetName="PART_Text"/>
-                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=OnForeground}" TargetName="PART_State"/>
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=OnForeground}" TargetName="PART_Text"/>
-                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=OnBackground}" TargetName="PART_Border"/>
+                            <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=CheckedText}" TargetName="PART_Text"/>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=CheckedForeground}" TargetName="PART_State"/>
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=CheckedForeground}" TargetName="PART_Text"/>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=CheckedBackground}" TargetName="PART_Border"/>
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>

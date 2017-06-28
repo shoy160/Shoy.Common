@@ -4,22 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shoy.Wpf.Controls"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="350" Width="525">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" Style="{StaticResource {x:Type local:DWindow}}"
+        Title="MainWindow" Height="730" Width="1200" Background="White" local:AttachProperty.CornerRadius="10">
     <Grid>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-            <TextBlock Style="{StaticResource FIcon}" Text="&#xe67c;"></TextBlock>
-            <TextBlock Style="{StaticResource FIcon}" Text="&#xe69b;" Foreground="Aqua"></TextBlock>
-            <local:AnimatedGif GifSource="Contents/Images/1498206805187108.gif" Width="120"></local:AnimatedGif>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,120,0,0">
-            <CheckBox>选项1</CheckBox>
-            <local:BulletCheckBox On="开启" Off="关闭"></local:BulletCheckBox>
-            <local:BulletCheckBox On="开启" Off="关闭" Height="24" Width="60"></local:BulletCheckBox>
-            <RadioButton GroupName="Radio1">金庸</RadioButton>
-            <RadioButton GroupName="Radio1">古龙</RadioButton>
-            <RadioButton GroupName="Radio1">李白</RadioButton>
-            <RadioButton GroupName="Radio1">杜甫</RadioButton>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Background="#FFFED8CD" CornerRadius="10,0,0,10"></Border>
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#FFFEB54B" CornerRadius="10,10,0,0" Opacity="0.8" OpacityMask="Black"></Border>
+        <Border Grid.Row="2" Grid.Column="1" Background="#FFDEDEDE" CornerRadius="0,0,10,0"></Border>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="20">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Style="{StaticResource FIcon}" Text="&#xe67c;"></TextBlock>
+                <TextBlock Style="{StaticResource FIcon}" Text="&#xe69b;" Foreground="Aqua"></TextBlock>
+                <local:AnimatedGif GifSource="Contents/Images/1498206805187108.gif" Width="120"></local:AnimatedGif>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,120,0,0">
+                <CheckBox>选项1</CheckBox>
+                <local:BulletCheckBox CheckedText="开启" Text="关闭"></local:BulletCheckBox>
+                <local:BulletCheckBox CheckedText="开启" Text="关闭" Height="24" Width="60"></local:BulletCheckBox>
+                <RadioButton GroupName="Radio1">金庸</RadioButton>
+                <RadioButton GroupName="Radio1">古龙</RadioButton>
+                <RadioButton GroupName="Radio1">李白</RadioButton>
+                <RadioButton GroupName="Radio1">杜甫</RadioButton>
+            </StackPanel>
+        </Grid>
     </Grid>
 </local:DWindow>

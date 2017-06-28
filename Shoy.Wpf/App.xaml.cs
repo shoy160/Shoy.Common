@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Shoy.Wpf
 {
     /// <summary>
     /// App.xaml 的交互逻辑
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+            Current.DispatcherUnhandledException += (sender, evt) =>
+            {
+                MessageBox.Show(evt.Exception.Message);
+                evt.Handled = true;
+            };
+            base.OnStartup(e);
+        }
     }
 }

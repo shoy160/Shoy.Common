@@ -6,40 +6,40 @@ namespace Shoy.Wpf.Controls
 {
     public class BulletCheckBox : CheckBox
     {
-        public static readonly DependencyProperty OnProperty = DependencyProperty.Register(
-            "On", typeof(string), typeof(BulletCheckBox), new PropertyMetadata("On"));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            "Text", typeof(string), typeof(BulletCheckBox), new PropertyMetadata("Off"));
 
-        public string On
+        public string Text
         {
-            get { return (string)GetValue(OnProperty); }
-            set { SetValue(OnProperty, value); }
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
-        public static readonly DependencyProperty OffProperty = DependencyProperty.Register(
-            "Off", typeof(string), typeof(BulletCheckBox), new PropertyMetadata("Off"));
+        public static readonly DependencyProperty CheckedTextProperty = DependencyProperty.Register(
+            "CheckedText", typeof(string), typeof(BulletCheckBox), new PropertyMetadata("On"));
 
-        public string Off
+        public string CheckedText
         {
-            get { return (string)GetValue(OffProperty); }
-            set { SetValue(OffProperty, value); }
+            get { return (string)GetValue(CheckedTextProperty); }
+            set { SetValue(CheckedTextProperty, value); }
         }
 
-        public static readonly DependencyProperty OnForegroundProperty = DependencyProperty.Register(
-            "OnForeground", typeof(Brush), typeof(BulletCheckBox), new PropertyMetadata(Brushes.White));
+        public static readonly DependencyProperty CheckedForegroundProperty = DependencyProperty.Register(
+            "CheckedForeground", typeof(Brush), typeof(BulletCheckBox), new PropertyMetadata(default(Brush)));
 
-        public Brush OnForeground
+        public Brush CheckedForeground
         {
-            get { return (Brush)GetValue(OnForegroundProperty); }
-            set { SetValue(OnForegroundProperty, value); }
+            get { return (Brush)GetValue(CheckedForegroundProperty); }
+            set { SetValue(CheckedForegroundProperty, value); }
         }
 
-        public static readonly DependencyProperty OnBackgroundProperty = DependencyProperty.Register(
-            "OnBackground", typeof(Brush), typeof(BulletCheckBox), new PropertyMetadata(Brushes.White));
+        public static readonly DependencyProperty CheckedBackgroundProperty = DependencyProperty.Register(
+            "CheckedBackground", typeof(Brush), typeof(BulletCheckBox), new PropertyMetadata(default(Brush)));
 
-        public Brush OnBackground
+        public Brush CheckedBackground
         {
-            get { return (Brush)GetValue(OnBackgroundProperty); }
-            set { SetValue(OnBackgroundProperty, value); }
+            get { return (Brush)GetValue(CheckedBackgroundProperty); }
+            set { SetValue(CheckedBackgroundProperty, value); }
         }
 
         public BulletCheckBox()
