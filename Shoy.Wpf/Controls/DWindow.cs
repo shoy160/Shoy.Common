@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace Shoy.Wpf.Controls
 {
@@ -8,13 +9,13 @@ namespace Shoy.Wpf.Controls
         {
         }
 
-        //protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        //{
-        //    base.OnMouseLeftButtonDown(e);
-        //    if (e.ButtonState == MouseButtonState.Pressed)
-        //    {
-        //        DragMove();
-        //    }
-        //}
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
     }
 }

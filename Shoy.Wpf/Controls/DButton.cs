@@ -106,14 +106,6 @@ namespace Shoy.Wpf.Controls
             set { SetValue(CornerRadiusProperty, value); }
         }
 
-        public static readonly DependencyProperty ContentDecorationsProperty = DependencyProperty.Register(
-            "ContentDecorations", typeof(TextDecorationCollection), typeof(DButton), new PropertyMetadata(null));
-        public TextDecorationCollection ContentDecorations
-        {
-            get { return (TextDecorationCollection)GetValue(ContentDecorationsProperty); }
-            set { SetValue(ContentDecorationsProperty, value); }
-        }
-
         static DButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DButton), new FrameworkPropertyMetadata(typeof(DButton)));
