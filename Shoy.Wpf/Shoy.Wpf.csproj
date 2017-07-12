@@ -34,9 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Contents\Style\Designs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,18 +70,42 @@
     </Compile>
     <Compile Include="Controls\AnimatedGif.cs" />
     <Compile Include="Controls\BulletCheckBox.cs" />
-    <Compile Include="Converter\DConverter.cs" />
+    <Compile Include="Controls\DConverter.cs" />
     <Compile Include="Converter\PercentToAngleConverter.cs" />
     <Compile Include="Converter\ThicknessToDoubleConverter.cs" />
+    <Compile Include="Core\Extends.cs" />
     <Compile Include="Core\Messenger.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Controls\AttachProperty.cs" />
     <Compile Include="Controls\DButton.cs" />
     <Compile Include="Controls\DWindow.cs" />
     <Compile Include="Core\DNotifyPropertyChanged.cs" />
+    <Compile Include="DesignControls\Adorners\ResizeRotateAdorner.cs" />
+    <Compile Include="DesignControls\Adorners\ResizeRotateChrome.cs" />
+    <Compile Include="DesignControls\Adorners\SizeAdorner.cs" />
+    <Compile Include="DesignControls\Adorners\SizeChrome.cs" />
+    <Compile Include="DesignControls\DesignerItemDecorator.cs" />
+    <Compile Include="DesignControls\MoveThumb.cs" />
+    <Compile Include="DesignControls\ResizeThumb.cs" />
+    <Compile Include="DesignControls\RotateThumb.cs" />
+    <Compile Include="Helper\CacheHelper.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Helper\ControlExtends.cs" />
     <Compile Include="Helper\NativeHelper.cs" />
+    <Compile Include="Helper\Print\VisualDocumentPaginator.cs" />
+    <Compile Include="Helper\RandomHelper.cs" />
     <Compile Include="Helper\Singleton.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\ILoggerAdapter.cs" />
+    <Compile Include="Logging\Log4Net\Log4NetAdapter.cs" />
+    <Compile Include="Logging\Log4Net\Log4NetLog.cs" />
+    <Compile Include="Logging\Log4Net\LogInfo.cs" />
+    <Compile Include="Logging\LogBase.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LoggerAdapterBase.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\LogManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

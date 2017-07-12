@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Shoy.Wpf.Core;
+using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Shoy.Wpf.Core;
 
 namespace Shoy.Wpf.Controls
 {
@@ -22,6 +22,20 @@ namespace Shoy.Wpf.Controls
         public static void SetWatermark(DependencyObject obj, string value)
         {
             obj.SetValue(WatermarkProperty, value);
+        }
+
+        /// <summary> 水印字体大小 </summary>
+        public static readonly DependencyProperty WatermarkSizeProperty = DependencyProperty.RegisterAttached(
+            "WatermarkSize", typeof(double), typeof(AttachProperty), new FrameworkPropertyMetadata(14D));
+
+        public static double GetWatermarkSize(DependencyObject d)
+        {
+            return (double)d.GetValue(WatermarkSizeProperty);
+        }
+
+        public static void SetWatermarkSize(DependencyObject obj, double value)
+        {
+            obj.SetValue(WatermarkSizeProperty, value);
         }
         #endregion
 
@@ -133,6 +147,47 @@ namespace Shoy.Wpf.Controls
         public static void SetCornerRadius(DependencyObject obj, CornerRadius value)
         {
             obj.SetValue(CornerRadiusProperty, value);
+        }
+        #endregion
+
+        #region Hover
+        public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.RegisterAttached(
+            "HoverBackground", typeof(Brush), typeof(AttachProperty), new FrameworkPropertyMetadata(Brushes.Transparent));
+
+        public static void SetHoverBackground(DependencyObject element, Brush value)
+        {
+            element.SetValue(HoverBackgroundProperty, value);
+        }
+
+        public static Brush GetHoverBackground(DependencyObject element)
+        {
+            return (Brush)element.GetValue(HoverBackgroundProperty);
+        }
+
+        public static readonly DependencyProperty HoverBorderProperty = DependencyProperty.RegisterAttached(
+            "HoverBorder", typeof(Brush), typeof(AttachProperty), new FrameworkPropertyMetadata(Brushes.Transparent));
+
+        public static void SetHoverBorder(DependencyObject element, Brush value)
+        {
+            element.SetValue(HoverBorderProperty, value);
+        }
+
+        public static Brush GetHoverBorder(DependencyObject element)
+        {
+            return (Brush)element.GetValue(HoverBorderProperty);
+        }
+
+        public static readonly DependencyProperty HoverBrushProperty = DependencyProperty.RegisterAttached(
+            "HoverBrush", typeof(Brush), typeof(AttachProperty), new FrameworkPropertyMetadata(Brushes.Transparent));
+
+        public static void SetHoverBrush(DependencyObject element, Brush value)
+        {
+            element.SetValue(HoverBrushProperty, value);
+        }
+
+        public static Brush GetHoverBrush(DependencyObject element)
+        {
+            return (Brush)element.GetValue(HoverBrushProperty);
         }
         #endregion
     }
