@@ -59,6 +59,7 @@
     <Compile Include="DiscreteMarkov.cs" />
     <Compile Include="ImageReader.cs" />
     <Compile Include="ReaderHelper.cs" />
+    <Compile Include="SerialPortHelper.cs" />
     <Compile Include="Transmiter\Consts.cs" />
     <Compile Include="Transmiter\Crc32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
