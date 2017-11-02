@@ -13,8 +13,7 @@ namespace Shoy.Open.OAuth
         /// </summary>
         public override void Create(AuthenticationTokenCreateContext context)
         {
-            context.SetToken(Guid.NewGuid().ToString("n") + Guid.NewGuid().ToString("n") + "_" +
-                             _authenticationCodes.Count);
+            context.SetToken(Guid.NewGuid().ToString("N"));
             _authenticationCodes[context.Token] = context.SerializeTicket();
         }
 

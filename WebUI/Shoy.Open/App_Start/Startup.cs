@@ -13,13 +13,11 @@ namespace Shoy.Open
         /// <param name="app"></param>
         public void Configuration(IAppBuilder app)
         {
-            SwaggerConfig.Register();
-
             ConfigureAuth(app);
-
             var config = new HttpConfiguration();
             WebApiConfig.Register(config);
             app.UseWebApi(config);
+            SwaggerConfig.Register();
         }
     }
 }

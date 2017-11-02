@@ -13,6 +13,8 @@ namespace Shoy.Laboratory
         /// <summary> 错误事件 </summary>
         public event SerialErrorReceivedEventHandler Error;
 
+        public static string[] Ports => SerialPort.GetPortNames();
+
         /// <summary> 串口通讯 </summary>
         /// <param name="portName">串口名称</param>
         /// <param name="baudrate">波特率:9600</param>
@@ -64,6 +66,8 @@ namespace Shoy.Laboratory
         public void Send(byte[] data, int offset, int count)
         {
             if (!_serialPort.IsOpen) return;
+            //清空接收缓冲区
+            _serialPort.DiscardInBuffer();
             _serialPort.Write(data, offset, count);
         }
 

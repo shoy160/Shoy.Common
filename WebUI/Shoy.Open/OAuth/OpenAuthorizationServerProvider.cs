@@ -23,29 +23,23 @@ namespace Shoy.Open.OAuth
             {
                 context.TryGetFormCredentials(out clientId, out clientSecret);
             }
-            if (string.IsNullOrWhiteSpace(clientId))
-            {
-                context.Validated();
-                return;
-            }
             if (clientId != "shoy" || clientSecret != "123456")
             {
                 context.SetError("invalid_client", "client or clientSecret is not valid");
                 return;
             }
             context.Validated();
+            await base.ValidateClientAuthentication(context);
         }
 
-        /// <summary>
-        /// 生成 access_token（client credentials 授权方式）
-        /// </summary>
+        /// <summary> 生成 access_token（client credentials 授权方式） </summary>
         public override async Task GrantClientCredentials(OAuthGrantClientCredentialsContext context)
         {
-            var identity = new ClaimsIdentity(new GenericIdentity(
-                context.ClientId, OAuthDefaults.AuthenticationType),
-                context.Scope.Select(x => new Claim("urn:oauth:scope", x)));
-
+            var scopes = context.Scope.Select(x => new Claim("urn:oauth:scope", x));
+            var item = new GenericIdentity(context.ClientId, OAuthDefaults.AuthenticationType);
+            var identity = new ClaimsIdentity(item, scopes);
             context.Validated(identity);
+            await base.GrantClientCredentials(context);
         }
 
         /// <summary>
@@ -73,6 +67,7 @@ namespace Shoy.Open.OAuth
             var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
             oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             context.Validated(oAuthIdentity);
+            await base.GrantResourceOwnerCredentials(context);
         }
 
         /// <summary>
@@ -90,6 +85,7 @@ namespace Shoy.Open.OAuth
             else if (context.AuthorizeRequest.IsAuthorizationCodeGrantType)
             {
                 //authorization code 授权方式
+                var state = context.Request.Query["state"] ?? string.Empty;
                 var redirectUri = context.Request.Query["redirect_uri"] ?? "/code";
                 var clientId = context.Request.Query["client_id"];
                 var identity = new ClaimsIdentity(new GenericIdentity(
@@ -111,7 +107,10 @@ namespace Shoy.Open.OAuth
                         }));
 
                 await context.Options.AuthorizationCodeProvider.CreateAsync(authorizeCodeContext);
-                context.Response.Redirect(redirectUri + "?code=" + Uri.EscapeDataString(authorizeCodeContext.Token));
+                var url = redirectUri + "?code=" + authorizeCodeContext.Token;
+                if (!string.IsNullOrWhiteSpace(state))
+                    url += $"&state={state}";
+                context.Response.Redirect(url);
                 context.RequestCompleted();
             }
         }
@@ -138,6 +137,7 @@ namespace Shoy.Open.OAuth
         public override async Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
             context.Validated(context.RedirectUri ?? "/code");
+            await base.ValidateClientRedirectUri(context);
         }
 
         ///// <summary>

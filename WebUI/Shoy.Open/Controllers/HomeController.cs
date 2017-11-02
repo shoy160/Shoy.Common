@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Shoy.Open.OAuth;
+using System.Collections.Generic;
 using System.Security.Claims;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Shoy.Open.Controllers
@@ -12,16 +13,13 @@ namespace Shoy.Open.Controllers
             new User {Id = 1, Name = "shoy", Address = "chengdu"}
         };
 
-        static int _idSeed;
+        private static int _idSeed;
 
-        [HttpGet]
-        [Route("code")]
-        public string Code(string code = null)
+        [HttpGet, Route("code")]
+        public async Task<TokenResult> Code(string code, string state = null)
         {
-            var list = HttpContext.Current.Request.Url.AbsoluteUri.Split('#');
-            if (list.Length == 2)
-                return list[1];
-            return code;
+            var helper = new OAuthHelper("http://localhost:13905", "shoy", "123456");
+            return await helper.Code(code, "http://localhost:13905/code");
         }
 
 

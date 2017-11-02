@@ -21,7 +21,9 @@ namespace Shoy.Open
 
             config.Formatters.JsonFormatter.MediaTypeMappings.Add(
                 new QueryStringMapping("format", "json", "application/json"));
+
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+
             config.Formatters.XmlFormatter.MediaTypeMappings.Add(new QueryStringMapping("format", "xml",
                 "application/xml"));
 
