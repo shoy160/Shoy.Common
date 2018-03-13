@@ -12,11 +12,11 @@ namespace Shoy.CoreTest.Context
         protected TestBase()
         {
             Bootstrap = ShoyBootstrap.Instance;
-            Bootstrap.BuilderHandler += build =>
-            {
-                build.RegisterGeneric(typeof(TestDbRepository<>)).As(typeof(ITestDbRepository<>));
-                build.RegisterGeneric(typeof(TestDbRepository<,>)).As(typeof(ITestDbRepository<,>));
-            };
+            //Bootstrap.BuilderHandler += build =>
+            //{
+            //    build.RegisterGeneric(typeof(TestDbRepository<>)).As(typeof(ITestDbRepository<>));
+            //    build.RegisterGeneric(typeof(TestDbRepository<,>)).As(typeof(ITestDbRepository<,>));
+            //};
             Bootstrap.Initialize();
             Container = Bootstrap.Container;
         }

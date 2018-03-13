@@ -10,7 +10,7 @@ namespace Shoy.CoreTest
     {
         public override void Initialize()
         {
-            DatabaseInitializer.Initialize(IocManager.Resolve<IDbContextProvider<TestDbContext>>().DbContext);
+            //DatabaseInitializer.Initialize(IocManager.Resolve<IDbContextProvider<TestDbContext>>().DbContext);
         }
     }
 }

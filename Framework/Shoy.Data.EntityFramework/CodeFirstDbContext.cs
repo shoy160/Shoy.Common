@@ -81,7 +81,7 @@ namespace Shoy.Data.EntityFramework
         /// <returns></returns>
         protected static DbConnection GetConnection(string name)
         {
-            var config = ConfigUtils<DataBaseConfig>.Instance.Get().Get(name);
+            var config = ConfigUtils<DataBaseConfig>.Instance.Get()?.Get(name);
             if (config == null)
                 return null;
             var conn = DbProviderFactories.GetFactory(config.ProviderName).CreateConnection();
